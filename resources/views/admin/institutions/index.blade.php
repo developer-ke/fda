@@ -97,7 +97,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @if ($institution->status)
+                                        @if ($institution->status == 1)
                                             <span class="badge badge-pill bg-success">active</span>
                                         @else
                                             <span class="badge badge-pill bg-danger">inactive</span>
@@ -128,7 +128,7 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <button
-                                                        class="dropdown-item text-capitalize @if ($institution->status === 0) d-none @endif"
+                                                        class="dropdown-item text-capitalize @if ($institution->status === 1) d-none @endif"
                                                         onclick="return confirm('Are you sure you want to activate?')"
                                                         type="submit">
                                                         <i class="fa fa-check-circle"></i>
@@ -141,7 +141,7 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <button
-                                                        class="dropdown-item text-capitalize  @if ($institution->status === 1) d-none @endif"
+                                                        class="dropdown-item text-capitalize  @if ($institution->status === 0) d-none @endif"
                                                         onclick="return confirm('Are you sure you want to deactivate?')"
                                                         type="submit">
                                                         <i class="bi bi-x-circle"></i>

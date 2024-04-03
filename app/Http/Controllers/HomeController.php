@@ -37,7 +37,7 @@ class HomeController extends Controller
         session_start();
         if (!isset($_SESSION['visited'])) {
             $_SESSION['visited'] = 1;
-            $visit = new visits(['status' => 1]);
+            $visit = new visits(['status' => true]);
             $visit->save();
         }
         return view('welcome')->with([

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class jsonController extends Controller
@@ -12,6 +13,7 @@ class jsonController extends Controller
         return response()->json([
             'success' => true,
             'drawers' => $drawers,
+            'users' => User::all(),
         ]);
 
     }

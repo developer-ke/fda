@@ -60,7 +60,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table align-items-center table-hover  data-table">
+                    <table class="table w-100 table-striped table-bordered table-hover" id="usersTable">
                         <thead class="text-uppercase text-sm text-start">
                             <th>no</th>
                             <th>role management</th>
@@ -70,189 +70,186 @@
                             <th>registered on</th>
                             <th>more</th>
                         </thead>
-                        <tbody>
-                            @php
-                                $counter = 1;
-                            @endphp
-                            @foreach ($users as $user)
-                                <tr>
-                                    <td>
-                                        @php
-                                            echo $counter;
-                                        @endphp
-                                    </td>
-                                    <td>
-                                        <div class="dropdown open">
-                                            <button
-                                                class="btn fda-bg dropdown-toggle text-white @if ($user->id === Auth::user()->id) disabled bg-danger @endif"
-                                                type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                @if ($user->role === 1)
-                                                    demote
-                                                @elseif ($user->role === 2)
-                                                    promote or demote
-                                                @elseif ($user->role === 3)
-                                                    promote
-                                                @endif
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end text-capitalize"
-                                                aria-labelledby="triggerId">
-                                                <form action="{{ route('admin.users.role.one', ['user_id' => $user->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button
-                                                        onclick="return confirm('Are you sure you want to promote this user to admin?')"
-                                                        class="dropdown-item text-capitalize @if ($user->role === 1) d-none @endif"
-                                                        type="submit">to
-                                                        admin</button>
-                                                </form>
-                                                <form action="{{ route('admin.users.role.two', ['user_id' => $user->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button
-                                                        onclick="return confirm('Are you sure you want to change the role of this user?')"
-                                                        class="dropdown-item text-capitalize @if ($user->role === 2) d-none @endif"
-                                                        type="submit">to
-                                                        correspondent</button>
-                                                </form>
-                                                <form
-                                                    action="{{ route('admin.users.role.three', ['user_id' => $user->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button
-                                                        onclick="return confirm('Are you sure you want to change the role of this user to correspondent?')"
-                                                        class="dropdown-item text-capitalize @if ($user->role === 3) d-none @endif"
-                                                        type="submit">to
-                                                        subscriber</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <div class="me-2    ">
-                                                <img src="{{ asset('uploads/profiles/' . $user->image) }}"
-                                                    class="avatar avatar-md border-radius-lg" alt="user1">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
-                                                <p class="text-sm text-secondary mb-0">{{ $user->email }}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex flex-column">
-                                            <h6 class="mb-0 text-sm">
-                                                @switch($user->role)
-                                                    @case(1)
-                                                        Admin
-                                                    @break
-
-                                                    @case(2)
-                                                        Correspondent
-                                                    @break
-
-                                                    @case(3)
-                                                        subscriber
-                                                    @break
-                                                @endswitch
-                                            </h6>
-                                            <p class="text-sm text-secondary mb-0">
-                                                FoundDocument Agency
-                                            </p>
-                                        </div>
-                                    </td>
-                                    <td class="align-items-middle">
-                                        @switch($user->status)
-                                            @case(0)
-                                                <span class="badge rounded-pill bg-warning">inactive</span>
-                                            @break
-
-                                            @case(1)
-                                                <span class="badge rounded-pill bg-success">active</span>
-                                            @break
-
-                                            @case(2)
-                                                <span class="badge rounded-pill bg-danger">deleted</span>
-                                            @break
-                                        @endswitch
-                                    </td>
-                                    <td>
-                                        {{ $user->created_at->format('d/m/Y') }}
-                                    </td>
-                                    <td>
-                                        <div class="dropdown open">
-                                            <a class="btn" type="button" id="users_dropdown" data-bs-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                <span class="fa fa-ellipsis-v"></span>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end me-n4 text-capitalize"
-                                                aria-labelledby="users_dropdown">
-                                                <a class="dropdown-item"
-                                                    href="{{ route('admin.users.profile.edit', ['user_id' => $user->id]) }}">
-                                                    <i class="fa fa-edit"></i>
-                                                    edit
-                                                </a>
-                                                <a class="dropdown-item"
-                                                    href="{{ route('admin.users.profile', ['user_id' => $user->id]) }}">
-                                                    <i class="fa fa-user-circle"></i>
-                                                    profile
-                                                </a>
-                                                <form
-                                                    action="{{ route('admin.users.grantAccess', ['user_id' => $user->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button
-                                                        class="dropdown-item @if ($user->status === 1) d-none @endif"
-                                                        type="submit"
-                                                        onclick="return confirm('Are you sure you want to grant an access to this user?')">
-                                                        <i class="fa fa-check-circle"></i>
-                                                        grant access
-                                                    </button>
-                                                </form>
-                                                <form
-                                                    action="{{ route('admin.users.denyAccess', ['user_id' => $user->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button
-                                                        class="dropdown-item  @if ($user->status === 0 || $user->id === Auth::user()->id) d-none @endif"
-                                                        type="submit"
-                                                        onclick="return confirm('Are you sure you want to Deny and access?')">
-                                                        <i class="bi bi-x-circle-fill"></i>
-                                                        deny access
-                                                    </button>
-                                                </form>
-
-                                                <form
-                                                    action="{{ route('admin.users.destroy', ['user_id' => $user->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button
-                                                        class="dropdown-item  @if ($user->status === 2 || $user->id === Auth::user()->id) d-none @endif"
-                                                        type="submit"
-                                                        onclick="return confirm('Are you sure you want to delete this account?')">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                        delete
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @php
-                                    $counter += 1;
-                                @endphp
-                            @endforeach
-                        </tbody>
+                        <tbody id="userTbody"></tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        const users = async () => {
+            const res = await fetch('/json/data', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const output = await res.json();
+            if (output.success) {
+                var tableBody = document.getElementById('userTbody');
+                var tr = '';
+                output.users.forEach((user, i) => {
+                    let roleText = '';
+                    switch (user.role) {
+                        case 1:
+                            roleText = 'Admin';
+                            break;
+                        case 2:
+                            roleText = 'Correspondent';
+                            break;
+                        case 3:
+                            roleText = 'Subscriber';
+                            break;
+                        default:
+                            roleText = '';
+                            break;
+                    }
+
+                    let statusBadge = '';
+                    switch (user.status) {
+                        case 0:
+                            statusBadge = '<span class="badge rounded-pill bg-warning">Inactive</span>';
+                            break;
+                        case 1:
+                            statusBadge = '<span class="badge rounded-pill bg-success">Active</span>';
+                            break;
+                        case 2:
+                            statusBadge = '<span class="badge rounded-pill bg-danger">Deleted</span>';
+                            break;
+                        default:
+                            statusBadge = '';
+                            break;
+                    }
+
+                    tr += ` <tr>
+                        <td>${parseInt(i) + 1}</td>
+                        <td>
+                            <div class="dropdown open">
+                                <button
+                                    class="btn fda-bg dropdown-toggle text-white ${user.id === {{ Auth::user()->id }} ? 'disabled bg-danger' : ''}"
+                                    type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    ${user.role === 1 ? 'Demote' : user.role === 2 ? 'Promote or Demote' : user.role === 3 ? 'Promote' : ''}
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end text-capitalize" aria-labelledby="triggerId">
+                                    <form action="/admin/users/${user.id}/role/1" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button onclick="return confirm('Are you sure you want to promote this user to admin?')"
+                                            class="dropdown-item text-capitalize ${user.role === 1 ? 'd-none' : ''}"
+                                            type="submit">
+                                            To admin
+                                        </button>
+                                    </form>
+                                    <form action="/admin/users/${user.id}/role/2"
+                                        method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button
+                                            onclick="return confirm('Are you sure you want to change the role of this user?')"
+                                            class="dropdown-item text-capitalize ${user . role === 2 ? 'd-none':''}"
+                                            type="submit">to
+                                            correspondent</button>
+                                    </form>
+                                    <form action="/admin/users/${user.id}/role/3"
+                                        method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button
+                                            onclick="return confirm('Are you sure you want to change the role of this user to correspondent?')"
+                                            class="dropdown-item text-capitalize ${user . role === 3? 'd-none':'' }"
+                                            type="submit">to
+                                            subscriber</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div class="me-2">
+                                    <img src="{{ asset('uploads/profiles/') }}/${user.image}"
+                                        class="avatar avatar-md border-radius-lg" alt="user1">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="mb-0 text-sm">${user.name}</h6>
+                                    <p class="text-sm text-secondary mb-0">${user.email}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column">
+                                <h6 class="mb-0 text-sm">${roleText}</h6>
+                                <p class="text-sm text-secondary mb-0">FoundDocument Agency</p>
+                            </div>
+                        </td>
+                        <td class="align-items-middle">
+                            ${statusBadge}
+                        </td>
+                        <td>${user.created_at}</td>
+                        <td>
+                          <div class="dropdown open">
+                            <a class="btn" type="button" id="users_dropdown" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-ellipsis-v"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end me-n4 text-capitalize"
+                                aria-labelledby="users_dropdown">
+                                <a class="dropdown-item"
+                                    href="/admin/users/${user.id}/edit/profile">
+                                    <i class="fa fa-edit"></i>
+                                    edit
+                                </a>
+                                <a class="dropdown-item"
+                                    href="/admin/users/${user.id}/profile">
+                                    <i class="fa fa-user-circle"></i>
+                                    profile
+                                </a>
+                                <form action="/admin/users/${user.id}/grantAccess" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <button class="dropdown-item ${user.status === 1 ? 'd-none':'' }"
+                                        type="submit"
+                                        onclick="return confirm('Are you sure you want to grant an access to this user?')">
+                                        <i class="fa fa-check-circle"></i>
+                                        grant access
+                                    </button>
+                                </form>
+                                <form action="/admin/users/${user.id}/denyAccess"
+                                    method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <button class="dropdown-item  ${user.status === 1|| user.id === {{ Auth::user()->id }} ? 'd-none':'' }"
+                                        type="submit"
+                                        onclick="return confirm('Are you sure you want to Deny and access?')">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                        deny access
+                                    </button>
+                                </form>
+
+                                <form action="/admin/users/${user.id}/delete"
+                                    method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <button class="dropdown-item  ${user.status === 2 || user.id === {{ Auth::user()->id }} ? 'd-none':''}"
+                                        type="submit"
+                                        onclick="return confirm('Are you sure you want to delete this account?')">
+                                        <i class="bi bi-trash-fill"></i>
+                                        delete
+                                    </button>
+                                </form>
+                            </div>
+                          </div>
+                        </td>
+                    </tr>`;
+                });
+                tableBody.innerHTML = tr;
+                $('#usersTable').DataTable();
+            }
+        }
+        $('document').ready(function() {
+            users();
+        })
+    </script>
+@endpush

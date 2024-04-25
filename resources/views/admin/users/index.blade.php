@@ -187,7 +187,7 @@
                         <td class="align-items-middle">
                             ${statusBadge}
                         </td>
-                        <td>${user.created_at}</td>
+                        <td>${new Date(user.created_at)}</td>
                         <td>
                           <div class="dropdown open">
                             <a class="btn" type="button" id="users_dropdown" data-bs-toggle="dropdown"

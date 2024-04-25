@@ -20,6 +20,7 @@ use App\Http\Controllers\MatchedDocumentsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\subscriberController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
+
+//  clear cache
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    echo 'Cache cleared successfully';
+
+});
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Auth::routes();

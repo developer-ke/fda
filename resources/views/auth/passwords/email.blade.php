@@ -19,21 +19,22 @@
                             @csrf
                             <div class="row mb-3">
                                 <div class="col-12">
-                                     <label for="email" class="form-check-label text-capitalize">Your registered
-                                            email</label>
+                                    <label for="email" class="form-check-label text-capitalize">Your registered
+                                        email</label>
                                     <div class="input-group input-group-outline">
                                         <input id="email" type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email" placeholder="your email here..." autofocus>
+                                            value="{{ old('email') }}" required autocomplete="email"
+                                            placeholder="your email here..." autofocus>
                                     </div>
                                     @error('email')
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="text-danger text-sm" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="col-12">
-                                     <button type="submit" class="btn fda-bg w-100 mt-4 text-white">
+                                    <button type="submit" class="btn fda-bg w-100 mt-4 text-white">
                                         {{ __('request Link') }}
                                     </button>
                                 </div>

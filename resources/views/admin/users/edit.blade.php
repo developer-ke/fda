@@ -21,7 +21,7 @@
                 </h4>
                 <div class="card-body">
                     <p class="card-text">All marked field are required <b class="text-danger">*</b></p>
-                    <form action="{{ route('admin.profile.update') }}" method="post">
+                    <form action="{{ route('admin.users.profile.update', ['user_id' => $user->id]) }}" method="post">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -66,7 +66,7 @@
                                 @enderror
                             </div>
                             <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                <label class="form-check-label text-capitalize">aleternative phone number</label>
+                                <label class="form-check-label text-capitalize">alternative phone number</label>
                                 <div class="input-group input-group-outline">
                                     <input type="number" class="form-control" autofocus name="altPhoneNumber"
                                         placeholder="0712345678"

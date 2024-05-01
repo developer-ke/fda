@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class jsonController extends Controller
 {
@@ -16,5 +17,10 @@ class jsonController extends Controller
             'users' => User::all(),
         ]);
 
+    }
+    public function users()
+    {
+        $users = User::orderBy('id', 'DESC');
+        return DataTables::queryBuilder($users)->toJson();
     }
 }

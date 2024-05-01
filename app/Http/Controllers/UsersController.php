@@ -8,6 +8,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -67,10 +68,55 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateUserProfile(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'phoneNumber' => 'required|numeric|unique:profiles,user_id,' . $id,
+            'altPhoneNumber' => 'nullable|numeric|unique:profiles,user_id,' . $id,
+            'country' => 'required',
+            'gender' => 'required|string|min:4',
+            'dob' => 'required|date',
+            'organization' => 'required|string',
+            'address' => 'required|string|min:6',
+        ]);
+
+        $user = User::find($id);
+        if ($user) {
+            $profile = Profile::where('user_id', $user->id)->first();
+            if ($profile) {
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->save();
+
+                $profile->country_id = $request->country;
+                $profile->phoneNumber = $request->phoneNumber;
+                $profile->altPhoneNumber = $request->altPhoneNumber;
+                $profile->organization = $request->organization;
+                $profile->gender = $request->gender;
+                $profile->dateOfBirth = $request->dob;
+                $profile->physicalAddress = $request->address;
+                $profile->save();
+            } else {
+                Profile::create([
+                    'user_id' => $user->id,
+                    'country_id' => $request->country,
+                    'phoneNumber' => $request->phoneNumber,
+                    'altPhoneNumber' => $request->altPhoneNumber,
+                    'organization' => $request->organization,
+                    'gender' => $request->gender,
+                    'dateOfBirth' => $request->dob,
+                    'physicalAddress' => $request->address,
+                ]);
+            }
+
+            return back()->with('success', 'Profile updated successfully');
+        }
+
+        return back()->with('error', 'An error occurred');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -84,7 +130,6 @@ class UsersController extends Controller
             }
         }
         return back()->with('error', 'An error occured');
-
     }
 
     public function denyAccess(string $id)
@@ -114,7 +159,6 @@ class UsersController extends Controller
             return view('admin.users.view')->with('user', $adminController->showProfile($id));
         };
         return back()->with('error', "users's profile is incomplete");
-
     }
 
     public function EditUserProfile(string $id)

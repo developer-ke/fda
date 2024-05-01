@@ -39,7 +39,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     echo 'Cache cleared successfully';
-
 });
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
@@ -75,6 +74,8 @@ Route::prefix('/profile')->middleware('auth', 'access')->group(function () {
 });
 // json data routes
 Route::get('/json/data', [jsonController::class, 'index']);
+Route::get('/user/json/data', [jsonController::class, 'users']);
+
 // admin routes
 Route::prefix('/admin')->middleware(['auth', 'access', 'admin', 'profile', 'notifications'])->group(function () {
     Route::get('/', [adminController::class, 'index'])->name('admin');
@@ -100,6 +101,7 @@ Route::prefix('/admin')->middleware(['auth', 'access', 'admin', 'profile', 'noti
     Route::put('/users/{user_id}/grantAccess', [UsersController::class, 'grantAccess'])->name('admin.users.grantAccess');
     Route::get('/users/{user_id}/profile', [UsersController::class, 'profile'])->name('admin.users.profile');
     Route::get('/users/{user_id}/edit/profile', [UsersController::class, 'EditUserProfile'])->name('admin.users.profile.edit');
+    Route::put('/users/{user_id}/update/profile', [UsersController::class, 'updateUserProfile'])->name('admin.users.profile.update');
     Route::put('/users/{user_id}/role/1', [UsersController::class, 'role_1'])->name('admin.users.role.one');
     Route::put('/users/{user_id}/role/2', [UsersController::class, 'role_2'])->name('admin.users.role.two');
     Route::put('/users/{user_id}/role/3', [UsersController::class, 'role_3'])->name('admin.users.role.three');
@@ -219,7 +221,6 @@ Route::prefix('/admin')->middleware(['auth', 'access', 'admin', 'profile', 'noti
     Route::get('/claimed/documents', [claimedDocumentController::class, 'index'])->name('admin.claimedDocuments');
     Route::get('/claimed/{document_id}/documents/view', [claimedDocumentController::class, 'show'])->name('admin.claimedDocuments.show');
     Route::delete('/claimed/{document_id}/documents/destroy', [claimedDocumentController::class, 'destroy'])->name('admin.claimedDocuments.destroy');
-
 });
 
 // correspondent routes
@@ -262,7 +263,6 @@ Route::prefix('/correspondent')->middleware(['auth', 'access', 'correspondent', 
     Route::get('/found/{document_id}/document/edit', [FoundDocumentsController::class, 'edit'])->name('correspondent.foundDocuments.edit');
     Route::put('/found/{document_id}/document/update', [FoundDocumentsController::class, 'update'])->name('correspondent.foundDocuments.update');
     Route::delete('/found/{document_id}/document/claim', [FoundDocumentsController::class, 'destroy'])->name('correspondent.foundDocuments.destroy');
-
 });
 
 // subscriber routes
@@ -300,5 +300,4 @@ Route::prefix('/subscriber')->middleware(['auth', 'access', 'subscriber', 'profi
     Route::get('/found/{document_id}/document/create', [FoundDocumentsController::class, 'edit'])->name('subscriber.foundDocuments.edit');
     Route::put('/found/{document_id}/document/update', [FoundDocumentsController::class, 'update'])->name('subscriber.foundDocuments.update');
     Route::delete('/found/{document_id}/document/claim', [FoundDocumentsController::class, 'destroy'])->name('subscriber.foundDocuments.destroy');
-
 });

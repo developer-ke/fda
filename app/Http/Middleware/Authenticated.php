@@ -19,16 +19,12 @@ class authenticated
         switch (Auth::user()->role) {
             case 1:
                 return redirect()->route('admin');
-                break;
             case 2:
                 return redirect()->route('correspondent');
-                break;
             case 3:
                 return redirect()->route('subscriber');
-                break;
             default:
                 return $next($request);
-                break;
         }
     }
 }

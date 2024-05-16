@@ -19,14 +19,13 @@ class access
     {
         switch (Auth::user()->status) {
             case 0:
-                return redirect()->route('access_denied')->with('error', 'access denied');
-                break;
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'access denied');
             case 2:
-                return redirect()->route('deletedAccount')->with('error', 'Account deleted');
-                break;
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'Account deleted');
             default:
                 return $next($request);
-                break;
         }
     }
 }

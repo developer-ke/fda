@@ -24,7 +24,7 @@
                                 <th>abbreviation</th>
                                 <th>code</th>
                                 <th>added on</th>
-                                <th>more</th>
+                                <th class="text-center">more</th>
                             </thead>
                             <tbody>
                                 @php
@@ -68,47 +68,33 @@
                                             {{ $country->created_at->format('d/m/Y') }}
                                         </td>
                                         <td class="align-middle">
-                                            <div class="dropdown float-lg-end pe-4">
-                                                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="fa fa-ellipsis-v text-secondary" aria-hidden="true"></i>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a type="button"
+                                                    href="{{ route('admin.countries.edit', ['countryId' => $country->id]) }}"
+                                                    class="btn">
+                                                    <span class="bi bi-pencil-square text-info"></span>
                                                 </a>
-                                                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5 text-capitalize"
-                                                    aria-labelledby="dropdownTable">
-                                                    <li>
-                                                        <a class="dropdown-item border-radius-md"
-                                                            href="{{ route('admin.countries.edit', ['countryId' => $country->id]) }}">
-                                                            <i class="fa fa-pen-square"></i>
-                                                            edit
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item border-radius-md" href="javascript:;"
-                                                            onclick="viewCountry(
+                                                <a type="button" class="btn"
+                                                    onclick="viewCountry(
                                                                 '{{ $country->countryName }}',
                                                                 '{{ $country->abbreviation }}',
                                                                 '{{ $country->nationality }}',
                                                                 '{{ $country->code }}',
                                                                 '{{ $country->created_at }}'
                                                             )">
-                                                            <i class="fa fa-eye"></i>
-                                                            view
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <form
-                                                            action="{{ route('admin.countries.destroy', ['countryId' => $country->id]) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="dropdown-item border-radius-md" type="submit"
-                                                                onclick="return confirm('Are you sure, you want the delete this country')">
-                                                                <i class="fa fa-trash"></i>
-                                                                delete
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
+                                                    <i class="fa fa-eye text-primary"></i>
+
+                                                </a>
+                                                <form
+                                                    action="{{ route('admin.countries.destroy', ['countryId' => $country->id]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn" type="submit"
+                                                        onclick="return confirm('Are you sure, you want the delete this country')">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>

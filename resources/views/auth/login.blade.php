@@ -5,13 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card shadow-none">
-                    <div class="card-header">
-                        Login
+                    <div class="card-header fda-bg text-center">
+                        <img src="{{ asset('logo.png') }}" class="mx-auto" alt="">
                     </div>
                     <div class="card-body mb-0">
                         @if (session('error'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&times;</button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close">&times;</button>
                                 {{ session('error') }}
                             </div>
                         @endif
@@ -65,8 +66,8 @@
                         <div class="text-center mb-3">
                             <span class="form-check-label text-center">- - - - - - - - Or Login With- - - - - - - - </span>
                         </div>
-                        <div class="row">
-                            <div class="col-3">
+                        <div class="row mx-auto">
+                            <div class="col-auto">
                                 <a href="{{ route('auth.redirect', ['provider' => 'google']) }}" data-bs-toggle='tooltip'
                                     title="Google">
                                     <span class="avatar bg-danger">
@@ -74,7 +75,7 @@
                                     </span>
                                 </a>
                             </div>
-                            <div class="col-3">
+                            <div class="col-auto">
                                 <a href="{{ route('auth.redirect', ['provider' => 'facebook']) }}" data-bs-toggle='tooltip'
                                     title="Facebook">
                                     <span class="avatar bg-info">
@@ -82,7 +83,7 @@
                                     </span>
                                 </a>
                             </div>
-                            <div class="col-3">
+                            <div class="col-auto">
                                 <a href="{{ route('auth.redirect', ['provider' => 'twitter']) }}" data-bs-toggle='tooltip'
                                     title="Twitter">
                                     <span class="avatar bg-dark">
@@ -90,7 +91,7 @@
                                     </span>
                                 </a>
                             </div>
-                            <div class="col-3">
+                            <div class="col-auto">
                                 <a href="{{ route('auth.redirect', ['provider' => 'github']) }}" data-bs-toggle='tooltip'
                                     title="Github">
                                     <span class="avatar bg-secondary">

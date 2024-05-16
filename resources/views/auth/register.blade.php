@@ -5,7 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card shadow-none">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header fda-bg text-center">
+                        <img src="{{ asset('logo.png') }}" class="mx-auto" alt="">
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
@@ -57,16 +59,67 @@
                                         class="form-check-label text-capitalize">{{ __('Confirm Password') }}</label>
                                     <div class="input-group input-group-outline">
                                         <input id="password-confirm" type="password" class="form-control"
-                                            name="password_confirmation" required autocomplete="new-password" placeholder="same pasword here...">
+                                            name="password_confirmation" required autocomplete="new-password"
+                                            placeholder="same pasword here...">
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn w-100 fda-bg">
+                                    <button type="submit" class="btn w-100 fda-bg mt-2 text-white">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div class="card-footer mt-0">
+                        <div class="text-center mb-3">
+                            <span class="form-check-label text-center">- - - - - - - - Or Register With- - - - - - - -
+                            </span>
+                        </div>
+                        <div class="row mx-auto">
+                            <div class="col-auto">
+                                <a href="{{ route('auth.redirect', ['provider' => 'google']) }}" data-bs-toggle='tooltip'
+                                    title="Google">
+                                    <span class="avatar bg-danger">
+                                        <span class="fa fa-google"></span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="{{ route('auth.redirect', ['provider' => 'facebook']) }}" data-bs-toggle='tooltip'
+                                    title="Facebook">
+                                    <span class="avatar bg-info">
+                                        <span class="fa fa-facebook"></span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="{{ route('auth.redirect', ['provider' => 'twitter']) }}" data-bs-toggle='tooltip'
+                                    title="Twitter">
+                                    <span class="avatar bg-dark">
+                                        <span class="fa fa-twitter"></span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="{{ route('auth.redirect', ['provider' => 'github']) }}" data-bs-toggle='tooltip'
+                                    title="Github">
+                                    <span class="avatar bg-secondary">
+                                        <span class="fa fa-github"></span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="text-center">
+                                <p class="form-check-label">
+                                    Already have an account?
+                                    <a href="{{ route('login') }}">
+                                        <b class="fda-color">Login.</b>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

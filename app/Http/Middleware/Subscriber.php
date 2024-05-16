@@ -19,6 +19,7 @@ class Subscriber
         if (Auth::user()->role === 3) {
             return $next($request);
         }
-        return redirect()->route('login')->with('error', 'Access denied');
+        Auth::logout();
+        abort(401);
     }
 }

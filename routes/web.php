@@ -51,14 +51,6 @@ Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
 Route::post('/report/lost/document', [LostDocumentsController::class, 'store'])->name('report_lost_document');
 Route::post('/report/found/document', [FoundDocumentsController::class, 'store'])->name('report_found_document');
 
-// acces routes
-Route::get('access/denied', function () {
-    return view('auth.login');
-})->name('access_denied')->middleware('auth');
-Route::get('account/deleted', function () {
-    return view('auth.login');
-})->name('deletedAccount')->middleware('auth');
-
 // root route
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified', 'access', 'authenticated');
 

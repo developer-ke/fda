@@ -57,7 +57,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 // contact us routes
 Route::post('/contact-us', [ContactUSController::class, 'store'])->name('contact-us');
 // profile routes
-Route::prefix('/profile')->middleware('auth', 'access')->group(function () {
+Route::prefix('/profile')->middleware(['auth', 'access'])->group(function () {
     Route::get('/complete', [ProfileController::class, 'index'])->name('profile.complete');
     Route::post('/complete/store', [ProfileController::class, 'store'])->name('profile.complete.store');
     Route::get('/change/profile/picture', [ProfileController::class, 'picture'])->name('profile.change.picture');

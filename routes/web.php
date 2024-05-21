@@ -38,7 +38,9 @@ use Illuminate\Support\Facades\Route;
 //  clear cache
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
-    echo 'Cache cleared successfully';
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    echo 'cleared successfully';
 });
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');

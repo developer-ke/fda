@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -76,24 +78,40 @@ class ProfileController extends Controller
 
     public function uploadPhoto(Request $request)
     {
-        if ($user = User::where('image', Auth::user()->image)->first()) {
-            $request->validate([
-                'image' => 'required|image|mimes:png,jpg,webp,jpeg|max:2048',
-            ]);
-            $image = $request->image;
-            $newFileName = Str::random(20) . time() . '.' . $image->extension();
+        $request->validate([
+            'image' => 'required|image|mimes:png,jpg,webp,jpeg|max:2048',
+        ]);
+
+        $user = User::where('id', Auth::user()->id)->firstOrFail();
+
+        $image = $request->file('image');
+        $newFileName = Str::random(20) . '.' . $image->getClientOriginalExtension();
+
+        DB::beginTransaction();
+        try {
+            // Store the new image
             $image->move(public_path('uploads/profiles'), $newFileName);
-            if (Auth::user()->image != 'default.webp') {
-                $prevImage = public_path('uploads/profiles/' . Auth::user()->image);
+
+            // Delete the old image if it's not the default one
+            if ($user->image != 'default.webp') {
+                $prevImage = public_path('uploads/profiles/' . $user->image);
                 if (File::exists($prevImage)) {
                     File::delete($prevImage);
                 }
             }
+
+            // Update the user's image path in the database
             if ($user->update(['image' => $newFileName])) {
-                return redirect()->route('home');
-            }
+
+                DB::commit();
+            };
+            return redirect()->route('home');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Optionally, log the error or handle it as needed
+            return back()->withErrors('Failed to upload the image.');
         }
-        return back()->with('error', 'an error occured');
     }
     /**
      * Update the specified resource in storage.
@@ -118,6 +136,5 @@ class ProfileController extends Controller
         } else {
             return back()->with('error', 'Incorrect password');
         }
-
     }
 }

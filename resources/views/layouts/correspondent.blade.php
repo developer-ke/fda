@@ -140,7 +140,7 @@
         </div>
     </aside>
 
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <main class="main-content position-relative  h-100 border-radius-lg">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-2 top-1 px-0 mx-2 border-radius-xl z-index-sticky blur shadow-blur left-auto bg-gradient-danger"
             id="navbarBlur" data-scroll="true">

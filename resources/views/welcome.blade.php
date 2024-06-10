@@ -1,11 +1,6 @@
 @include('layouts/header')
 
 <body data-spy="scroll" data-target="#navbar-scroll ">
-    <!-- /.preloader -->
-    <!--<div id="preloader"></div>-->
-    @if ($errors->any())
-        <h4><b>{{ $errors->first() }}</b></h4>
-    @endif
     <div id="top">
         @include('layouts.message')
     </div>
@@ -84,7 +79,7 @@
                 <!-- /.logo -->
                 <div class="logo wow fadeInDown animated animated" id="logo">
                     <a href="">
-                        <img src="{{ asset('bootstrap/logo2.png') }}" alt="logo">
+                        <img src="{{ asset('bootstrap/assets/images/logo2.png') }}" alt="logo">
                     </a>
                 </div>
                 <!-- /.main title -->
@@ -108,8 +103,29 @@
             <div class="">
                 <!-- col col-md-6 mx-auto -->
                 <div class="custom-overlay">
+
                     <!-- <div class="landing-report " id='tab'> -->
                     <div class="signup-header landing-report wow fadeInUp animated">
+
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible  show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                                <strong>Success !</strong>
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert  alert-dismissible" role="alert" style="background-color: red;">
+                                {{ session('error') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         <ul class="nav nav-tabs " role="tablist">
                             <li class="nav-item active " id="myTab">
                                 <a class="nav-link " data-toggle="tab" data-target ="#found" id="form-found"
@@ -174,8 +190,8 @@
                                     </div>
                                     <div class="form-group form-inline">
                                         <input class="form-control flocation" name="coordinates" id="flocation"
-                                            type="text" placeholder="Click the button on the right to fill here"
-                                            required value="{{ old('lost_or_found_from') }}">
+                                            type="text" placeholder="Click the button on the right" required
+                                            value="{{ old('coordinates') }}" readonly>
                                         <button type="button" class="btn-info form-control GeoLocationBtn"
                                             id='btn'>
                                             <i class="fa fa-crosshairs" aria-hidden="true"></i> </button>
@@ -703,11 +719,6 @@
     <script>
         var resizefunc = [];
     </script>
-    <script src="{{ asset('bootstrap/assetslogin/js/modernizr.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/documentInstitution.js') }}"></script>
-    <!-- App js -->
-    <script src="{{ asset('bootstrap/assetslogin/js/jquery.core.js') }}"></script>
-    <script src="{{ asset('bootstrap/assetslogin/js/jquery.app.js') }}"></script>
     <script>
         var resizefunc = [];
     </script>

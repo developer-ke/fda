@@ -4,6 +4,7 @@
 <head>
     <!-- /.website title -->
     <title>{{ env('APP_NAME') }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">--->
     <!-- CSS Files -->
@@ -29,4 +30,5 @@
     <link href="{{ asset('css/front.css') }}" rel="stylesheet">
 
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="../../js/app.js"></script>
 </head>

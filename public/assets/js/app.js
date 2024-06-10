@@ -28,10 +28,10 @@ if (document.querySelector(".found-container")) {
                 var long = position.coords.longitude;
 
                 // Do something with the latitude and longitude
-                document.querySelector('#latitude').value = lat;
-                document.querySelector('#longitude').value = long;
+                document.querySelector("#latitude").value = lat;
+                document.querySelector("#longitude").value = long;
                 // Now you can assign these values to your elements or variables as needed
-                document.querySelector('.flocation').value = lat + "," + long;
+                document.querySelector(".flocation").value = lat + "," + long;
             });
         } else {
             Swal.fire({

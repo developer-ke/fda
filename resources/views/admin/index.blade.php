@@ -271,6 +271,7 @@
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">foundDocuments</p>
+                        <b>{{ $foundDocuments->count() }}</b>
                     </div>
                 </div>
                 <div class="card-body">
@@ -287,7 +288,7 @@
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">instititutions</p>
-                        <h4 class="mb-0">{{ $institutions->count() }}</h4>
+                        <b class="mb-0">{{ $institutions->count() }}</b>
                     </div>
                 </div>
                 <div class="card-body">

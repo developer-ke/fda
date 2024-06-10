@@ -20,6 +20,6 @@ class Subscriber
             return $next($request);
         }
         Auth::logout();
-        abort(401);
+        return redirect()->route('login')->with('error', 'Logged out due to unauthorized access');
     }
 }

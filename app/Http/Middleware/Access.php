@@ -20,7 +20,7 @@ class access
         switch (Auth::user()->status) {
             case 0:
                 Auth::logout();
-                return redirect()->route('login')->with('error', 'access denied');
+                return redirect()->route('login')->with('error', 'Access denied');
             case 2:
                 Auth::logout();
                 return redirect()->route('login')->with('error', 'Account deleted');

@@ -57,10 +57,11 @@ Route::post('/report/found/document', [FoundDocumentsController::class, 'store']
 // contact us routes
 Route::post('/contact-us', [ContactUSController::class, 'store'])->name('contact-us');
 
-// root route
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified', 'access', 'authenticated');
 
-Route::middleware(['auth', 'access', 'notifications', 'profile'])->group(function () {
+Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->group(function () {
+
+    // root route
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     // profile routes
     Route::prefix('/profile')->group(function () {
         Route::get('/complete', [ProfileController::class, 'index'])->name('profile.complete');

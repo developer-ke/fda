@@ -252,7 +252,7 @@
                         <div class="col-4 text-end">
                             <p class="text-sm mb-0 text-capitalize">lost documents</p>
                             <h4 class="mb-0">
-                                {{ $lostDocuments->where('status', 0)->count() }}
+                                {{ $lostDocuments->where('status')->count() }}
                             </h4>
                         </div>
                     </div>

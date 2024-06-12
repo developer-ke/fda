@@ -248,7 +248,8 @@
                             <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                                 aria-labelledby="dropdownMenuButton">
                                 <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                                    <a class="dropdown-item border-radius-md"
+                                        href="{{ route('correspondent.profile') }}">
                                         <div class="d-flex ms-0">
                                             <div class="me-1 mt-0">
                                                 <img src="{{ asset('uploads/profiles/' . Auth::user()->image) }}"

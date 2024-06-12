@@ -61,7 +61,7 @@ Route::post('/contact-us', [ContactUSController::class, 'store'])->name('contact
 Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->group(function () {
 
     // root route
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('authenticated');
     // profile routes
     Route::prefix('/profile')->group(function () {
         Route::get('/complete', [ProfileController::class, 'index'])->name('profile.complete');
@@ -106,6 +106,7 @@ Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->g
         Route::put('/users/all/grant/access', [UsersController::class, 'GrantAllAccess'])->name('admin.users.grantAllAccess');
         Route::put('/users/all/deny/access', [UsersController::class, 'DenyAllAccess'])->name('admin.users.denyAllAccess');
         Route::delete('/users/delete/all', [UsersController::class, 'DeleteAll'])->name('admin.users.delete.all');
+        Route::get('/users/fetch', [UsersController::class, 'fetchUsers'])->name('admin.users.fetch');
 
         // client support routes
         Route::get('client/support', [ContactUSController::class, 'index'])->name('admin.contact-us');

@@ -19,6 +19,53 @@ class UsersController extends Controller
     {
         return view('admin.users.index')->with('users', User::all());
     }
+    public function fetchUsers(Request $request)
+    {
+        $columns = ['id', 'role', 'name', 'role', 'status', 'created_at', 'actions'];
+
+        $query = User::query();
+
+        if ($search = $request->input('search.value')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $totalFiltered = $query->count();
+
+        $query->skip($request->input('start'))
+            ->take($request->input('length'));
+
+        if ($order = $request->input('order.0.column')) {
+            $query->orderBy($columns[$order], $request->input('order.0.dir'));
+        }
+
+        $users = $query->get();
+
+        $data = [];
+        $counter = 1;
+        foreach ($users as $user) {
+            $data[] = [
+                'id' => $user->id,
+                'counter' => $counter++,
+                'role' => $user->role,
+                'name' => $user->name,
+                'email' => $user->email,
+                'image' => $user->image,
+                'status' => $user->status,
+                'created_at' => $user->created_at->toDateString(),
+                'actions' => '', // Placeholder for custom render actions
+            ];
+        }
+
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => User::count(),
+            'recordsFiltered' => $totalFiltered,
+            'data' => $data,
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

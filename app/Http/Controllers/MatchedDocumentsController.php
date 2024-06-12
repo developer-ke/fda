@@ -33,26 +33,7 @@ class MatchedDocumentsController extends Controller
                 "countries.city",
                 "document_types.name AS documentType"
             )->where('lost_documents.status', 2)->orderBy('lost_documents.id', 'DESC')->get();
-        $drawers = lostDocuments::join('countries', 'lost_documents.country_id', 'countries.id')
-            ->join('document_types', 'lost_documents.document_type_id', 'document_types.id')
-            ->select(
-                "lost_documents.id",
-                "lost_documents.address",
-                "lost_documents.phoneNumber",
-                "lost_documents.code",
-                "lost_documents.email",
-                "lost_documents.firstName",
-                "lost_documents.lastName",
-                "lost_documents.police_ref_number",
-                "lost_documents.location",
-                "lost_documents.institution_on_document",
-                "lost_documents.serialNumber",
-                "lost_documents.status",
-                "lost_documents.created_at",
-                "countries.name as countryName",
-                "countries.city",
-                "document_types.name AS documentType"
-            )->where('lost_documents.status', 1)->orderBy('lost_documents.id', 'DESC')->get();
+
         return view('admin.matchedDocuments.index')->with('documents', $documents);
     }
 
@@ -98,7 +79,7 @@ class MatchedDocumentsController extends Controller
                 }
             } catch (\Throwable $th) {
                 DB::rollBack();
-                Log::error('error due to', $th->getMessage());
+                Log::error('error due to' . $th->getMessage());
             }
         }
         return back()->with('error', 'an error has occured');
@@ -114,7 +95,7 @@ class MatchedDocumentsController extends Controller
                 }
             } catch (\Throwable $th) {
                 DB::rollBack();
-                Log::error('error due to', $th->getMessage());
+                Log::error('error due to' . $th->getMessage());
             }
         }
         return back()->with('error', 'an error has occured');

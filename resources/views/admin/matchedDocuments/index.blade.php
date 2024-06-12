@@ -19,13 +19,14 @@
                             </thead>
                             <tbody>
                                 @php
-                                    $counter = 0;
+                                    $counter = 1;
                                 @endphp
+
                                 @foreach ($documents as $document)
                                     <tr>
                                         <td>
                                             @php
-                                                echo $counter += 1;
+                                                echo $counter++;
                                             @endphp
                                         </td>
                                         <td>

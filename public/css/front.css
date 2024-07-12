@@ -1,0 +1,221 @@
+.Ad-Spaces {
+    background: green;
+}
+/* carousel captions */
+#caption1 {
+    background: "#80000";
+}
+#caption2 {
+    background: "#80000";
+}
+/* carousel */
+/* #myCarousel {
+    height: 750px;
+    position: relative;
+    top: 0px;
+    bottom: 200px;
+} */
+/* carousel active image */
+#img3 {
+    width: 100%;
+}
+/* main title 1 */
+#mainh1 {
+    visibility: visible;
+    animation-name: fadeInLeft;
+}
+/* header paragraph secttion  */
+#hp {
+    visibility: visible;
+    animation-name: fadeInUp;
+}
+/* Tab panes section */
+#tp {
+    color: #ffffff;
+    font-weight: 100;
+}
+/* Institution input */
+/* #institution-found {
+    display: none;
+} */
+/* lost document tap */
+#lp {
+    color: #ffffff;
+    font-weight: 100;
+}
+/* logo on sm */
+#logo {
+    visibility: visible;
+    animation-name: fadeInDown;
+}
+/* header button */
+#hbtn {
+    visibility: visible;
+    animation-name: fadeInLeft;
+}
+/* Reporting Flow title and div*/
+#rh {
+    visibility: visible;
+    animation-name: fadeInLeft;
+}
+#rd {
+    visibility: visible;
+    animation-name: fadeInRight;
+    margin-bottom: 5%;
+}
+
+#container {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#fg {
+    height: 40px;
+}
+/* form elements */
+/* pane active */
+#btn {
+    width: 10% !important;
+    padding: 0px;
+    background-color: #c63d0f;
+    color: #fff;
+}
+#fownerfirstname {
+    height: 30px;
+}
+#fownerlastname,
+#fcountry,
+#institution-found,
+#fserialno,
+#freportername,
+#freporterlastname,
+#fdocumentType,
+#femailaddress,
+#btn,
+#fsubmit,
+#flocation {
+    height: 30px;
+}
+/* phone number */
+#fcountrycode {
+    width: 14%;
+    height: 30px;
+}
+#fphonenumber {
+    width: 34%;
+    height: 30px;
+}
+#lcountrycode {
+    width: 30%;
+    height: 30px;
+}
+#lphonenumber {
+    width: 68%;
+    height: 30px;
+}
+#fgin {
+    height: 30px;
+}
+#img_1 {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+}
+/* pane inactive*/
+#lownerlastname,
+#lownerfirstname,
+#lcountry,
+#institution-found,
+#lserialno,
+#policeRef,
+#ReturnAddress,
+#lreportername,
+#lreporterlastname,
+#ldocumentType,
+#lemailaddress,
+#lbtn,
+#lsubmit,
+#llocation {
+    height: 30px;
+}
+/* tab for reporting documents */
+
+/* #tab {
+    position: relative;
+    top: 0px;
+    right: 45px;
+    width: 450px;
+    height: 500px;
+} */
+#testi {
+    background-image: 'url({{asset("bootstrap/assets/images/swirl_pattern.png")}})';
+}
+#action {
+    background-image: 'url({{asset("bootstrap/assets/images/download-app.jpg")}})';
+}
+#wow {
+    visibility: visible;
+    animation-name: fadeInRight;
+    margin-bottom: 5%;
+}
+
+.hero-carousel .carousel-caption {
+    margin-top: 34px;
+    text-align: left;
+    width: 49%;
+    bottom: 5%;
+    left: 3%;
+    bottom: 12%;
+}
+
+/* element {
+} */
+.hero-carousel .carousel-inner {
+    height: 700px;
+}
+
+.hero-carousel .carousel-indicators {
+    left: 75% !important;
+    bottom: 10%;
+}
+.carousel-indicators .active {
+    background-color: #c63d0f;
+}
+.carousel-indicators li {
+    border: 1px solid #c63d0f;
+}
+@media (min-width: 1000px) {
+    .custom-overlay {
+        position: absolute;
+        top: 20px;
+        left: 55%;
+        z-index: 100;
+        width: 38%;
+        /* height: 30%; */
+    }
+}
+.landing-report {
+    min-height: 500px;
+}
+/* tabs  */
+#myTab {
+    /* border-right: 1px solid #ddd; */
+    border-radius: 4px 0px 0px 4px;
+    /* border-width: 5px; */
+    /* border-color: crimson; */
+}
+
+#myTabb {
+    /* border-left: 0px solid #a9a9a9; */
+    border-radius: 0px 4px 4px 0px;
+    border-width: 3px;
+    border-color: rgba(255, 255, 255, 0.33);
+}
+/* #overlay {
+    width: 100%;
+} */
+
+/* service mysql start
+/etc/init.d/apache2 start 
+apache stop
+php artisan view:clear
+*/

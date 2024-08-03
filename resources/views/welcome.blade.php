@@ -4,7 +4,7 @@
     <div id="top">
         @include('layouts.message')
     </div>
-    <div id="myCarousel" class="hero-carousel carousel slide hidden-xs hidden-sm" data-ride="carousel">
+    <div id="myCarousel" class="hero-carousel carousel slide hidden-xs hidden-sm vh-100" data-ride="carousel">
         <div class="logo wow fadeInDown">
             <a href="">
                 <img src="{{ asset('logo.png') }}" alt="logo">
@@ -27,7 +27,7 @@
 
 
         <!-- Wrapper for slides -->
-        <div class="carousel-inner">
+        <div class="carousel-inner vh-100">
             @php
                 $counter = 0;
             @endphp
@@ -102,7 +102,6 @@
             <div class="container-fluid">
                 <!-- col col-md-6 mx-auto -->
                 <div class="custom-overlay">
-
                     <!-- <div class="landing-report " id='tab'> -->
                     <div class="signup-header landing-report wow fadeInUp animated">
 

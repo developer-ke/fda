@@ -35,13 +35,8 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-//  clear cache
-Route::get('/clear-cache', function () {
-    Artisan::call('cache:clear');
-    Artisan::call('route:clear');
-    Artisan::call('config:clear');
-    Artisan::call('view:clear');
-    echo 'cleared successfully';
+Route::get('/test', function () {
+    return view('test');
 });
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
@@ -76,6 +71,15 @@ Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->g
 
     // admin routes
     Route::prefix('/admin')->middleware('admin')->group(function () {
+        //  clear cache
+        Route::get('/clear-cache', function () {
+            Artisan::call('cache:clear');
+            Artisan::call('route:clear');
+            Artisan::call('config:clear');
+            Artisan::call('view:clear');
+            echo 'cleared successfully';
+        });
+
         Route::get('/', [adminController::class, 'index'])->name('admin');
         // profile info
         Route::get('/profile', [adminController::class, 'profile'])->name('admin.profile');

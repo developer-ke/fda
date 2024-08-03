@@ -1,14 +1,10 @@
-/* *
+/**
 * Backyard
-* Landing Page Template
+* Landing Page Templatem
 * Author: MoxDesign - http://www.moxdesign.com
 **/
 
 html,
-body {
-    width: 100%;
-    overflow-x: hidden;
-}
 body {
     height: 100%;
     font-family: "Lato", "Serif";
@@ -88,7 +84,6 @@ a:hover {
     background: #fff url(../images/loading.gif) no-repeat center center;
 }
 .fullscreen {
-    height: 100vh;
     width: 100%;
     min-height: 100%;
     background-repeat: no-repeat;
@@ -99,13 +94,11 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.5);
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: block;
 }
 #menu {
-    z-index: 999px;
-    margin-top: 100vh;
-    padding-top: 100vh;
+    z-index: 999;
 }
 .navbar-default {
     background: rgba(255, 255, 255, 0.95);
@@ -244,7 +237,7 @@ a:hover {
 .option:hover {
     color: #3eb0f7;
 }
-.fullscreen .header-phone {
+.header-phone {
     margin: 50px 0 100px;
 }
 #intro {

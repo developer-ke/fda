@@ -1,10 +1,10 @@
 @include('layouts/header')
 
-<body data-spy="scroll" data-target="#navbar-scroll ">
+<body data-spy="scroll" data-target="#navbar-scroll">
     <div id="top">
         @include('layouts.message')
     </div>
-    <div id="myCarousel" class="hero-carousel carousel slide hidden-xs hidden-sm vh-100" data-ride="carousel">
+    <div id="myCarousel" class="hero-carousel carousel slide hidden-xs hidden-sm" data-ride="carousel">
         <div class="logo wow fadeInDown">
             <a href="">
                 <img src="{{ asset('logo.png') }}" alt="logo">
@@ -27,14 +27,13 @@
 
 
         <!-- Wrapper for slides -->
-        <div class="carousel-inner vh-100" style="height: 100vh;">
+        <div class="carousel-inner" style="height: 100vh">
             @php
                 $counter = 0;
             @endphp
             @foreach ($advertOnes->where('status', 1) as $advert)
                 <div class="item @if ($counter === 0) active @endif">
-                    <img src="{{ asset('assets/cms/' . $advert->image) }}" style="height: 100vh;" alt="Chania"
-                        id='img3'>
+                    <img src="{{ asset('assets/cms/' . $advert->image) }}" alt="Chania" id='img3'>
                     <div class="container">
                         <div class="carousel-caption  hidden-xs hidden-sm" id="caption">
                             <div class="Ad-Spaces" id='caption1' style="background-color: {{ $advert->div_bg }};">

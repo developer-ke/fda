@@ -27,15 +27,15 @@
 
 
         <!-- Wrapper for slides -->
-        <div class="carousel-inner vh-100">
+        <div class="carousel-inner vh-100" style="height: 100vh;">
             @php
                 $counter = 0;
             @endphp
             @foreach ($advertOnes->where('status', 1) as $advert)
                 <div class="item @if ($counter === 0) active @endif">
-                    <div class="ooverlay"></div>
-                    <img src="{{ asset('assets/cms/' . $advert->image) }}" alt="Chania" id='img3'>
-                    <div class="container"">
+                    <img src="{{ asset('assets/cms/' . $advert->image) }}" style="height: 100vh;" alt="Chania"
+                        id='img3'>
+                    <div class="container">
                         <div class="carousel-caption  hidden-xs hidden-sm" id="caption">
                             <div class="Ad-Spaces" id='caption1' style="background-color: {{ $advert->div_bg }};">
                                 <!-- /.main title -->

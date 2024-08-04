@@ -1,4 +1,36 @@
-@include('layouts/header')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <!-- /.website title -->
+    <title>{{ env('APP_NAME') }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">--->
+    <!-- CSS Files -->
+    <link href="{{ asset('bootstrap/assets/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('bootstrap/assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap/assets/fonts/icon-7-stroke/css/pe-icon-7-stroke.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap/assets/css/animate.css') }}" rel="stylesheet" media="screen">
+    <!-- Colors -->
+    <link href="{{ asset('bootstrap/assets/css/css-index.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('bootstrap/assets/css/owl.theme.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('bootstrap/assets/css/owl.carousel.css') }}" rel="stylesheet" media="screen">
+    <!-- Google Fonts -->
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
+    <!--For Birthday Picker-->
+    <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- App Favicon -->
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <!-- Modernizr js -->
+
+    <!-- sfirt_front.blade styles -->
+    <link href="{{ asset('css/front.css') }}" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="../../js/app.js"></script>
+</head>
 
 <body data-spy="scroll" data-target="#navbar-scroll">
     <div id="top">
@@ -69,7 +101,7 @@
         </div>
     </div>
     <!-- /.parallax full screen background image -->
-    <div class="fullscreen landing"
+    <div class="fullscreen landing parallax"
         style="background-image: url(&quot;{{ asset('bootstrap/assets/images/carouselImages/SlideThree.jpg') }}&quot;); background-attachment: fixed; background-size: 1023.26px 682px; background-position: 50% -114.058px;"
         data-img-width="2000" data-img-height="1333" data-diff="100">
         <div class="container" style="background-color: rgba(0, 0, 0, 0.5);">
@@ -98,256 +130,252 @@
                 </div>
 
             </div>
-            <div class="container-fluid">
-                <!-- col col-md-6 mx-auto -->
-                <div class="custom-overlay">
-                    <!-- <div class="landing-report " id='tab'> -->
-                    <div class="signup-header landing-report wow fadeInUp animated">
+            <!-- col col-md-6 mx-auto -->
+            <div class="custom-overlay">
+                <!-- <div class="landing-report " id='tab'> -->
+                <div class="signup-header landing-report wow fadeInUp animated">
 
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible  show" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <strong>Success !</strong>
-                                {{ session('success') }}
-                            </div>
-                        @endif
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible  show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>Success !</strong>
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
-                        @if (session('error'))
-                            <div class="alert  alert-dismissible" role="alert" style="background-color: red;">
-                                {{ session('error') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @endif
-                        <ul class="nav nav-tabs " role="tablist">
-                            <li class="nav-item active " id="myTab">
-                                <a class="nav-link " data-toggle="tab" data-target ="#found" id="form-found"
-                                    href="#" role="tab">Report Found Document</a>
-                            </li>
-                            <li class="nav-item" id="myTabb">
-                                <a class="nav-link" data-toggle="tab" data-target ="#lost" id="form-lost" href="#"
-                                    role="tab">Report Lost Document</a>
-                            </li>
-                        </ul>
-                        {{-- report found document form --}}
-                        <div class="tab-content found-container">
-                            <div class="tab-pane active" id="found" role="tabpanel">
-                                <span class="alert-danger"> </span>
-                                <p id='tp'>Provide below, information of the document you found.</p>
-                                <form class="form-header" action="{{ route('report_found_document') }}"
-                                    class="form-header" id="freport-form" method="post" accept-charset="utf-8">
-                                    @csrf
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                    <div class="form-group form-inline">
-                                        <select name="document_type_id" id="fdocumentType" class='form-control'
-                                            required>
-                                            <option value="" selected="selected" disabled>Select document Type
-                                            </option>
-                                            @foreach ($types as $document_type)
-                                                <option value="{{ $document_type->id }}">
-                                                    {{ $document_type->name }}</option>
+                    @if (session('error'))
+                        <div class="alert  alert-dismissible" role="alert" style="background-color: red;">
+                            {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    <ul class="nav nav-tabs " role="tablist">
+                        <li class="nav-item active " id="myTab">
+                            <a class="nav-link " data-toggle="tab" data-target ="#found" id="form-found"
+                                href="#" role="tab">Report Found Document</a>
+                        </li>
+                        <li class="nav-item" id="myTabb">
+                            <a class="nav-link" data-toggle="tab" data-target ="#lost" id="form-lost"
+                                href="#" role="tab">Report Lost Document</a>
+                        </li>
+                    </ul>
+                    {{-- report found document form --}}
+                    <div class="tab-content found-container">
+                        <div class="tab-pane active" id="found" role="tabpanel">
+                            <span class="alert-danger"> </span>
+                            <p id='tp'>Provide below, information of the document you found.</p>
+                            <form class="form-header" action="{{ route('report_found_document') }}"
+                                class="form-header" id="freport-form" method="post" accept-charset="utf-8">
+                                @csrf
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
                                             @endforeach
-                                        </select>
-                                        <input class="form-control " name="document_serial_number" id="fserialno"
-                                            type="text" placeholder="Enter Document/Serial No" required
-                                            value="{{ old('document_serial_number') }}">
+                                        </ul>
                                     </div>
-                                    <div class="form-group form-inline">
-                                        <input class="form-control institution" name="institution_on_doc"
-                                            id="institutionFound" type="text"
-                                            placeholder="Enter institution on document"
-                                            value="{{ old('institution_on_doc') }}">
-                                        <select name="country_id" id="fcountry" class='form-control' required>
-                                            <option value="" selected="selected" disabled>Country on document
+                                @endif
+                                <div class="form-group form-inline">
+                                    <select name="document_type_id" id="fdocumentType" class='form-control' required>
+                                        <option value="" selected="selected" disabled>Select document Type
+                                        </option>
+                                        @foreach ($types as $document_type)
+                                            <option value="{{ $document_type->id }}">
+                                                {{ $document_type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <input class="form-control " name="document_serial_number" id="fserialno"
+                                        type="text" placeholder="Enter Document/Serial No" required
+                                        value="{{ old('document_serial_number') }}">
+                                </div>
+                                <div class="form-group form-inline">
+                                    <input class="form-control institution" name="institution_on_doc"
+                                        id="institutionFound" type="text"
+                                        placeholder="Enter institution on document"
+                                        value="{{ old('institution_on_doc') }}">
+                                    <select name="country_id" id="fcountry" class='form-control' required>
+                                        <option value="" selected="selected" disabled>Country on document
+                                        </option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}
                                             </option>
-                                            @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}">{{ $country->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        @endforeach
+                                    </select>
 
-                                    </div>
-                                    <div class="form-group form-inline hidden">
-                                        <input class="form-control" name="latitude" id="latitude" type="text"
-                                            placeholder="latitude" required value="{{ old('latitude') }}">
-                                        <input class="form-control" name="longitude" id="longitude" type="text"
-                                            placeholder="longituder" required value="{{ old('longitude') }}">
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <input class="form-control flocation" name="coordinates" id="flocation"
-                                            type="text" placeholder="Click the button on the right" required
-                                            value="{{ old('coordinates') }}" readonly>
-                                        <button type="button" class="btn-info form-control GeoLocationBtn"
-                                            id='btn'>
-                                            <i class="fa fa-crosshairs" aria-hidden="true"></i> </button>
-                                    </div>
+                                </div>
+                                <div class="form-group form-inline hidden">
+                                    <input class="form-control" name="latitude" id="latitude" type="text"
+                                        placeholder="latitude" required value="{{ old('latitude') }}">
+                                    <input class="form-control" name="longitude" id="longitude" type="text"
+                                        placeholder="longituder" required value="{{ old('longitude') }}">
+                                </div>
+                                <div class="form-group form-inline">
+                                    <input class="form-control flocation" name="coordinates" id="flocation"
+                                        type="text" placeholder="Click the button on the right" required
+                                        value="{{ old('coordinates') }}" readonly>
+                                    <button type="button" class="btn-info form-control GeoLocationBtn"
+                                        id='btn'>
+                                        <i class="fa fa-crosshairs" aria-hidden="true"></i> </button>
+                                </div>
 
-                                    <div class="form-group form-inline">
-                                        <input class="form-control" name="Owners_first_name" id="fownerfirstname"
-                                            type="text" placeholder="Owner's first name" required
-                                            value="{{ old('Owners_first_name') }}">
-                                        <input class="form-control" name="Owners_last_name" id="fownerlastname"
-                                            type="text" placeholder="Owner's last name" required
-                                            value="{{ old('Owners_last_name') }}">
-                                    </div>
+                                <div class="form-group form-inline">
+                                    <input class="form-control" name="Owners_first_name" id="fownerfirstname"
+                                        type="text" placeholder="Owner's first name" required
+                                        value="{{ old('Owners_first_name') }}">
+                                    <input class="form-control" name="Owners_last_name" id="fownerlastname"
+                                        type="text" placeholder="Owner's last name" required
+                                        value="{{ old('Owners_last_name') }}">
+                                </div>
+                                <br>
+                                <p style="color: whitesmoke;">
+                                    Reporter's details.
                                     <br>
-                                    <p style="color: whitesmoke;">
-                                        Reporter's details.
-                                        <br>
-                                        Kindly provide your details as a reporter.
-                                    </p>
-                                    <div class="form-group form-inline">
-                                        <input class="form-control " name="email_address" id="femailaddress"
-                                            type="email" placeholder="Your email"
-                                            value="{{ old('email_address') }}" required>
-                                        <input class="form-control " name="fcountrycode" id="fcountrycode"
-                                            type="text" placeholder="Code" value="{{ old('fcountrycode') }}"
-                                            required>
-                                        <input class="form-control " name="phone_number" id="fphonenumber"
-                                            type="text" placeholder="Phone number"
-                                            value="{{ old('phone_number') }}" required>
-                                    </div>
+                                    Kindly provide your details as a reporter.
+                                </p>
+                                <div class="form-group form-inline">
+                                    <input class="form-control " name="email_address" id="femailaddress"
+                                        type="email" placeholder="Your email" value="{{ old('email_address') }}"
+                                        required>
+                                    <input class="form-control " name="fcountrycode" id="fcountrycode"
+                                        type="text" placeholder="Code" value="{{ old('fcountrycode') }}"
+                                        required>
+                                    <input class="form-control " name="phone_number" id="fphonenumber"
+                                        type="text" placeholder="Phone number" value="{{ old('phone_number') }}"
+                                        required>
+                                </div>
 
-                                    <div class="form-group form-inline">
-                                        <input class="form-control " name="ffirst_name" id="freportername"
-                                            type="text" placeholder="First name" value="{{ old('first_name') }}"
-                                            required>
-                                        <input class="form-control " name="flast_name" id="freporterlastname"
-                                            type="text" placeholder="Last name" value="{{ old('last_name') }}"
-                                            required>
+                                <div class="form-group form-inline">
+                                    <input class="form-control " name="ffirst_name" id="freportername"
+                                        type="text" placeholder="First name" value="{{ old('first_name') }}"
+                                        required>
+                                    <input class="form-control " name="flast_name" id="freporterlastname"
+                                        type="text" placeholder="Last name" value="{{ old('last_name') }}"
+                                        required>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <p class="privacy text-left">
+                                            <!-- MADE THIS PART SIMILAR TO ABOVE -->
+                                            <input type="checkbox" name="fterm" id="fterm" required>I agree
+                                            to <a href="">Terms & Policies.</a>
+                                        </p>
                                     </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <p class="privacy text-left">
-                                                <!-- MADE THIS PART SIMILAR TO ABOVE -->
-                                                <input type="checkbox" name="fterm" id="fterm" required>I agree
-                                                to <a href="">Terms & Policies.</a>
-                                            </p>
-                                        </div>
-                                    </div>
+                                </div>
 
-                                    <div class="form-group">
-                                        <button id='fsubmit' type="submit" class="btn btn-primary"
-                                            disabled>Submit</button>
-                                    </div>
+                                <div class="form-group">
+                                    <button id='fsubmit' type="submit" class="btn btn-primary"
+                                        disabled>Submit</button>
+                                </div>
 
-                                </form>
-                            </div>
+                            </form>
+                        </div>
 
-                            {{-- report lost documents form --}}
-                            <div class="tab-pane" id="lost" role="tabpanel">
-                                <p id='lp'>Provide information for lost document below.</p>
-                                <form action="{{ route('report_lost_document') }}" class="form-header"
-                                    id="lreport-form" method="post" accept-charset="utf-8">
-                                    @csrf
-                                    <input type="hidden" name="rtype" value="Lost">
-                                    <!-- <input type="hidden" name="id" value="bfdba52708"> -->
-                                    <div class="form-group form-inline">
-                                        <select name="document_type_id" id="ldocumentType" class='form-control'
-                                            required>
-                                            <option value="" selected="selected" disabled>Select document Type
+                        {{-- report lost documents form --}}
+                        <div class="tab-pane" id="lost" role="tabpanel">
+                            <p id='lp'>Provide information for lost document below.</p>
+                            <form action="{{ route('report_lost_document') }}" class="form-header" id="lreport-form"
+                                method="post" accept-charset="utf-8">
+                                @csrf
+                                <input type="hidden" name="rtype" value="Lost">
+                                <!-- <input type="hidden" name="id" value="bfdba52708"> -->
+                                <div class="form-group form-inline">
+                                    <select name="document_type_id" id="ldocumentType" class='form-control' required>
+                                        <option value="" selected="selected" disabled>Select document Type
+                                        </option>
+                                        @foreach ($types as $document_type)
+                                            <option value="{{ $document_type->id }}">
+                                                {{ $document_type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <input class="form-control " name="document_serial_number" id="lserialno"
+                                        type="text" placeholder="Enter Document/Serial No" value=""
+                                        required>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <input class="form-control institution" name="institution_on_doc"
+                                        id="institution-found" type="text"
+                                        placeholder="Enter institution on documen(Optional)"
+                                        value="{{ old('institution_on_doc') }}">
+
+                                    <select name="country_id" id="lcountry" class='form-control' required>
+                                        <option value="" selected="selected" disabled>Country on Document
+                                        </option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}
                                             </option>
-                                            @foreach ($types as $document_type)
-                                                <option value="{{ $document_type->id }}">
-                                                    {{ $document_type->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <input class="form-control " name="document_serial_number" id="lserialno"
-                                            type="text" placeholder="Enter Document/Serial No" value=""
-                                            required>
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <input class="form-control institution" name="institution_on_doc"
-                                            id="institution-found" type="text"
-                                            placeholder="Enter institution on documen(Optional)"
-                                            value="{{ old('institution_on_doc') }}">
+                                        @endforeach
+                                    </select>
 
-                                        <select name="country_id" id="lcountry" class='form-control' required>
-                                            <option value="" selected="selected" disabled>Country on Document
-                                            </option>
-                                            @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}">{{ $country->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <input class="form-control " name="locationLost" id="llocation"
-                                            type="text" placeholder="Location you Lost it" value=""
-                                            required>
-                                        <input class="form-control " name="police_refNo" id="policeRef"
-                                            type="text" placeholder="Police report ref no." value="">
-                                        <!-- <button type="button" class="btn-info form-control"> Get Coordinates </button> -->
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <input class="form-control " name="fname" id="lownerfirstname"
-                                            type="text" placeholder="Your first name" value="" required>
-                                        <input class="form-control " name="lname" id="lownerlastname"
-                                            type="text" placeholder="Your last name" value="" required>
-                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <input class="form-control " name="locationLost" id="llocation" type="text"
+                                        placeholder="Location you Lost it" value="" required>
+                                    <input class="form-control " name="police_refNo" id="policeRef" type="text"
+                                        placeholder="Police report ref no." value="">
+                                    <!-- <button type="button" class="btn-info form-control"> Get Coordinates </button> -->
+                                </div>
+                                <div class="form-group form-inline">
+                                    <input class="form-control " name="fname" id="lownerfirstname" type="text"
+                                        placeholder="Your first name" value="" required>
+                                    <input class="form-control " name="lname" id="lownerlastname" type="text"
+                                        placeholder="Your last name" value="" required>
+                                </div>
 
 
-                                    <p>Return Address</p>
-                                    <p id='tp'> Provide your return address and detail below</p>
-                                    <!-- <div class="form-group form-inline">
+                                <p>Return Address</p>
+                                <p id='tp'> Provide your return address and detail below</p>
+                                <!-- <div class="form-group form-inline">
                                                 <input class="form-control " name="email_address" id="lemailaddress" type="email" placeholder="Your email"  value="{{ old('email_address') }}" required>
                                                 <input  class="form-control " name="lcountrycode" id="lcountrycode" type="text" placeholder="Code" value="{{ old('fcountrycode') }}" required>
                                                 <input class="form-control " name="phone_number" id="lphonenumber" type="text" placeholder="Phone number" value="{{ old('phone_number') }}" required>
                                             </div>  -->
-                                    <div class="form-group form-inline">
-                                        <input class="form-control " name="email_address" id="femailaddress"
-                                            type="email" placeholder="Your email"
-                                            value="{{ old('email_address') }}" required>
-                                        <input class="form-control " name="lcountrycode" id="fcountrycode"
-                                            type="text" placeholder="Code" value="{{ old('fcountrycode') }}"
-                                            required>
-                                        <input class="form-control " name="lphone_number" id="fphonenumber"
-                                            type="text" placeholder="Phone number"
-                                            value="{{ old('phone_number') }}" required>
-                                    </div>
+                                <div class="form-group form-inline">
+                                    <input class="form-control " name="email_address" id="femailaddress"
+                                        type="email" placeholder="Your email" value="{{ old('email_address') }}"
+                                        required>
+                                    <input class="form-control " name="lcountrycode" id="fcountrycode"
+                                        type="text" placeholder="Code" value="{{ old('fcountrycode') }}"
+                                        required>
+                                    <input class="form-control " name="lphone_number" id="fphonenumber"
+                                        type="text" placeholder="Phone number" value="{{ old('phone_number') }}"
+                                        required>
+                                </div>
 
-                                    <div class="form-group">
-                                        <input class="form-control " name="return_address" id="ReturnAddress"
-                                            type="text" placeholder="Post and physical address" value=""
-                                            required>
-                                    </div>
+                                <div class="form-group">
+                                    <input class="form-control " name="return_address" id="ReturnAddress"
+                                        type="text" placeholder="Post and physical address" value=""
+                                        required>
+                                </div>
 
-                                    <div class="form-group"> </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <p class="privacy text-left">
-                                                <!-- MADE THIS PART SIMILAR TO ABOVE -->
-                                                <input type="checkbox" name="lostTerm" id="lostTerm" required>I
-                                                agree to <a href="">Terms & Policies.</a>
-                                            </p>
-                                        </div>
+                                <div class="form-group"> </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <p class="privacy text-left">
+                                            <!-- MADE THIS PART SIMILAR TO ABOVE -->
+                                            <input type="checkbox" name="lostTerm" id="lostTerm" required>I
+                                            agree to <a href="">Terms & Policies.</a>
+                                        </p>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" id="lbtn" class="btn btn-primary"
-                                            disabled>Submit</button>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" id="lbtn" class="btn btn-primary"
+                                        disabled>Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- NAVIGATION -->
     <div id="menu">
         <nav class="navbar-wrapper navbar-default" role="navigation">

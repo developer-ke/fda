@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row row-ourplatform">
+    <div class="row">
         <div class="text-center">
             <!-- /.Our Platform title -->
             <h2 class="text-center wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">Our

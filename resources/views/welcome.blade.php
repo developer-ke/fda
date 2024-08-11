@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">--->
     <!-- CSS Files -->
-    <link href="{{ asset('bootstrap/assets/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
-    <link href="{{ asset('bootstrap/assets/css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bootstrap/assets/fonts/icon-7-stroke/css/pe-icon-7-stroke.css') }}" rel="stylesheet">
-    <link href="{{ asset('bootstrap/assets/css/animate.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('bstp/assets/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('bstp/assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bstp/assets/fonts/icon-7-stroke/css/pe-icon-7-stroke.css') }}" rel="stylesheet">
+    <link href="{{ asset('bstp/assets/css/animate.css') }}" rel="stylesheet" media="screen">
     <!-- Colors -->
-    <link href="{{ asset('bootstrap/assets/css/css-index.css') }}" rel="stylesheet" media="screen">
-    <link href="{{ asset('bootstrap/assets/css/owl.theme.css') }}" rel="stylesheet" media="screen">
-    <link href="{{ asset('bootstrap/assets/css/owl.carousel.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('bstp/assets/css/css-index.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('bstp/assets/css/owl.theme.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('bstp/assets/css/owl.carousel.css') }}" rel="stylesheet" media="screen">
     <!-- Google Fonts -->
     <link rel="stylesheet"
         href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
@@ -683,12 +683,12 @@
     <!--/.footer -->
     @include('layouts/footer')
     <!-- /.javascript files -->
-    <script src="{{ asset('bootstrap/assets/js/jquery.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/custom.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/jquery.sticky.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/wow.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/custom.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/jquery.sticky.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/wow.min.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/owl.carousel.min.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

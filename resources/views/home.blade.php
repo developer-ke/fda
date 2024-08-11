@@ -895,12 +895,12 @@
     <!--/.footer -->
     @include('layouts/footer')
     <!-- /.javascript files -->
-    <script src="{{ asset('bootstrap/assets/js/jquery.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/custom.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/jquery.sticky.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/wow.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/custom.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/jquery.sticky.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/wow.min.js') }}"></script>
+    <script src="{{ asset('bstp/assets/js/owl.carousel.min.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6 col-lg-4 mt-5">
+        <div class="row d-flex align-items-center vh-100  justify-content-center">
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="card shadow-none">
                     <div class="card-header">{{ __('Reset Password') }}</div>
                     <div class="card-body">

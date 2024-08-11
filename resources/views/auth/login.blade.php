@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row d-flex align-items-center vh-100 justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card shadow-none">
                     <div class="card-header fda-bg text-center">
@@ -71,7 +71,7 @@
                                 <a href="{{ route('auth.redirect', ['provider' => 'google']) }}" data-bs-toggle='tooltip'
                                     title="Google">
                                     <span class="avatar bg-danger">
-                                        <span class="fa fa-google"></span>
+                                        <span class="bi bi-google"></span>
                                     </span>
                                 </a>
                             </div>
@@ -79,7 +79,7 @@
                                 <a href="{{ route('auth.redirect', ['provider' => 'facebook']) }}" data-bs-toggle='tooltip'
                                     title="Facebook">
                                     <span class="avatar bg-info">
-                                        <span class="fa fa-facebook"></span>
+                                        <span class="bi bi-facebook"></span>
                                     </span>
                                 </a>
                             </div>
@@ -87,7 +87,7 @@
                                 <a href="{{ route('auth.redirect', ['provider' => 'twitter']) }}" data-bs-toggle='tooltip'
                                     title="Twitter">
                                     <span class="avatar bg-dark">
-                                        <span class="fa fa-twitter"></span>
+                                        <span class="bi bi-twitter"></span>
                                     </span>
                                 </a>
                             </div>
@@ -95,7 +95,7 @@
                                 <a href="{{ route('auth.redirect', ['provider' => 'github']) }}" data-bs-toggle='tooltip'
                                     title="Github">
                                     <span class="avatar bg-secondary">
-                                        <span class="fa fa-github"></span>
+                                        <span class="bi bi-github"></span>
                                     </span>
                                 </a>
                             </div>

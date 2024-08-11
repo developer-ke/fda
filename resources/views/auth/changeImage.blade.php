@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-    <div class="row justify-content-center">
+    <div class="row d-flex align-items-center vh-100  justify-content-center">
         <div class="col-12 col-md-6 col-lg-4">
             <div class="card shadow-none">
 

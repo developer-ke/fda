@@ -66,7 +66,7 @@
                         <div class="text-center mb-3">
                             <span class="form-check-label text-center">- - - - - - - - Or Login With- - - - - - - - </span>
                         </div>
-                        <div class="row mx-auto">
+                        <div class="row mx-auto justify-content-between">
                             <div class="col-auto">
                                 <a href="{{ route('auth.redirect', ['provider' => 'google']) }}" data-bs-toggle='tooltip'
                                     title="Google">

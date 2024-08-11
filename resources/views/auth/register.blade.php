@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container ">
-        <div class="row mx-auto d-flex align-items-center vh-100  justify-content-center">
+        <div class="row mx-auto d-flex align-items-center vh-100 justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card shadow-none">
                     <div class="card-header fda-bg text-center">
@@ -76,7 +76,7 @@
                             <span class="form-check-label text-center">- - - - - - - - Or Register With- - - - - - - -
                             </span>
                         </div>
-                        <div class="row mx-auto">
+                        <div class="row mx-auto justify-content-between">
                             <div class="col-auto">
                                 <a href="{{ route('auth.redirect', ['provider' => 'google']) }}" data-bs-toggle='tooltip'
                                     title="Google">

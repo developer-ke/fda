@@ -506,109 +506,49 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="Carousel" class="carousel slide">
-                                    <!--<ol class="carousel-indicators">-->
-                                    <!--<li data-target="#Carousel" data-slide-to="0" class="active"></li>-->
-                                    <!--<li data-target="#Carousel" data-slide-to="1"></li>-->
-                                    <!--<li data-target="#Carousel" data-slide-to="2"></li>-->
-                                    <!--</ol>-->
+                                    @php
+                                        $totalPartners = count($partners);
+                                        $partnersPerSlide = 4;
+                                        $totalSlides = ceil($totalPartners / $partnersPerSlide);
+                                    @endphp
+
+                                    <ol class="carousel-indicators">
+                                        @for ($i = 0; $i < $totalSlides; $i++)
+                                            <li data-target="#Carousel" data-slide-to="{{ $i }}"
+                                                class="@if ($i === 0) active @endif"></li>
+                                        @endfor
+                                    </ol>
+
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
-                                        <div class="item active">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" alt="Image"
-                                                            id='img3'>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" alt="Image"
-                                                            id='img3'>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" alt="Image"
-                                                            id='img3'>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" alt="Image"
-                                                            id='img3'>
-                                                    </a>
+                                        @for ($i = 0; $i <= $totalSlides; $i++)
+                                            <div class="carousel-item @if ($i === 0) active @endif">
+                                                <div class="row">
+                                                    @for ($j = 0; $j < $partnersPerSlide; $j++)
+                                                        @php
+                                                            $index = $i * $partnersPerSlide + $j;
+                                                        @endphp
+                                                        @if ($index < $totalPartners)
+                                                            <div class="col-md-3 mb-3">
+                                                                <div class="card h-100">
+                                                                    <img src="{{ asset('assets/cms/' . $partners[$index]->logo) }}"
+                                                                        alt="Logo" class="card-img-top img-fluid"
+                                                                        height="200px" width="300px">
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    @endfor
                                                 </div>
                                             </div>
-                                            <!--.row-->
-                                        </div>
-                                        <!--.item-->
-                                        <div class="item">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" alt="Image"
-                                                            id='img3'>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" alt="Image"
-                                                            id='img3'>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" alt="Image"
-                                                            id='img3'>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" alt="Image"
-                                                            id='img3'>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!--.row-->
-                                        </div>
-                                        <!--.item-->
-                                        <div class="item">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" id='img3'
-                                                            alt="Image">
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" id='img3'
-                                                            alt="Image">
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" id='img3'
-                                                            alt="Image">
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="#" class="thumbnail">
-                                                        <img src="http://placehold.it/250x250" id='img3'
-                                                            alt="Image">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!--.row-->
-                                        </div>
-                                        <!--.item-->
+                                        @endfor
                                     </div>
                                     <!--.carousel-inner-->
                                 </div>
                                 <!--.Carousel-->
                             </div>
+
                         </div>
+
                     </div>
                     <!--.container-->
                 </div>

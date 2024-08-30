@@ -77,5 +77,3 @@ $(document).ready(function () {
         Drawers();
     }
 })
-
-

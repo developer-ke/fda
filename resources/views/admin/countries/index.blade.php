@@ -39,7 +39,7 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <div class="me-2    ">
+                                                <div class="me-2">
                                                     <img src="{{ asset('uploads/profiles/' . $country->image) }}"
                                                         class="avatar avatar-md" alt="user1">
                                                 </div>

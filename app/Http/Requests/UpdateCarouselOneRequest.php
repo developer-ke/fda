@@ -35,5 +35,4 @@ class UpdateCarouselOneRequest extends FormRequest
             'image' => 'image|nullable|unique:carousel_ones,image,' . $id . '|mimes:png,jpg,webp,jpeg|max:2048',
         ];
     }
-
 }

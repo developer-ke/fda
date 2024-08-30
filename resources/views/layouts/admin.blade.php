@@ -202,6 +202,12 @@
                                     <span class="sidenav-normal  ms-2  ps-1">second carousel</span>
                                 </a>
                             </li>
+                            <li class="nav-item text-capitalize">
+                                <a class="nav-link text-white" href="{{ route('admin.partner') }}">
+                                    <span class="sidenav-mini-icon">p</span>
+                                    <span class="sidenav-normal  ms-2  ps-1">partners</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -662,7 +668,6 @@
     <script src="{{ asset('js/dataTable.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     @stack('scripts')
-
 </body>
 
 </html>

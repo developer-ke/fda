@@ -23,6 +23,7 @@ use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PartnersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -154,6 +155,16 @@ Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->g
         Route::put('/second/advert/enable/all', [CarouselTwoController::class, 'enableAll'])->name('admin.cms2.enableAll');
         Route::put('/second/advert/disable/all', [CarouselTwoController::class, 'disableAll'])->name('admin.cms2.disableAll');
         Route::delete('/second/advert/delete/all', [CarouselTwoController::class, 'deleteAll'])->name('admin.cms2.deleteAll');
+
+        // Partnership
+        Route::get('/cms/partners', [PartnersController::class, 'index'])->name('admin.partner');
+        Route::get('/cms/partners/create', [PartnersController::class, 'create'])->name('admin.partner.create');
+        Route::post('/cms/partners/store', [PartnersController::class, 'store'])->name('admin.partner.store');
+        Route::get('/cms/partners/{partner_id}/edit', [PartnersController::class, 'edit'])->name('admin.partner.edit');
+        Route::put('/cms/partners/{partner_id}/update', [PartnersController::class, 'update'])->name('admin.partner.update');
+        Route::put('/cms/partners/{partner_id}/enable', [PartnersController::class, 'enable'])->name('admin.partner.enable');
+        Route::put('/cms/partners/{partner_id}/disable', [PartnersController::class, 'disable'])->name('admin.partner.disable');
+        Route::delete('/cms/partners/{partner_id}/destroy', [PartnersController::class, 'destroy'])->name('admin.partner.destroy');
 
         // institutions
         Route::get('/institutions', [InstitutionController::class, 'index'])->name('admin.institutions');

@@ -9,6 +9,7 @@ use App\Models\DocumentType;
 use App\Models\FoundDocuments;
 use App\Models\lostDocuments;
 use App\Models\visits;
+use App\Models\Partners;
 
 class HomeController extends Controller
 {
@@ -48,6 +49,7 @@ class HomeController extends Controller
             'types' => DocumentType::orderBy('name', 'ASC')->get(),
             'lostDocuments' => lostDocuments::all(),
             'foundDocuments' => FoundDocuments::all(),
+            'partners' => Partners::where('status', true)->get(),
         ]);
     }
 }

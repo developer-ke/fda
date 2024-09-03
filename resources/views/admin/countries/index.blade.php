@@ -18,6 +18,7 @@
                             <thead class="text-uppercase text-sm text-start">
                                 <th>no</th>
                                 <th>added by</th>
+                                <th>government</th>
                                 <th>country name</th>
                                 <th>capital city</th>
                                 <th>nationality</th>
@@ -48,6 +49,9 @@
                                                     <p class="text-sm text-secondary mb-0">{{ $country->email }}</p>
                                                 </div>
                                             </div>
+                                        </td>
+                                        <td class="align-middle text-sm text-capitalize">
+                                            Government of {{ $country->countryName }}
                                         </td>
                                         <td class="align-middle text-sm text-capitalize">
                                             {{ $country->countryName }}

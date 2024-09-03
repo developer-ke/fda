@@ -174,33 +174,62 @@
                    </div>
                </div>`;
         }
-
+        const confirmDialog = (title, text, icon, confirmButtonText, formId) => {
+            Swal.fire({
+                title,
+                text,
+                icon,
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.querySelector('#' + formId).submit();
+                }
+            });
+        }
+        const changeRole = (title, text, btnText, id, user) => {
+            console.log(user);
+            confirmDialog(title, text, 'warning', btnText, id);
+        }
         const getRoleActions = (user) => {
             return `
-                <div class="dropdown open">
-                    <button class="btn fda-bg dropdown-toggle text-white ${user.id === {{ Auth::user()->id }} ? 'disabled bg-danger' : ''}" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        ${user.role === 1 ? 'Demote' : user.role === 2 ? 'Promote or Demote' : user.role === 3 ? 'Promote' : ''}
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end text-capitalize" aria-labelledby="triggerId">
-                        <form action="/admin/users/${user.id}/role/1" method="post">
+                 <div class='container'>
+                <div class='row mx-auto'>
+                    <div class='col-auto'>
+                        <form action="/admin/users/${user.id}/role/1" method="post" id='toAdminForm_${user.id}'>
                             @csrf
                             @method('PUT')
-                            <button onclick="return confirm('Are you sure you want to promote this user to admin?')" class="dropdown-item text-capitalize ${user.role === 1 ? 'd-none' : ''}" type="submit">
-                                To admin
-                            </button>
-                        </form>
-                        <form action="/admin/users/${user.id}/role/2" method="post">
-                            @csrf
-                            @method('PUT')
-                            <button onclick="return confirm('Are you sure you want to change the role of this user?')" class="dropdown-item text-capitalize ${user.role === 2 ? 'd-none' : ''}" type="submit">to correspondent</button>
-                        </form>
-                        <form action="/admin/users/${user.id}/role/3" method="post">
-                            @csrf
-                            @method('PUT')
-                            <button onclick="return confirm('Are you sure you want to change the role of this user to correspondent?')" class="dropdown-item text-capitalize ${user.role === 3 ? 'd-none' : ''}" type="submit">to subscriber</button>
+                            <div class='form-check'>
+                              <input class='form-check-input' type='radio' value='${user.id}' name='role' ${user.role === 1 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}  onclick="changeRole('Promotion','Are you sure, you will not  revert this ?','Yes, promote','toAdminForm_${user.id}')">
+                              <label class='form-check-label'>Admin</label>
+                           </div>
                         </form>
                     </div>
-                </div>`;
+                     <div class='col-auto'>
+                        <form action="/admin/users/${user.id}/role/2" method="post" id='toCorrespondentForm_${user.id}'>
+                            @csrf
+                            @method('PUT')
+                           <div class='form-check'>
+                              <input class='form-check-input' type='radio' name='role' value='${user.id}' ${user.role === 2 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}   onclick="changeRole('Promotion/demotion','Are you sure, you will not  revert this ?','Yes','toCorrespondentForm_${user.id}')">
+                              <label class='form-check-label'>Correspondent</label>
+                           </div>
+                        </form>
+                        
+                    </div>
+                     <div class='col-auto'>
+                        <form action="/admin/users/${user.id}/role/3" method="post" id='toSubscriberForm_${user.id}'>
+                            @csrf
+                            @method('PUT')
+                           <div class='form-check'>
+                              <input class='form-check-input' type='radio' name='role' value='${user.id}' ${user.role === 3 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}  onclick="changeRole('Demotion','Are you sure, you will not revert this ?','Yes, demote','toSubscriberForm_${user.id}')">
+                              <label class='form-check-label'>Subscriber</label>
+                           </div>
+                        </form>
+                    </div>
+                </div>
+            </div>`;
         }
 
         const renderActions = (user) => {

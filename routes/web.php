@@ -36,10 +36,6 @@ use App\Http\Controllers\PartnersController;
 |
  */
 
-Route::get('/test', function () {
-    return view('test');
-});
-
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Auth::routes();
 Auth::routes(['verify' => true]);

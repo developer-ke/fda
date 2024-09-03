@@ -30,6 +30,16 @@
     <link href="{{ asset('css/front.css') }}" rel="stylesheet">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="../../js/app.js"></script>
+    <style>
+        #Partners {
+            height: 100vh;
+            background-color: #C63D0F;
+        }
+
+        #Partners h2 {
+            color: white;
+        }
+    </style>
 </head>
 
 <body data-spy="scroll" data-target="#navbar-scroll">
@@ -493,68 +503,59 @@
             <div class="clearfix"></div>
         </div>
     </section>
-    <div id="download">
-        <div class="action fullscreen parallax" id='action' data-img-width="2000" data-img-height="1333"
-            data-diff="100">
-            <div class="overlay">
-                <div class="mask">
-                    <div class="partners">
-                        <!-- <div class="container"> -->
-                        <h2 class="text-center wow fadeInLeft partner-style">Our Partners</h2>
-                        <!-- Removed this styleing (style="margin-top: 15px; font-weight: 400;  margin-bottom: 25px;") from inline to give the CSS page priority.  -->
-                        <div class="title-line wow fadeInRight" id='wow'></div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div id="Carousel" class="carousel slide">
-                                    @php
-                                        $totalPartners = count($partners);
-                                        $partnersPerSlide = 4;
-                                        $totalSlides = ceil($totalPartners / $partnersPerSlide);
-                                    @endphp
+    <section id="Partners" class="vh-100 fullscreen">
+        <div class="container">
+            <h2 class="text-center wow fadeInLeft partner-style">Our Partners</h2>
+            <div class="row" style="margin-top: 20px">
+                <div class="col-md-12">
+                    <div id="Carousel" class="carousel slide">
+                        @php
+                            $totalPartners = count($partners);
+                            $partnersPerSlide = 8;
+                            $totalSlides = ceil($totalPartners / $partnersPerSlide);
+                        @endphp
 
-                                    <ol class="carousel-indicators">
-                                        @for ($i = 0; $i < $totalSlides; $i++)
-                                            <li data-target="#Carousel" data-slide-to="{{ $i }}"
-                                                class="@if ($i === 0) active @endif"></li>
-                                        @endfor
-                                    </ol>
+                        <ol class="carousel-indicators">
+                            @for ($i = 0; $i < $totalSlides; $i++)
+                                <li data-target="#Carousel" data-slide-to="{{ $i }}"
+                                    class="@if ($i === 0) active @endif"></li>
+                            @endfor
+                        </ol>
 
-                                    <!-- Carousel items -->
-                                    <div class="carousel-inner">
-                                        @for ($i = 0; $i <= $totalSlides; $i++)
-                                            <div class="carousel-item @if ($i === 0) active @endif">
-                                                <div class="row">
-                                                    @for ($j = 0; $j < $partnersPerSlide; $j++)
-                                                        @php
-                                                            $index = $i * $partnersPerSlide + $j;
-                                                        @endphp
-                                                        @if ($index < $totalPartners)
-                                                            <div class="col-md-3 mb-3">
-                                                                <div class="card h-100">
-                                                                    <img src="{{ asset('assets/cms/' . $partners[$index]->logo) }}"
-                                                                        alt="Logo" class="card-img-top img-fluid"
-                                                                        height="200px" width="300px">
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    @endfor
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            @for ($i = 0; $i <= $totalSlides; $i++)
+                                <div class="carousel-item @if ($i === 0) active @endif">
+                                    <div class="row">
+                                        @for ($j = 0; $j < $partnersPerSlide; $j++)
+                                            @php
+                                                $index = $i * $partnersPerSlide + $j;
+                                            @endphp
+                                            @if ($index < $totalPartners)
+                                                <div class="col-12 col-md-3 mb-5">
+                                                    <div class="card h-100" style="margin-bottom: 20px">
+                                                        <img src="{{ asset('assets/cms/' . $partners[$index]->logo) }}"
+                                                            alt="Logo" class="card-img-top img-fluidm"
+                                                            height="200px" width="300px">
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         @endfor
                                     </div>
-                                    <!--.carousel-inner-->
                                 </div>
-                                <!--.Carousel-->
-                            </div>
-
+                            @endfor
                         </div>
-
+                        <!--.carousel-inner-->
                     </div>
-                    <!--.container-->
+                    <!--.Carousel-->
                 </div>
+
             </div>
+
         </div>
-    </div>
+        <!--.container-->
+    </section>
+
     <!-- /.pricing section -->
     <div id="package" class="counters">
         <div class="container">

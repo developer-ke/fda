@@ -70,6 +70,7 @@ class FoundDocumentsController extends Controller
                         "countries.city",
                     ])->where('found_documents.reprter_email', Auth::user()->email)->OrderBy('found_documents.id', 'DESC')->get();
                 return view('correspondent.foundDocuments.index')->with('documents', $documents);
+
             case 3:
                 $documents = FoundDocuments::join('document_types', 'found_documents.document_type_id', 'document_types.id')
                     ->join('countries', 'found_documents.country_id', 'countries.id')
@@ -93,6 +94,7 @@ class FoundDocumentsController extends Controller
                         "countries.city",
                     ])->where('found_documents.reprter_email', Auth::user()->email)->OrderBy('found_documents.id', 'DESC')->get();
                 return view('subscriber.foundDocuments.index')->with('documents', $documents);
+
             default:
                 return back()->with('error', 'error occured');
         }
@@ -114,18 +116,21 @@ class FoundDocumentsController extends Controller
                     'countries' => countries::all(),
                     'user' => $user,
                 ]);
+
             case 2:
                 return view('correspondent.foundDocuments.create')->with([
                     'types' => DocumentType::all(),
                     'countries' => countries::all(),
                     'user' => $user,
                 ]);
+
             case 3:
                 return view('subscriber.foundDocuments.create')->with([
                     'types' => DocumentType::all(),
                     'countries' => countries::all(),
                     'user' => $user,
                 ]);
+
 
             default:
                 return back()->with('error', 'an error occured');
@@ -212,10 +217,13 @@ class FoundDocumentsController extends Controller
             switch (Auth::user()->role) {
                 case 1:
                     return view('admin.foundDocuments.view')->with('document', $documents);
+
                 case 2:
                     return view('correspondent.foundDocuments.view')->with('document', $documents);
+
                 case 3:
                     return view('subscriber.foundDocuments.view')->with('document', $documents);
+
                 default:
                     return back()->with('error', 'error occured');
             }
@@ -235,18 +243,21 @@ class FoundDocumentsController extends Controller
                         'types' => DocumentType::all(),
                         'countries' => countries::all(),
                     ]);
+
                 case 2:
                     return view('correspondent.foundDocuments.edit')->with([
                         'document' => $document,
                         'types' => DocumentType::all(),
                         'countries' => countries::all(),
                     ]);
+
                 case 3:
                     return view('subscriber.foundDocuments.edit')->with([
                         'document' => $document,
                         'types' => DocumentType::all(),
                         'countries' => countries::all(),
                     ]);
+
                 default:
                     return back()->with('error', 'an error occured');
             }
@@ -262,23 +273,21 @@ class FoundDocumentsController extends Controller
             try {
                 DB::beginTransaction();
                 if ($request->validated()) {
-                    if (
-                        $document->update([
-                            "document_type_id" => $request->document_type_id,
-                            "country_id" => $request->country_id,
-                            "serialNumber" => $request->document_serial_number,
-                            "owner_fname" => $request->Owners_first_name,
-                            "owner_lname" => $request->Owners_last_name,
-                            "latitude" => $request->latitude,
-                            "longitude" => $request->longitude,
-                            "institution_on_document" => $request->institution_on_doc,
-                            "reprter_email" => $request->email_address,
-                            "reporter_code" => $request->fcountrycode,
-                            "reporter_phoneNumber" => $request->phone_number,
-                            "reporter_fname" => $request->ffirst_name,
-                            "reporter_lname" => $request->flast_name,
-                        ])
-                    ) {
+                    if ($document->update([
+                        "document_type_id" => $request->document_type_id,
+                        "country_id" => $request->country_id,
+                        "serialNumber" => $request->document_serial_number,
+                        "owner_fname" => $request->Owners_first_name,
+                        "owner_lname" => $request->Owners_last_name,
+                        "latitude" => $request->latitude,
+                        "longitude" => $request->longitude,
+                        "institution_on_document" => $request->institution_on_doc,
+                        "reprter_email" => $request->email_address,
+                        "reporter_code" => $request->fcountrycode,
+                        "reporter_phoneNumber" => $request->phone_number,
+                        "reporter_fname" => $request->ffirst_name,
+                        "reporter_lname" => $request->flast_name,
+                    ])) {
                         DB::commit();
                         return back()->with('success', 'document updated successfully');
                     }
@@ -297,21 +306,6 @@ class FoundDocumentsController extends Controller
         try {
             DB::beginTransaction();
             if ($document = FoundDocuments::find($id)) {
-                lostDocuments::create([
-                    "address" => null,
-                    "phoneNumber" => null,
-                    "code" => $document->reporter_code,
-                    "email" => null,
-                    "firstName" => $document->owner_fname,
-                    "lastName" => $document->owner_lname,
-                    "police_ref_number" => null,
-                    "location",
-                    "institution_on_document" => $document->institution_on_document,
-                    "serialNumber" => $document->serialNumber,
-                    "country_id" => $document->country_id,
-                    "document_type_id" => $document->document_type_id,
-                    "status" => 2,
-                ]);
                 if ($document->update(['status' => 2])) {
                     DB::commit();
                     return back()->with('success', 'document marked as matched successfully');

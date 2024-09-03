@@ -6,12 +6,15 @@ use App\Http\Requests\StorelostDocumentsRequest;
 use App\Http\Requests\UpdatelostDocumentsRequest;
 use App\Models\countries;
 use App\Models\DocumentType;
+use App\Models\FoundDocuments;
 use App\Models\lostDocuments;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Mail\foundNotification;
+use Illuminate\Support\Facades\Mail;
 
 class LostDocumentsController extends Controller
 {
@@ -43,7 +46,7 @@ class LostDocumentsController extends Controller
         switch (Auth::user()->role) {
             case 1:
                 return view('admin.lostDocuments.index')->with('documents', $documents);
-                break;
+
             case 2:
                 $documents = lostDocuments::join('countries', 'lost_documents.country_id', 'countries.id')
                     ->join('document_types', 'lost_documents.document_type_id', 'document_types.id')
@@ -66,7 +69,7 @@ class LostDocumentsController extends Controller
                         "document_types.name AS documentType"
                     )->where(['lost_documents.status' => 0, 'lost_documents.email' => Auth::user()->email])->orderBy('lost_documents.id', 'DESC')->get();
                 return view('correspondent.lostDocuments.index')->with('documents', $documents);
-                break;
+
 
             case 3:
                 $documents = lostDocuments::join('countries', 'lost_documents.country_id', 'countries.id')
@@ -90,10 +93,9 @@ class LostDocumentsController extends Controller
                         "document_types.name AS documentType"
                     )->where(['lost_documents.status' => 0, 'lost_documents.email' => Auth::user()->email])->orderBy('lost_documents.id', 'DESC')->get();
                 return view('subscriber.lostDocuments.index')->with('documents', $documents);
-                break;
+
             default:
                 return back()->with('error', 'error occured');
-                break;
         }
     }
 
@@ -119,7 +121,7 @@ class LostDocumentsController extends Controller
                     'user' => $user,
                 ]);
 
-                break;
+
 
             case 2:
                 return view('correspondent.lostDocuments.create')->with([
@@ -127,7 +129,7 @@ class LostDocumentsController extends Controller
                     'types' => DocumentType::orderBy('name', 'ASC')->get(),
                     'user' => $user,
                 ]);
-                break;
+
 
             case 3:
                 return view('subscriber.lostDocuments.create')->with([
@@ -135,13 +137,11 @@ class LostDocumentsController extends Controller
                     'types' => DocumentType::orderBy('name', 'ASC')->get(),
                     'user' => $user,
                 ]);
-                break;
+
 
             default:
                 return back()->with('error', 'An error has occured');
-                break;
         }
-
     }
 
     /**
@@ -152,6 +152,19 @@ class LostDocumentsController extends Controller
         if ($request->validated()) {
             try {
                 DB::beginTransaction();
+                $status = 2;
+                if ($document = FoundDocuments::where('serialNumber', $request->document_serial_number)->first()) {
+                    // get the owner's details if it's found
+                    $fname = $document->firstName;
+                    $lname = $document->lastName;
+                    $email = $document->email;
+                    if ($fname == $request->fname && $lname == $request->lname || $lname == $request->lname && $fname == $request->fname) {
+                        if (Mail::to($email)->send(new foundNotification($request->all()))) {
+                            $document->update(['status' => 2]);
+                            $status = 2;
+                        }
+                    }
+                }
                 $lost = new lostDocuments([
                     "address" => $request->return_address,
                     "phoneNumber" => $request->lphone_number,
@@ -165,6 +178,7 @@ class LostDocumentsController extends Controller
                     "serialNumber" => $request->document_serial_number,
                     "country_id" => $request->country_id,
                     "document_type_id" => $request->document_type_id,
+                    'status' => $status,
                 ]);
                 if ($lost->save()) {
                     DB::commit();
@@ -172,7 +186,7 @@ class LostDocumentsController extends Controller
                 }
             } catch (Exception $e) {
                 DB::rollBack();
-                Log::error('error', $e->getMessage());
+                Log::error('error' . $e->getMessage());
                 return back()->with('error', 'an error occured');
             }
         }
@@ -206,16 +220,15 @@ class LostDocumentsController extends Controller
         switch (Auth::user()->role) {
             case 1:
                 return view('admin.lostDocuments.view')->with('document', $documents);
-                break;
+
             case 2:
                 return view('correspondent.lostDocuments.view')->with('document', $documents);
-                break;
+
             case 3:
                 return view('subscriber.lostDocuments.view')->with('document', $documents);
-                break;
+
             default:
                 return back()->with('error', 'An error has occured');
-                break;
         }
     }
 
@@ -232,30 +245,26 @@ class LostDocumentsController extends Controller
                         'countries' => countries::orderBy('name', 'ASC')->get(),
                         'types' => DocumentType::orderBy('name', 'ASC')->get(),
                     ]);
-                    break;
+
                 case 2:
                     return view('correspondent.lostDocuments.edit')->with([
                         'document' => $document,
                         'countries' => countries::orderBy('name', 'ASC')->get(),
                         'types' => DocumentType::orderBy('name', 'ASC')->get(),
                     ]);
-                    break;
+
                 case 3:
                     return view('subscriber.lostDocuments.edit')->with([
                         'document' => $document,
                         'countries' => countries::orderBy('name', 'ASC')->get(),
                         'types' => DocumentType::orderBy('name', 'ASC')->get(),
                     ]);
-                    break;
+
 
                 default:
                     return back()->with('error', 'an error has occured');
-                    break;
-
             }
-
         }
-
     }
 
     /**
@@ -285,7 +294,7 @@ class LostDocumentsController extends Controller
                         return back()->with('success', 'document updated successfully');
                     }
                 } catch (\Throwable $th) {
-                    Log::error('error due to', $th->getMessage());
+                    Log::error('error due to' . $th->getMessage());
                     DB::rollBack();
                 }
             }
@@ -307,13 +316,11 @@ class LostDocumentsController extends Controller
                 }
             }
             return back()->with('error', 'an error has occured');
-
         } catch (\Throwable $th) {
-            Log::error('error due to', $th->getMessage());
+            Log::error('error due to' . $th->getMessage());
             DB::rollBack();
             return back()->with('error', 'an error has occured');
         }
-
     }
 
     // make a document as matched
@@ -328,13 +335,11 @@ class LostDocumentsController extends Controller
                 }
             }
             return back()->with('error', 'an error has occured');
-
         } catch (\Throwable $th) {
-            Log::error('error failed to fetch the lost document due to', $th->getMessage());
+            Log::error('error failed to fetch the lost document due to' . $th->getMessage());
             DB::rollBack();
             return back()->with('error', 'an error has occured');
         }
-
     }
     // make a document as matched
     public function claimed(String $id)
@@ -348,12 +353,10 @@ class LostDocumentsController extends Controller
                 }
             }
             return back()->with('error', 'an error has occured');
-
         } catch (\Throwable $th) {
-            Log::error('error failed to fetch the lost document due to', $th->getMessage());
+            Log::error('error failed to fetch the lost document due to' . $th->getMessage());
             DB::rollBack();
             return back()->with('error', 'an error has occured');
         }
-
     }
 }

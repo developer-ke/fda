@@ -16,6 +16,7 @@
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered  data-table">
                             <thead class="text-capitalize text-sm">
+                                <th>callapse</th>
                                 <th>no</th>
                                 <th>document details</th>
                                 <th>owner's details</th>
@@ -29,67 +30,36 @@
                                     $counter = 0;
                                 @endphp
                                 @foreach ($documents as $document)
+                                    @php
+                                        echo $counter += 1;
+                                    @endphp
                                     <tr>
                                         <td>
+                                            <div class="dropdown mx-auto">
+                                                <button class="btn  dropdown-toggle btn-xlg" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseRow{{ $counter }}" aria-expanded="false"
+                                                    aria-controls="collapseRow{{ $counter }}">
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
                                             @php
-                                                echo $counter += 1;
+                                                echo $counter;
                                             @endphp
                                         </td>
                                         <td>
-                                            <ul class="list-group ms-3 h-100">
-                                                <li class="list-group-item border-0  p-0 text-sm">
-                                                    <b class="text-capitalize">type of document:</b>
-                                                    {{ $document->typOfDocument }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">serial number:</b>
-                                                    {{ $document->serialNumber }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">institution on document:</b>
-                                                    {{ $document->institution_on_document }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">country on:</b>
-                                                    {{ $document->countryName }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">city on:</b>
-                                                    {{ $document->city }}
-                                                </li>
-                                            </ul>
+                                            <b class="text-capitalize">type of document:</b>
+                                            {{ $document->typOfDocument }}
                                         </td>
                                         <td>
                                             <ul class="list-group ms-3">
-                                                <li class="list-group-item border-0  p-0 text-sm">
-                                                    <b class="text-capitalize">first name:</b>
-                                                    {{ $document->owner_fname }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">second name:</b>
-                                                    {{ $document->owner_lname }}
-                                                </li>
+
+                                                {{ $document->owner_fname }} {{ $document->owner_lname }}
                                             </ul>
                                         </td>
                                         <td>
-                                            <ul class="list-group ms-3">
-                                                <li class="list-group-item border-0  p-0 text-sm">
-                                                    <b class="text-capitalize">first name:</b>
-                                                    {{ $document->reporter_fname }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">second name:</b>
-                                                    {{ $document->reporter_lname }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">email:</b>
-                                                    {{ $document->reprter_email }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">Phone number:</b>
-                                                    {{ $document->reporter_code . $document->reporter_phoneNumber }}
-                                                </li>
-                                            </ul>
+                                            {{ $document->reporter_fname }} {{ $document->reporter_lname }}
                                         </td>
                                         <td>
                                             @if ($document->status === 0)
@@ -159,6 +129,65 @@
                                                 </div>
                                             </div>
                                         </td>
+                                    </tr>
+                                    <tr class="collapse " id="collapseRow{{ $counter }}">
+                                        <td></td>
+                                        <td>
+                                            <ul class="list-group ms-3 h-100">
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">serial number:</b>
+                                                    {{ $document->serialNumber }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">institution on document:</b>
+                                                    {{ $document->institution_on_document }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">country on:</b>
+                                                    {{ $document->countryName }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">city on:</b>
+                                                    {{ $document->city }}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul class="list-group ms-3">
+                                                <li class="list-group-item border-0  p-0 text-sm">
+                                                    <b class="text-capitalize">first name:</b>
+                                                    {{ $document->owner_fname }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">second name:</b>
+                                                    {{ $document->owner_lname }}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul class="list-group ms-3">
+                                                <li class="list-group-item border-0  p-0 text-sm">
+                                                    <b class="text-capitalize">first name:</b>
+                                                    {{ $document->reporter_fname }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">second name:</b>
+                                                    {{ $document->reporter_lname }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">email:</b>
+                                                    {{ $document->reprter_email }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">Phone number:</b>
+                                                    {{ $document->reporter_code . $document->reporter_phoneNumber }}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -14,8 +14,9 @@
             <div class="card-body">
                 <div class="container-fluid">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered  data-table">
+                        <table class="table  table-bordered  data-table">
                             <thead class="text-capitalize text-sm">
+                                <th>collapse</th>
                                 <th>no</th>
                                 <th>document details</th>
                                 <th>owners details</th>
@@ -28,67 +29,32 @@
                                     $counter = 0;
                                 @endphp
                                 @foreach ($documents as $document)
+                                    @php
+                                        $counter += 1;
+                                    @endphp
                                     <tr>
                                         <td>
+                                            <div class="dropdown mx-auto">
+                                                <button class="btn  dropdown-toggle btn-xlg" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseRow{{ $counter }}" aria-expanded="false"
+                                                    aria-controls="collapseRow{{ $counter }}">
+                                                </button>
+                                            </div>
+
+                                        </td>
+                                        <td>
                                             @php
-                                                echo $counter += 1;
+                                                echo $counter;
                                             @endphp
                                         </td>
                                         <td>
-                                            <ul class="list-group ms-3 h-100">
-                                                <li class="list-group-item border-0  p-0 text-sm">
-                                                    <b class="text-capitalize">type of document:</b>
-                                                    {{ $document->documentType }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">serial number:</b>
-                                                    {{ $document->serialNumber }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">institution on document:</b>
-                                                    {{ $document->institution_on_document }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">police reference:</b>
-                                                    {{ $document->police_ref_number }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">location lost:</b>
-                                                    {{ $document->location }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">country on:</b>
-                                                    {{ $document->countryName }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">city on:</b>
-                                                    {{ $document->city }}
-                                                </li>
-                                            </ul>
+                                            <b>Tye of document:</b>
+                                            {{ $document->documentType }}
                                         </td>
                                         <td>
-                                            <ul class="list-group ms-3">
-                                                <li class="list-group-item border-0  p-0 text-sm">
-                                                    <b class="text-capitalize">first name:</b>
-                                                    {{ $document->firstName }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">second name:</b>
-                                                    {{ $document->lastName }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">email address:</b>
-                                                    {{ $document->email }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">phone number:</b>
-                                                    {{ $document->code . $document->phoneNumber }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize"> physical address:</b>
-                                                    {{ $document->location }}
-                                                </li>
-                                            </ul>
+                                            {{ $document->firstName }} {{ $document->lastName }}
+
                                         </td>
                                         <td>
                                             @if ($document->status === 0)
@@ -154,6 +120,65 @@
                                                 </div>
                                             </div>
                                         </td>
+                                    </tr>
+                                    <tr class="collapse" id="collapseRow{{ $counter }}">
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <ul class="list-group ms-3 h-100">
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">serial number:</b>
+                                                    {{ $document->serialNumber }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">institution on document:</b>
+                                                    {{ $document->institution_on_document }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">police reference:</b>
+                                                    {{ $document->police_ref_number }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">location lost:</b>
+                                                    {{ $document->location }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">country on:</b>
+                                                    {{ $document->countryName }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">city on:</b>
+                                                    {{ $document->city }}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul class="list-group ms-3">
+                                                <li class="list-group-item border-0  p-0 text-sm">
+                                                    <b class="text-capitalize">first name:</b>
+                                                    {{ $document->firstName }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">second name:</b>
+                                                    {{ $document->lastName }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">email address:</b>
+                                                    {{ $document->email }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">phone number:</b>
+                                                    {{ $document->code . $document->phoneNumber }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize"> physical address:</b>
+                                                    {{ $document->location }}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -17,13 +17,13 @@
                         <table class="table align-items-center table-hover mb-0 data-table">
                             <thead class="text-uppercase text-sm text-start">
                                 <th>no</th>
-                                <th>added by</th>
+                                <th>country</th>
                                 <th>government</th>
-                                <th>country name</th>
                                 <th>capital city</th>
                                 <th>nationality</th>
                                 <th>abbreviation</th>
                                 <th>code</th>
+                                <th>added by</th>
                                 <th>added on</th>
                                 <th class="text-center">more</th>
                             </thead>
@@ -38,23 +38,11 @@
                                                 echo $counter;
                                             @endphp
                                         </td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="me-2">
-                                                    <img src="{{ asset('uploads/profiles/' . $country->image) }}"
-                                                        class="avatar avatar-md" alt="user1">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $country->name }}</h6>
-                                                    <p class="text-sm text-secondary mb-0">{{ $country->email }}</p>
-                                                </div>
-                                            </div>
+                                        <td class="align-middle text-sm text-capitalize">
+                                            {{ $country->countryName }}
                                         </td>
                                         <td class="align-middle text-sm text-capitalize">
                                             Government of {{ $country->countryName }}
-                                        </td>
-                                        <td class="align-middle text-sm text-capitalize">
-                                            {{ $country->countryName }}
                                         </td>
                                         <td class="align-middle text-sm text-capitalize">
                                             {{ $country->city }}
@@ -67,6 +55,18 @@
                                         </td>
                                         <td class="align-middle text-center text-capitalize">
                                             {{ $country->code }}
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <div class="me-2">
+                                                    <img src="{{ asset('uploads/profiles/' . $country->image) }}"
+                                                        class="avatar avatar-md" alt="user1">
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $country->name }}</h6>
+                                                    <p class="text-sm text-secondary mb-0">{{ $country->email }}</p>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td class="align-middle text-center">
                                             {{ $country->created_at->format('d/m/Y') }}

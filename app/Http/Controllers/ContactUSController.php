@@ -182,6 +182,6 @@ class ContactUSController extends Controller
         foreach ($trashes as $trash) {
             $trash->update(['status' => 1]);
         }
-        return back()->with('success', 'success', 'Messages restored successfully');
+        return back()->with('success', 'Messages restored successfully');
     }
 }

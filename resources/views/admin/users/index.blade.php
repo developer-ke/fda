@@ -60,7 +60,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table w-100 table-striped table-bordered table-hover" id="usersTable">
+                    <table class="table w-100   table-hover" id="usersTable">
                         <thead class="text-uppercase text-sm text-start">
                             <th>no</th>
                             <th>role management</th>
@@ -166,7 +166,7 @@
             return `
                <div class="d-flex">
                    <div class="me-2">
-                       <img src="{{ asset('uploads/profiles/') }}/${user.image}" class="avatar avatar-md border-radius-lg" alt="user1">
+                       <img src="{{ asset('uploads/profiles/') }}/${user.image}" class="avatar avatar-md rounded-3" alt="user1">
                    </div>
                    <div class="d-flex flex-column justify-content-center">
                        <h6 class="mb-0 text-sm">${user.name}</h6>

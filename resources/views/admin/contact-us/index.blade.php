@@ -7,7 +7,7 @@
         <div class="card shadow-none" id="client_surpport">
             <div class="card-header">
                 <div class="dropdown open">
-                    <a class="rounded-pill fda-bg text-white" type="button" id="triggerId" data-bs-toggle="dropdown"
+                    <a class="rounded-pill  text-dark" type="button" id="triggerId" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span class="bi bi-three-dots-vertical p-1"></span>
                     </a>

@@ -22,10 +22,23 @@ class StoreContactUSRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name"=>"required|string|min:8",
-            "email"=>"required|email",
-            "subject"=>"required|string",
-            "message"=>"required|string"
+            "name" => [
+                "required",
+                "string",
+                "min:8",
+                "regex:/^[A-Za-z0-9\s]+$/"
+            ],
+            "email" => "required|email",
+            "subject" => [
+                "required",
+                "string",
+                "regex:/^[A-Za-z0-9\s]+$/"
+            ],
+            "message" => [
+                "required",
+                "string",
+                "regex:/^[A-Za-z0-9\s]+$/"
+            ]
         ];
     }
 }

@@ -36,7 +36,7 @@
                                         <div class="d-flex">
                                             <div class="me-1">
                                                 <img src="{{ asset('uploads/profiles/' . $document->image) }}"
-                                                    alt="" class="avatar avatar-md">
+                                                    alt="" class="avatar avatar-md rounded-3">
                                             </div>
                                             <div class="d-flex flex-column">
                                                 <h6 class="text-sm mb-0 text-capitalize">{{ $document->username }}</h6>
@@ -66,7 +66,9 @@
                                                     method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="dropdown-item text-capitalize" onclick="return confirm('Are you sure you want to delete this?')" type="submit">
+                                                    <button class="dropdown-item text-capitalize"
+                                                        onclick="return confirm('Are you sure you want to delete this?')"
+                                                        type="submit">
                                                         <i class="fa fa-trash"></i>
                                                         delete
                                                     </button>

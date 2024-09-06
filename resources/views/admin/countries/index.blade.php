@@ -57,14 +57,14 @@
                                             {{ $country->code }}
                                         </td>
                                         <td>
-                                            <div class="d-flex">
+                                            <div class="d-flex text-xxs">
                                                 <div class="me-2">
                                                     <img src="{{ asset('uploads/profiles/' . $country->image) }}"
-                                                        class="avatar avatar-md" alt="user1">
+                                                        class="avatar avatar-md rounded-3" alt="user1">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $country->name }}</h6>
-                                                    <p class="text-sm text-secondary mb-0">{{ $country->email }}</p>
+                                                    <h6 class="mb-0 text-sm p-0">{{ $country->name }}</h6>
+                                                    <p class="text-sm text-secondary mb-0 p-0">{{ $country->email }}</p>
                                                 </div>
                                             </div>
                                         </td>

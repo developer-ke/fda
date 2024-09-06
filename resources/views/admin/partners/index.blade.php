@@ -35,7 +35,7 @@
                                     <div class="d-flex mx-auto">
                                         <div class="me-2">
                                             <img src="{{ asset('uploads/profiles/' . $partner->image) }}"
-                                                class="avatar avatar-md" alt="user1">
+                                                class="avatar avatar-md rounded-3" alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $partner->name }}</h6>
@@ -46,7 +46,7 @@
                                 <td>
                                     <div class="container mx-auto">
                                         <img src="{{ asset('assets/cms/' . $partner->logo) }}" alt="{{ $partner->logo }}"
-                                            class="image-fluid rounded-3 mx-auto" width="300px" height="200px">
+                                            class="image-fluid rounded-3 mx-auto" width="200px" height="150px">
                                     </div>
                                 </td>
                                 <td>

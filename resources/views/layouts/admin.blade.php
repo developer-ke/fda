@@ -29,8 +29,9 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.1.0') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.jqueryui.min.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.jqueryui.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> --}}
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <style>
         .fda-bg,
@@ -644,8 +645,7 @@
     <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11?"></script>
     {{-- <script src="{{ asset('assets/js/plugins/dataTables.min.js') }}"></script> --}}
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.jqueryui.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
     </script>

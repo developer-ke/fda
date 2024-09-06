@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div class="container-fluid">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered  data-table">
+                        <table class="table  data-table">
                             <thead class="text-capitalize text-sm">
                                 <th>callapse</th>
                                 <th>no</th>
@@ -132,6 +132,7 @@
                                     </tr>
                                     <tr class="collapse " id="collapseRow{{ $counter }}">
                                         <td></td>
+                                        <td></td>
                                         <td>
                                             <ul class="list-group ms-3 h-100">
                                                 <li class="list-group-item border-0 p-0 text-sm">
@@ -184,7 +185,6 @@
                                                 </li>
                                             </ul>
                                         </td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>

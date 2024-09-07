@@ -2,12 +2,12 @@
     style="background-image:url({{ asset('bootstrap/assets/images/bg-contact.jpg') }}" data-img-width="2000"
     data-img-height="1334" data-diff="100">
     <div class="overlay">
-        <div class="container">
-            <div class="row contact-row">
-                <div class="col-sm-4 twitter-timeline">
+        <div class="container-fluid">
+            <div class="row contact-row mx-auto">
+                <div class="col-sm-4  twitter-timeline">
                     <a data-chrome="nofooter noborders noscrollbar" data-width="320" data-theme="dark" data-height="335"
                         class="twitter-timeline" href="https://twitter.com/FoundDocument">Tweets by FoundDocument</a>
-                    <script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
                 <!-- /.address and contact -->
                 <div class="col-sm-4 contact-left ">

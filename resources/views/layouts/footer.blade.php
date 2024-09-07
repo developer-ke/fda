@@ -1,8 +1,9 @@
 <footer id="footer" class="footer">
     <div class="container ">
         <div class="row">
-            <div class="col   pull-left" style="font-size: 14px;">copyright&copy; @php echo date('Y');@endphp.FoundDocument
-                Agency.</div>
+            <div class="col pull-left text-white" style="font-size: 14px; color:rgb(255, 255, 255);">copyright&copy;
+                @php echo date('Y');@endphp.{{ env('APP_NAME') }}.
+            </div>
             <!-- /.social links -->
             <div class="col social text-center">
                 <ul>
@@ -16,8 +17,9 @@
 
                 </ul>
             </div>
-            <div class="col pull-right pt-8"><span class="pull-right"> Powered by <a
-                        href="#">FoundDocument</a></span>
+            <div class="col pull-right pt-8"><span class="pull-right"
+                    style="font-size: 14px; color:rgb(255, 255, 255);"> Powered by <a
+                        href="{{ env('APP_URL') }}">{{ env('APP_NAME') }}</a></span>
             </div>
             <a href="#" class="scrollToTop"><i class="pe-7s-up-arrow pe-va"></i></a>
         </div>

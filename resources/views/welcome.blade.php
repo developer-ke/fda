@@ -31,6 +31,10 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="../../js/app.js"></script>
     <style>
+        * {
+            font-family: new roman --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
         #Partners {
             height: 100vh;
             background-color: #C63D0F;

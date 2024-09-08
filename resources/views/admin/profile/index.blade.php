@@ -129,11 +129,11 @@
                                         </li>
                                         <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
                                             <b class="text-capitalize me-1">registered on:</b>
-                                            {{ $user->created_at->format('d/m/Y') }}
+                                            {{ $user->created_at->format('D, d F, Y') }}
                                         </li>
                                         <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
                                             <b class="text-capitalize me-1">email verified on:</b>
-                                            {{ $user->email_verified_at->format('d/m/Y') }}
+                                            {{ $user->email_verified_at->format('D, d F, Y') }}
                                         </li>
                                     </ul>
                                 </div>

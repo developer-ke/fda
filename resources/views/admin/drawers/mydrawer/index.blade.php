@@ -22,7 +22,7 @@
                             <th>details of the document</th>
                             <th>status</th>
                             <th>added on</th>
-                            <th>more</th>
+                            <th>actions</th>
                         </thead>
                         <tbody>
                             @php
@@ -88,7 +88,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{ $drawer->created_at->format('d/m/Y') }}
+                                        {{ $drawer->created_at->format('D, d F, Y') }}
                                     </td>
                                     <td>
                                         <div class="dropdown">

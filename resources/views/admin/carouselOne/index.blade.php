@@ -71,7 +71,7 @@
                             <th>url</th>
                             <th>status</th>
                             <th>date added</th>
-                            <th>more</th>
+                            <th>actions</th>
                         </thead>
                         <tbody>
                             @php
@@ -86,13 +86,9 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <div class="me-2">
-                                                <img src="{{ asset('uploads/profiles/' . $advert->userImage) }}"
-                                                    class="avatar avatar-md border-radius-lg" alt="user1">
-                                            </div>
+
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">{{ $advert->name }}</h6>
-                                                <p class="text-sm text-secondary mb-0">{{ $advert->email }}</p>
                                             </div>
                                         </div>
                                     </td>
@@ -113,7 +109,7 @@
                                             <span class="badge rounded-pill bg-danger">disabled</span>
                                         @endif
                                     </td>
-                                    <td>{{ $advert->created_at->format('d/m/Y') }}</td>
+                                    <td>{{ $advert->created_at->format('D, d F, Y') }}</td>
                                     <td>
                                         <div class="dropdown open">
                                             <a class="btn" type="button" id="triggerId" data-bs-toggle="dropdown"

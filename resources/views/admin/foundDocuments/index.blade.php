@@ -23,7 +23,7 @@
                                 <th>reporter's details</th>
                                 <th>status</th>
                                 <th>date</th>
-                                <th>more</th>
+                                <th>actions</th>
                             </thead>
                             <tbody>
                                 @php
@@ -71,7 +71,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $document->created_at->format('d/m/Y') }}
+                                            {{ $document->created_at->format('D, d F, Y') }}
                                         </td>
                                         <td>
                                             <div class="dropdown open">

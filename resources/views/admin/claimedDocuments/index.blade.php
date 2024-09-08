@@ -15,7 +15,7 @@
                                 <th>owners details</th>
                                 <th>status</th>
                                 <th>date</th>
-                                <th>more</th>
+                                <th>actions</th>
                             </thead>
                             <tbody>
                                 @php

@@ -57,7 +57,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $partner->created_at }}
+                                    {{ $partner->created_at->format('D, d F, Y') }}
                                 </td>
                                 <td>
                                     <div class="dropdown open">

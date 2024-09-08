@@ -68,7 +68,7 @@
                             <th>role</th>
                             <th>status</th>
                             <th>registered on</th>
-                            <th>more</th>
+                            <th>actions</th>
                         </thead>
                         <tbody id="userTbody"></tbody>
                     </table>
@@ -121,7 +121,18 @@
                     },
                     {
                         data: 'created_at',
-                        name: 'created_at'
+                        name: 'created_at',
+                        render: function(data, type, row) {
+                            const date = new Date(data);
+                            const options = {
+                                weekday: 'short',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            };
+                            return date.toLocaleDateString('en-US',
+                                options); // Formats as 'Sat, 12 April, 2024'
+                        }
                     },
                     {
                         data: null,

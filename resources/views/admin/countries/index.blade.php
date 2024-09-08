@@ -25,7 +25,7 @@
                                 <th>code</th>
                                 <th>added by</th>
                                 <th>added on</th>
-                                <th class="text-center">more</th>
+                                <th class="text-center">action</th>
                             </thead>
                             <tbody>
                                 @php
@@ -58,27 +58,23 @@
                                         </td>
                                         <td>
                                             <div class="d-flex text-xxs">
-                                                <div class="me-2">
-                                                    <img src="{{ asset('uploads/profiles/' . $country->image) }}"
-                                                        class="avatar avatar-md rounded-3" alt="user1">
-                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm p-0">{{ $country->name }}</h6>
-                                                    <p class="text-sm text-secondary mb-0 p-0">{{ $country->email }}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="align-middle text-center">
-                                            {{ $country->created_at->format('d/m/Y') }}
+                                            {{ $country->created_at->format('D, d F, Y') }}
+
                                         </td>
                                         <td class="align-middle">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a type="button"
                                                     href="{{ route('admin.countries.edit', ['countryId' => $country->id]) }}"
                                                     class="btn">
-                                                    <span class="bi bi-pencil-square text-info"></span>
+                                                    <span class="bi bi-pencil-square text-secondary"></span>
                                                 </a>
-                                                <a type="button" class="btn"
+                                                <a type="button" class="btn text-secondary"
                                                     onclick="viewCountry(
                                                                 '{{ $country->countryName }}',
                                                                 '{{ $country->abbreviation }}',
@@ -86,7 +82,7 @@
                                                                 '{{ $country->code }}',
                                                                 '{{ $country->created_at }}'
                                                             )">
-                                                    <i class="fa fa-eye text-primary"></i>
+                                                    <i class="fa fa-eye text-secondary"></i>
 
                                                 </a>
                                                 <form
@@ -94,7 +90,7 @@
                                                     method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn" type="submit"
+                                                    <button class="btn text-danger" type="submit"
                                                         onclick="return confirm('Are you sure, you want the delete this country')">
                                                         <i class="fa fa-trash"></i>
                                                     </button>

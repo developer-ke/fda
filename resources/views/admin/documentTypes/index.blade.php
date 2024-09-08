@@ -19,7 +19,7 @@
                             <th>added by</th>
                             <th>document type</th>
                             <th>date added</th>
-                            <th>more</th>
+                            <th>actions</th>
                         </thead>
                         <tbody>
                             @php
@@ -46,7 +46,7 @@
                                     </td>
                                     <td class="text-capitalize">{{ $document->name }}</td>
                                     <td class="text-capitalize">
-                                        {{ $document->created_at->format('d/m/Y') }}
+                                        {{ $document->created_at->format('D, d F, Y') }}
                                     </td>
                                     <td>
                                         <div class="dropdown">

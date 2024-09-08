@@ -24,7 +24,7 @@
                             <th>contact info</th>
                             <th>status</th>
                             <th>added on</th>
-                            <th>more</th>
+                            <th>actions</th>
                         </thead>
                         <tbody>
                             @php
@@ -39,13 +39,8 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <div class="me-1">
-                                                <img src="{{ asset('uploads/profiles/' . $institution->userImage) }}"
-                                                    alt="" class="avatar avatar-md rounded-3">
-                                            </div>
                                             <div class="d-flex flex-column">
                                                 <h6 class="text-sm mb-0 text-capitalize">{{ $institution->userName }}</h6>
-                                                <p class="mt-0 mb-0 form-check-label">{{ $institution->userEmail }}</p>
                                             </div>
                                         </div>
                                     </td>
@@ -103,7 +98,7 @@
                                             <span class="badge badge-pill bg-danger">inactive</span>
                                         @endif
                                     </td>
-                                    <td>{{ $institution->created_at }}</td>
+                                    <td>{{ $institution->created_at->format('D, d F, Y') }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button id="my-dropdown" class="btn" data-bs-toggle="dropdown"

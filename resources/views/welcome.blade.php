@@ -36,7 +36,7 @@
         }
 
         #Partners {
-            height: 100vh;
+            min-height: 100vh;
             background-color: #C63D0F;
         }
 
@@ -507,7 +507,7 @@
             <div class="clearfix"></div>
         </div>
     </section>
-    <section id="Partners" class="vh-100 fullscreen">
+    <section id="Partners" class="min-vh-100 align-items-center justify-content-center">
         <div class="container">
             <h2 class="text-center wow fadeInLeft partner-style">Our Partners</h2>
             <div class="row" style="margin-top: 20px">
@@ -561,7 +561,7 @@
     </section>
 
     <!-- /.pricing section -->
-    <div id="package" class="counters">
+    <div id="package" class="counters align-items-center justify-content-center">
         <div class="container">
             <div class="text-center">
                 <!-- /.pricing title -->

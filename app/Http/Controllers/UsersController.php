@@ -6,6 +6,7 @@ use App\Http\Controllers\adminController;
 use App\Models\countries;
 use App\Models\Profile;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -174,6 +175,13 @@ class UsersController extends Controller
             DB::beginTransaction();
             if ($user = User::find($id)) {
                 if (Auth::user()->role === 1) {
+                    if ($user->image != 'default.webp') {
+                        $image = public_path('uploads/profiles/' . $user->image);
+                        if (File::exists($image)) {
+                            File::delete($image);
+                        }
+                    }
+
                     if ($user->delete()) {
                         DB::commit();
                         return back()->with('success', 'Account deleted successfully');
@@ -285,14 +293,23 @@ class UsersController extends Controller
     }
     public function DeleteAll()
     {
-        //get all the users
-        $users = User::all();
-        foreach ($users as $user) {
-            if ($user->id != Auth::user()->id) {
-                $user->update(['status' => 2]);
+        try {
+            // Begin a transaction
+            DB::beginTransaction();
+            // Get all users
+            $users = User::all();
+            foreach ($users as $user) {
+                // Ensure the current authenticated user is not deleted
+                if ($user->id != Auth::user()->id) {
+                    $user->delete();
+                }
             }
+            DB::commit();
+            return back()->with('success', 'All users accounts have been deleted successfully');
+        } catch (\Throwable $th) {
+            // Rollback the transaction in case of an error
+            DB::rollBack();
+            return back()->with('error', 'An error occurred while deleting users.');
         }
-
-        return back()->with('success', 'All users accounts has been deleted');
     }
 }

@@ -40,21 +40,21 @@
                         @csrf
                         <div class="form-group">
                             <input type="text" name="name" id="name" class="form-control " placeholder="Name"
-                                value="" required />
+                                value="{{ old('name') }}" required />
                         </div>
                         <div class="form-group">
                             <input type="text" name="subject" id="subject" class="form-control "
-                                placeholder="Suject" value="" required />
+                                placeholder="Suject" value="{{ old('subject') }}" required />
                         </div>
                         <div class="form-group">
                             <h6 id="emailResult">
                                 </h2>
                                 <input type="text" name="email" id="email" class="form-control "
-                                    placeholder="Email" value="" required />
+                                    placeholder="Email" value="{{ old('email') }}" required />
                         </div>
                         <div class="form-group">
                             <textarea name="message" rows="20" cols="20" id="message" class="form-control input-message "
-                                placeholder="Message" value="" required></textarea>
+                                placeholder="Message" value="{{ old('message') }}" required></textarea>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" value="Submit" class="btn btn-success " id="validate">

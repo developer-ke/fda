@@ -170,13 +170,26 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        if ($user = User::find($id)) {
-            $delete = $user->update(['status' => 2]);
-            if ($delete) {
-                return back()->with('success', 'Account deleted successfully');
+        try {
+            DB::beginTransaction();
+            if ($user = User::find($id)) {
+                if (Auth::user()->role === 1) {
+                    if ($user->delete()) {
+                        DB::commit();
+                        return back()->with('success', 'Account deleted successfully');
+                    }
+                }
+                $delete = $user->update(['status' => 2]);
+                if ($delete) {
+                    DB::commit();
+                    return back()->with('success', 'Account deleted successfully');
+                }
             }
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->with('error', 'An error occured');
         }
-        return back()->with('error', 'An error occured');
     }
 
     public function denyAccess(string $id)

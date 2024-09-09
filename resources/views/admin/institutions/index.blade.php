@@ -40,7 +40,7 @@
                                     </td>
                                     <td>
                                         <img src="{{ asset('assets/uploads/institutions/' . $institution->logo) }}"
-                                            class="img" width="100px" height="100px" alt="">
+                                            class="avatar avatar-md rounded-3" alt="">
                                     </td>
                                     <td class="text-capitalize">{{ $institution->institutionName }}</td>
                                     <td>{{ $institution->countryName }}</td>
@@ -48,16 +48,7 @@
                                     <td>{{ $institution->email }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <div class="me-1">
-                                                <img src="{{ asset('uploads/profiles/' . $institution->correspondentImage) }}"
-                                                    alt="" class="avatar avatar-md rounded-3">
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <h6 class="text-sm mb-0 text-capitalize">
-                                                    {{ $institution->corresponderntName }}</h6>
-                                                <p class="mt-0 mb-0 form-check-label">{{ $institution->correspondentEmail }}
-                                                </p>
-                                            </div>
+                                            {{ $institution->corresponderntName }}</h6>
                                         </div>
                                     </td>
                                     <td>

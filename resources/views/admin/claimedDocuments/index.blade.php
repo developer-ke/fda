@@ -90,7 +90,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $document->created_at->format('d/m/Y') }}
+                                            {{ $document->created_at->format('D, d M, Y') }}
                                         </td>
                                         <td>
                                             <div class="dropdown open">

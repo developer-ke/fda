@@ -80,7 +80,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{ $drawer->created_at->format('D, d F, Y') }}
+                                        {{ $drawer->created_at->format('D, d M, Y') }}
                                     </td>
                                     <td>
                                         <div class="dropdown">

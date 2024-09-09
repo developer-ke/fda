@@ -16,13 +16,14 @@
                     <table class="table align-items-center table-hover mb-0 data-table">
                         <thead class="text-uppercase text-sm text-start">
                             <th>no</th>
-                            <th>added by</th>
-                            <th>correspondent</th>
-                            <th>institution name</th>
                             <th>logo</th>
-                            <th>location info</th>
-                            <th>contact info</th>
+                            <th>institution name</th>
+                            <th>country</th>
+                            <th>Primary phone</th>
+                            <th>Email</th>
+                            <th>correspondent</th>
                             <th>status</th>
+                            <th>added by</th>
                             <th>added on</th>
                             <th>actions</th>
                         </thead>
@@ -38,17 +39,18 @@
                                         @endphp
                                     </td>
                                     <td>
-                                        <div class="d-flex">
-                                            <div class="d-flex flex-column">
-                                                <h6 class="text-sm mb-0 text-capitalize">{{ $institution->userName }}</h6>
-                                            </div>
-                                        </div>
+                                        <img src="{{ asset('assets/uploads/institutions/' . $institution->logo) }}"
+                                            class="img" width="100px" height="100px" alt="">
                                     </td>
+                                    <td class="text-capitalize">{{ $institution->institutionName }}</td>
+                                    <td>{{ $institution->countryName }}</td>
+                                    <td>{{ $institution->code . $institution->phoneNumber }}</td>
+                                    <td>{{ $institution->email }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="me-1">
                                                 <img src="{{ asset('uploads/profiles/' . $institution->correspondentImage) }}"
-                                                    alt="" class="avatar avatar-md">
+                                                    alt="" class="avatar avatar-md rounded-3">
                                             </div>
                                             <div class="d-flex flex-column">
                                                 <h6 class="text-sm mb-0 text-capitalize">
@@ -58,39 +60,6 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-capitalize">{{ $institution->institutionName }}</td>
-                                    <td>
-                                        <img src="{{ asset('assets/uploads/institutions/' . $institution->logo) }}"
-                                            class="img" width="100px" height="100px" alt="">
-                                    </td>
-                                    <td>
-                                        <div class="mx-auto">
-                                            <p class="text-sm form-check-label">
-                                                <b class="text-capitalize">Country:</b>{{ $institution->countryName }}
-                                                <br>
-                                                <b class="text-capitalize">City:</b>{{ $institution->city }}
-                                                <br>
-                                                <b class="text-capitalize">town:</b>{{ $institution->location }}
-                                            </p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="mx-auto">
-                                            <p class="text-sm form-check-label">
-                                                <b class="text-capitalize me-1">email:</b>{{ $institution->email }}
-                                                <br>
-                                                <b class="text-capitalize me-1">phone 1:</b>
-                                                {{ $institution->code . $institution->phoneNumber }}
-                                                <br>
-                                                <b class="text-capitalize me-1">phone 2:</b>
-                                                @if ($institution->altPhoneNumber === null)
-                                                    null
-                                                @else
-                                                    {{ $institution->code . $institution->altPhoneNumber }}
-                                                @endif
-                                            </p>
-                                        </div>
-                                    </td>
                                     <td>
                                         @if ($institution->status == 1)
                                             <span class="badge badge-pill bg-success">active</span>
@@ -98,7 +67,11 @@
                                             <span class="badge badge-pill bg-danger">inactive</span>
                                         @endif
                                     </td>
-                                    <td>{{ $institution->created_at->format('D, d F, Y') }}</td>
+                                    <td>
+                                        {{ $institution->userName }}
+                                    </td>
+
+                                    <td>{{ $institution->created_at->format('D, d M, Y') }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button id="my-dropdown" class="btn" data-bs-toggle="dropdown"

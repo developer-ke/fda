@@ -57,14 +57,10 @@
                                             {{ $country->code }}
                                         </td>
                                         <td>
-                                            <div class="d-flex text-xxs">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm p-0">{{ $country->name }}</h6>
-                                                </div>
-                                            </div>
+                                            {{ $country->name }}
                                         </td>
                                         <td class="align-middle text-center">
-                                            {{ $country->created_at->format('D, d F, Y') }}
+                                            {{ $country->created_at->format('D, d M, Y') }}
 
                                         </td>
                                         <td class="align-middle">

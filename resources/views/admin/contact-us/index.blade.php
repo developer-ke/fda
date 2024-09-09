@@ -113,7 +113,7 @@
                                             @break
                                         @endswitch
                                     </td>
-                                    <td>{{ $contact->created_at->format('d/m/Y') }}</td>
+                                    <td>{{ $contact->created_at->format('D, d M, Y') }}</td>
                                     <td>
                                         <div class="dropdown open">
                                             <a class="btn" type="button" id="users_dropdown" data-bs-toggle="dropdown"

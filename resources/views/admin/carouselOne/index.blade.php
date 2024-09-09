@@ -109,7 +109,7 @@
                                             <span class="badge rounded-pill bg-danger">disabled</span>
                                         @endif
                                     </td>
-                                    <td>{{ $advert->created_at->format('D, d F, Y') }}</td>
+                                    <td>{{ $advert->created_at->format('D, d M, Y') }}</td>
                                     <td>
                                         <div class="dropdown open">
                                             <a class="btn" type="button" id="triggerId" data-bs-toggle="dropdown"

@@ -33,20 +33,11 @@
                                         @endphp
                                     </td>
                                     <td>
-                                        <div class="d-flex">
-                                            <div class="me-1">
-                                                <img src="{{ asset('uploads/profiles/' . $document->image) }}"
-                                                    alt="" class="avatar avatar-md rounded-3">
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <h6 class="text-sm mb-0 text-capitalize">{{ $document->username }}</h6>
-                                                <p class="mt-0 mb-0 form-check-label">{{ $document->email }}</p>
-                                            </div>
-                                        </div>
+                                        {{ $document->username }}
                                     </td>
                                     <td class="text-capitalize">{{ $document->name }}</td>
                                     <td class="text-capitalize">
-                                        {{ $document->created_at->format('D, d F, Y') }}
+                                        {{ $document->created_at->format('D, d M, Y') }}
                                     </td>
                                     <td>
                                         <div class="dropdown">

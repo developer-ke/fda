@@ -32,16 +32,7 @@
                                     @endphp
                                 </td>
                                 <td class="mx-auto">
-                                    <div class="d-flex mx-auto">
-                                        <div class="me-2">
-                                            <img src="{{ asset('uploads/profiles/' . $partner->image) }}"
-                                                class="avatar avatar-md rounded-3" alt="user1">
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $partner->name }}</h6>
-                                            <p class="text-sm text-secondary mb-0">{{ $partner->email }}</p>
-                                        </div>
-                                    </div>
+                                    {{ $partner->name }}
                                 </td>
                                 <td>
                                     <div class="container mx-auto">
@@ -57,7 +48,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $partner->created_at->format('D, d F, Y') }}
+                                    {{ $partner->created_at->format('D, d M, Y') }}
                                 </td>
                                 <td>
                                     <div class="dropdown open">

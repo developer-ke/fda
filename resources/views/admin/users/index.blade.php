@@ -127,7 +127,7 @@
                             const options = {
                                 weekday: 'short',
                                 year: 'numeric',
-                                month: 'long',
+                                month: 'short',
                                 day: 'numeric'
                             };
                             return date.toLocaleDateString('en-US',

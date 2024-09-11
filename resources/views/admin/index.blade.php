@@ -59,7 +59,7 @@
                     </div>
                     <div class="text-end pt-1 h-100">
                         <p class="text-sm mb-0 text-capitalize ">messages</p>
-                        <h4 class="mb-0 ">{{ $messages->count() }}</h4>
+                        <h4 class="mb-0 ">{{ $messages->where('status', false)->count() }}</h4>
                     </div>
                 </div>
                 <hr class="horizontal my-0 dark">
@@ -267,7 +267,7 @@
                 <div class="card-header p-3 pt-2">
                     <div
                         class="icon icon-lg icon-shape bg-gradient-dark shadow-primary shadow text-center border-radius-xl mt-n4 position-absolute">
-                        <i class="bi bi-bank"></i>
+                        <i class="bi bi-file-earmark-lock"></i>
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">foundDocuments</p>

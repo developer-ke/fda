@@ -20,15 +20,14 @@
                                 <th>no</th>
                                 <th>document details</th>
                                 <th>owners details</th>
-                                <th>status</th>
                                 <th>date</th>
-                                <th>actins</th>
+                                <th>actions</th>
                             </thead>
                             <tbody>
                                 @php
                                     $counter = 0;
                                 @endphp
-                                @foreach ($documents as $document)
+                                @foreach ($documents->where('status', 0) as $document)
                                     @php
                                         $counter += 1;
                                     @endphp
@@ -55,11 +54,6 @@
                                         <td>
                                             {{ $document->firstName }} {{ $document->lastName }}
 
-                                        </td>
-                                        <td>
-                                            @if ($document->status === 0)
-                                                <span class="badge rounded-pill  bg-danger">lost</span>
-                                            @endif
                                         </td>
                                         <td>
                                             {{ $document->created_at->format('D, d M, Y') }}

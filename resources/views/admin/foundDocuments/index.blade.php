@@ -21,7 +21,6 @@
                                 <th>document details</th>
                                 <th>owner's details</th>
                                 <th>reporter's details</th>
-                                <th>status</th>
                                 <th>date</th>
                                 <th>actions</th>
                             </thead>
@@ -29,7 +28,7 @@
                                 @php
                                     $counter = 0;
                                 @endphp
-                                @foreach ($documents as $document)
+                                @foreach ($documents->where('status', 0) as $document)
                                     @php
                                         echo $counter += 1;
                                     @endphp
@@ -60,15 +59,6 @@
                                         </td>
                                         <td>
                                             {{ $document->reporter_fname }} {{ $document->reporter_lname }}
-                                        </td>
-                                        <td>
-                                            @if ($document->status === 0)
-                                                <span class="badge rounded-pill  bg-danger">Found</span>
-                                            @elseif ($document->status === 2)
-                                                <span class="badge rounded-pill  bg-warning">matched</span>
-                                            @elseif ($document->status === 3)
-                                                <span class="badge rounded-pill  bg-success">claimed</span>
-                                            @endif
                                         </td>
                                         <td>
                                             {{ $document->created_at->format('D, d M, Y') }}
@@ -130,7 +120,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="collapse " id="collapseRow{{ $counter }}">
+                                    <tr class="collapse" id="collapseRow{{ $counter }}">
                                         <td></td>
                                         <td></td>
                                         <td>
@@ -187,7 +177,7 @@
                                         </td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
+
                                     </tr>
                                 @endforeach
                             </tbody>

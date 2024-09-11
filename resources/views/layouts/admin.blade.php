@@ -38,10 +38,14 @@
             font-family: new roman --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
 
+        #sidenav-main,
+        #sidenav-collapse-main {
+            background-color: #C63D0F;
+        }
 
         .fda-bg,
-        .fda-bg:active,
-        .fda-bg:hover {
+        .fda-bg:hover,
+        .fda:active {
             background-color: #C63D0F;
         }
 
@@ -52,9 +56,9 @@
 </head>
 
 
-<body class="g-sidenav-show  bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-2 fixed-start ms-2"
-        style="background-color:#C63D0F;" id="sidenav-main">
+        id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>

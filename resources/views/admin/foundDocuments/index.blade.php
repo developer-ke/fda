@@ -30,7 +30,7 @@
                                 @endphp
                                 @foreach ($documents->where('status', 0) as $document)
                                     @php
-                                        echo $counter += 1;
+                                        $counter += 1;
                                     @endphp
                                     <tr>
                                         <td>

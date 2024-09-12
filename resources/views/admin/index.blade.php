@@ -406,28 +406,38 @@
         const data = {
             labels: Object.keys(visitCounts),
             datasets: [{
-                label: 'daily visits',
-                data: Object.values(visitCounts),
-                backgroundColor: [
-                    'rgba(255, 26, 104, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(0, 0, 0, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 26, 104, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(0, 0, 0, 1)'
-                ],
-                borderWidth: 1
-            }]
+                    label: 'daily visits',
+                    data: Object.values(visitCounts),
+                    backgroundColor: [
+                        'rgba(255, 26, 104, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 26, 104, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(0, 0, 0, 1)'
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    type: 'line', // Line chart dataset
+                    label: 'Daily Visits (Line)',
+                    data: Object.values(visitCounts),
+                    borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Fill under the line
+                    borderWidth: 2, // Line width
+                    fill: true // Whether to fill the area under the line
+                }
+            ]
         };
 
         // config

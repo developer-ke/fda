@@ -432,10 +432,10 @@
                     type: 'line', // Line chart dataset
                     label: 'Daily Visits (Line)',
                     data: Object.values(visitCounts),
-                    borderColor: 'rgba(75, 192, 192, 1)', // Line color
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Fill under the line
+                    borderColor: '#C63D0F', // Line color
+                    backgroundColor: '#C63D0F', // Fill under the line
                     borderWidth: 2, // Line width
-                    fill: true // Whether to fill the area under the line
+                    fill: false // Whether to fill the area under the line
                 }
             ]
         };

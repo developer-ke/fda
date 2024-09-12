@@ -16,7 +16,6 @@ class jsonController extends Controller
             'drawers' => $drawers,
             'users' => User::all(),
         ]);
-
     }
     public function users()
     {

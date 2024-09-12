@@ -55,7 +55,6 @@ class DocumentTypeController extends Controller
                 }
                 return back()->with('error', 'an error occured');
             }
-
         } catch (Exception $e) {
             DB::rollback();
             Log::error('error due to ' . $e->getMessage());
@@ -110,7 +109,7 @@ class DocumentTypeController extends Controller
         try {
             DB::beginTransaction();
             if ($document = DocumentType::find($id)) {
-                if ($document->destroy()) {
+                if ($document->delete()) {
                     DB::commit();
                     return redirect()->route('admin.documentTypes')->with('success', 'document type updated successfully');
                 }

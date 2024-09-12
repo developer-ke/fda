@@ -59,16 +59,8 @@ class CountriesController extends Controller
             }
             return back()->with('error', 'error occured');
         }
-
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(countries $countries)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

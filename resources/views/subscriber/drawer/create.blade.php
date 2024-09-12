@@ -34,7 +34,7 @@
                                 <label class="form-check-label text-capitalize">second name</label>
                                 <div class="input-group input-group-outline">
                                     <input type="text" name="secondName" placeholder="middle name" class="form-control"
-                                        value="{{ old('secondName') }}" required>
+                                        value="{{ old('secondName') }}">
                                 </div>
                                 @error('secondName')
                                     <span class="text-danger">

@@ -75,7 +75,7 @@ class claimedDocumentController extends Controller
                 }
             } catch (\Throwable $th) {
                 DB::rollBack();
-                Log::error('error due to', $th->getMessage());
+                Log::error('error due to ' . $th->getMessage());
             }
         }
         return back()->with('error', 'an error has occured');

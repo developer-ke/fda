@@ -43,7 +43,6 @@ class clientsDrawerController extends Controller
         switch (Auth::user()->role) {
             case 1:
                 return view("admin.drawers.clients.index")->with('drawers', $drawers);
-                break;
             case 2:
                 $drawers = Drawers::join('users', 'users.id', 'drawers.user_id')
                     ->join('institutions', 'drawers.institution_id', 'institutions.id')
@@ -67,10 +66,8 @@ class clientsDrawerController extends Controller
                         "drawers.created_at"
                     )->where('institutions.correspondet_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
                 return view('correspondent.drawers.clients.index')->with('drawers', $drawers);
-                break;
             default:
                 return back()->with('error', 'An error has occured');
-                break;
         }
     }
     /**
@@ -104,13 +101,10 @@ class clientsDrawerController extends Controller
                 switch (Auth::user()->role) {
                     case 1:
                         return view("admin.drawers.clients.view")->with('drawer', $drawers);
-                        break;
                     case 2:
                         return view("correspondent.drawers.clients.view")->with('drawer', $drawers);
-                        break;
                     default:
                         return back()->with('error', 'error occured');
-                        break;
                 }
             }
         } catch (Throwable $th) {
@@ -132,9 +126,8 @@ class clientsDrawerController extends Controller
                     'types' => DocumentType::orderBy('id', 'DESC')->get(),
                 ]);
             }
-
         } catch (Exception $e) {
-            Log::error('error due to', $e->getMessage());
+            Log::error('error due to ' . $e->getMessage());
             return back()->with('error', 'error occured');
         }
     }
@@ -163,10 +156,9 @@ class clientsDrawerController extends Controller
             }
         } catch (Throwable $th) {
             DB::rollBack();
-            Log::error('error due to', $th->getMessage());
+            Log::error('error due to ' . $th->getMessage());
             return back()->with('error', 'error occured');
         }
-
     }
 
     /**
@@ -184,7 +176,7 @@ class clientsDrawerController extends Controller
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            Log::error('error', $th->getMessage());
+            Log::error('error ' . $th->getMessage());
             return back()->with('error', 'an error occured');
         }
     }

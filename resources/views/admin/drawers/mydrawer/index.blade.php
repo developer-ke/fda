@@ -15,11 +15,11 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table align-items-middle table-bordered table-hover mb-0 data-table">
+                    <table class="table align-items-middle table-bordered  mb-0 data-table">
                         <thead class="text-uppercase text-sm text-start">
                             <th>no</th>
                             <th>added by</th>
-                            <th>details of the document</th>
+                            <th>document info</th>
                             <th>status</th>
                             <th>added on</th>
                             <th>actions</th>
@@ -39,7 +39,7 @@
                                         <div class="d-flex">
                                             <div class="me-1">
                                                 <img src="{{ asset('uploads/profiles/' . $drawer->image) }}" alt=""
-                                                    class="avatar avatar-md">
+                                                    class="avatar avatar-md rounded-3">
                                             </div>
                                             <div class="d-flex flex-column">
                                                 <h6 class="text-sm mb-0 text-capitalize">{{ $drawer->username }}</h6>
@@ -115,7 +115,7 @@
                                                     @method('PUT')
                                                     <button
                                                         class="dropdown-item text-capitalize @if ($drawer->status === 0) d-none @endif"
-                                                        onclick="return confirm('Are you sure you want to activate?')"
+                                                        onclick="return confirm('Are you sure you want to report this document as lost?')"
                                                         type="submit">
                                                         <i class="fa fa-check-circle"></i>
                                                         report as lost
@@ -128,7 +128,7 @@
                                                     @method('PUT')
                                                     <button
                                                         class="dropdown-item text-capitalize @if ($drawer->status === 1) d-none @endif"
-                                                        onclick="return confirm('Are you sure you want to deactivate?')"
+                                                        onclick="return confirm('Are you sure you want to this document report as found?')"
                                                         type="submit">
                                                         <i class="bi bi-x-circle"></i>
                                                         report as found

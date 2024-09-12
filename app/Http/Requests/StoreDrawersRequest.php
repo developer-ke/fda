@@ -22,9 +22,9 @@ class StoreDrawersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "firstName" => 'required|string|min:4|alpha',
+            "firstName" => 'required|string|min:3|alpha',
             "secondName" => 'nullable|string|alpha|min:4',
-            "lastName" => 'required|string|min:4|alpha',
+            "lastName" => 'required|string|min:3|alpha',
             "serialNumber" => 'required|string|unique:drawers,serialNumber',
             "expiryDate" => 'nullable|date|after:date',
             "documentType" => 'required|integer',

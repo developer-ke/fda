@@ -135,7 +135,6 @@ class CarouselOneController extends Controller
                 if ($advert->save()) {
                     return redirect()->route('admin.cms1')->with('success', 'Advert updated successfully');
                 }
-
             }
             return back()->with('error', 'An error has occured');
         }

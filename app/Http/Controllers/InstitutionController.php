@@ -185,13 +185,11 @@ class InstitutionController extends Controller
                     if ($institution->save()) {
                         return redirect()->route('admin.institutions')->with('success', 'institution updated successfully');
                     }
-
                 }
             }
         } catch (\Throwable $th) {
             return back()->with('error', 'An error has occured');
         }
-
     }
 
     public function activate($id)
@@ -204,7 +202,6 @@ class InstitutionController extends Controller
                     return back()->with('success', 'institution activated successfully');
                 }
             }
-
         } catch (Exception $e) {
             DB::rollBack();
             // Log the error for debugging
@@ -223,7 +220,6 @@ class InstitutionController extends Controller
                     return back()->with('success', 'institution deactivated successfully');
                 }
             }
-
         } catch (Exception $e) {
             DB::rollBack();
             // Log the error for debugging
@@ -245,7 +241,6 @@ class InstitutionController extends Controller
                     return back()->with('success', 'institution activated successfully');
                 }
             }
-
         } catch (Exception $e) {
             DB::rollBack();
             // Log the error for debugging

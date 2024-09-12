@@ -7,21 +7,33 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table align-items-middle table-bordered table-hover mb-0 data-table">
+                    <table class="table align-items-middle table-bordered  mb-0 data-table">
                         <thead class="text-uppercase text-sm  text-start">
+                            <th>callapse</th>
                             <th>no</th>
-                            <th>added by</th>
-                            <th>details of the document</th>
+                            <th>Owner</th>
+                            <th>type of document</th>
                             <th>status</th>
                             <th>added on</th>
                             <th>actions</th>
                         </thead>
                         <tbody>
                             @php
-                                $counter = 1;
+                                $counter = 0;
                             @endphp
                             @foreach ($drawers as $drawer)
+                                @php
+                                    $counter += 1;
+                                @endphp
                                 <tr>
+                                    <td>
+                                        <div class="dropdown mx-auto">
+                                            <button class="btn  dropdown-toggle btn-xlg" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseRow{{ $counter }}"
+                                                aria-expanded="false" aria-controls="collapseRow{{ $counter }}">
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td>
                                         @php
                                             echo $counter;
@@ -31,7 +43,7 @@
                                         <div class="d-flex">
                                             <div class="me-1">
                                                 <img src="{{ asset('uploads/profiles/' . $drawer->image) }}" alt=""
-                                                    class="avatar avatar-md">
+                                                    class="avatar avatar-md rounded-3">
                                             </div>
                                             <div class="d-flex flex-column">
                                                 <h6 class="text-sm mb-0 text-capitalize">{{ $drawer->username }}</h6>
@@ -40,37 +52,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 text-sm p-0">
-                                                <b class="text-capitalize">first name:</b>
-                                                {{ $drawer->firstName }}
-                                            </li>
-                                            <li class="list-group-item border-0 text-sm p-0">
-                                                <b class="text-capitalize">middle name:</b>
-                                                {{ $drawer->secondName }}
-                                            </li>
-                                            <li class="list-group-item border-0 text-sm p-0">
-                                                <b class="text-capitalize">last name:</b>
-                                                {{ $drawer->lastName }}
-                                            </li>
-                                            <li class="list-group-item border-0 text-sm p-0">
-                                                <b class="text-capitalize">type of document:</b>
-                                                {{ $drawer->documentType }}
-                                            </li>
-                                            <li class="list-group-item border-0 text-sm p-0">
-                                                <b class="text-capitalize">serial number:</b>
-                                                {{ $drawer->serialNumber }}
-                                            </li>
-                                            <li class="list-group-item border-0 text-sm p-0">
-                                                <b class="text-capitalize">institution:</b>
-                                                {{ $drawer->institutionName }}
-                                            </li>
-                                            <li class="list-group-item border-0 text-sm p-0">
-                                                <b class="text-capitalize">expiry date:</b>
-                                                {{ $drawer->expiryDate }}
-                                            </li>
-
-                                        </ul>
+                                        {{ $drawer->documentType }}
                                     </td>
                                     <td>
                                         @if ($drawer->status == 1)
@@ -106,8 +88,8 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <button
-                                                        class="dropdown-item text-capitalize @if ($drawer->status === 1) d-none @endif"
-                                                        onclick="return confirm('Are you sure you want to activate?')"
+                                                        class="dropdown-item text-capitalize @if ($drawer->status === 0) d-none @endif"
+                                                        onclick="return confirm('Are you sure you want to report document as Lost?')"
                                                         type="submit">
                                                         <i class="fa fa-check-circle"></i>
                                                         report as lost
@@ -119,7 +101,7 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <button
-                                                        class="dropdown-item text-capitalize @if ($drawer->status === 0) d-none @endif"
+                                                        class="dropdown-item text-capitalize @if ($drawer->status === 1) d-none @endif"
                                                         onclick="return confirm('Are you sure you want to deactivate?')"
                                                         type="submit">
                                                         <i class="bi bi-x-circle"></i>
@@ -143,9 +125,47 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @php
-                                    $counter += 1;
-                                @endphp
+                                <tr class="collapse" id="collapseRow{{ $counter }}">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <ul class="list-group">
+                                            <li class="list-group-item border-0 text-sm p-0">
+                                                <b class="text-capitalize">first name:</b>
+                                                {{ $drawer->firstName }}
+                                            </li>
+                                            <li class="list-group-item border-0 text-sm p-0">
+                                                <b class="text-capitalize">middle name:</b>
+                                                {{ $drawer->secondName }}
+                                            </li>
+                                            <li class="list-group-item border-0 text-sm p-0">
+                                                <b class="text-capitalize">last name:</b>
+                                                {{ $drawer->lastName }}
+                                            </li>
+                                            <li class="list-group-item border-0 text-sm p-0">
+                                                <b class="text-capitalize">type of document:</b>
+                                                {{ $drawer->documentType }}
+                                            </li>
+                                            <li class="list-group-item border-0 text-sm p-0">
+                                                <b class="text-capitalize">serial number:</b>
+                                                {{ $drawer->serialNumber }}
+                                            </li>
+                                            <li class="list-group-item border-0 text-sm p-0">
+                                                <b class="text-capitalize">institution:</b>
+                                                {{ $drawer->institutionName }}
+                                            </li>
+                                            <li class="list-group-item border-0 text-sm p-0">
+                                                <b class="text-capitalize">expiry date:</b>
+                                                {{ $drawer->expiryDate }}
+                                            </li>
+
+                                        </ul>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

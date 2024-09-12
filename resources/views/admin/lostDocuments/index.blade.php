@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div class="container-fluid">
                     <div class="table-responsive">
-                        <table class="table  table-bordered  data-table">
+                        <table class="table   data-table">
                             <thead class="text-capitalize text-sm">
                                 <th>collapse</th>
                                 <th>no</th>

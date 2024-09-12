@@ -15,7 +15,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table align-items-middle table-bordered  mb-0 data-table">
+                    <table class="table align-items-middle  mb-0 data-table">
                         <thead class="text-uppercase text-sm text-start">
                             <th>no</th>
                             <th>added by</th>

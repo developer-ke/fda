@@ -16,12 +16,16 @@
                     <div class="table-responsive">
                         <table class="table   data-table">
                             <thead class="text-capitalize text-sm">
-                                <th>collapse</th>
                                 <th>no</th>
-                                <th>document details</th>
-                                <th>owners details</th>
-                                <th>date</th>
-                                <th>actions</th>
+                                <th>collapse</th>
+                                <th>Name</th>
+                                <th>document type</th>
+                                <th>serial number</th>
+                                <th>lost location</th>
+                                <th>police reference</th>
+                                <th>reported by</th>
+                                <th>time stamp</th>
+                                <th>action</th>
                             </thead>
                             <tbody>
                                 @php
@@ -33,6 +37,11 @@
                                     @endphp
                                     <tr>
                                         <td>
+                                            @php
+                                                echo $counter;
+                                            @endphp
+                                        </td>
+                                        <td>
                                             <div class="dropdown mx-auto">
                                                 <button class="btn  dropdown-toggle btn-xlg" type="button"
                                                     data-bs-toggle="collapse"
@@ -40,20 +49,23 @@
                                                     aria-controls="collapseRow{{ $counter }}">
                                                 </button>
                                             </div>
-
-                                        </td>
-                                        <td>
-                                            @php
-                                                echo $counter;
-                                            @endphp
-                                        </td>
-                                        <td>
-                                            <b>Tye of document:</b>
-                                            {{ $document->documentType }}
                                         </td>
                                         <td>
                                             {{ $document->firstName }} {{ $document->lastName }}
-
+                                        </td>
+                                        <td>
+                                            {{ $document->documentType }}
+                                        </td>
+                                        <td>
+                                            {{ $document->serialNumber }}
+                                        </td>
+                                        <td>
+                                            {{ $document->location }}
+                                        </td>
+                                        <td>
+                                            {{ $document->police_ref_number }}
+                                        </td>
+                                        <td>
                                         </td>
                                         <td>
                                             {{ $document->created_at->format('D, d M, Y') }}
@@ -118,23 +130,14 @@
                                     <tr class="collapse" id="collapseRow{{ $counter }}">
                                         <td></td>
                                         <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td>
                                             <ul class="list-group ms-3 h-100">
                                                 <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">serial number:</b>
-                                                    {{ $document->serialNumber }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
                                                     <b class="text-capitalize">institution on document:</b>
                                                     {{ $document->institution_on_document }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">police reference:</b>
-                                                    {{ $document->police_ref_number }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">location lost:</b>
-                                                    {{ $document->location }}
                                                 </li>
                                                 <li class="list-group-item border-0 p-0 text-sm">
                                                     <b class="text-capitalize">country on:</b>
@@ -143,18 +146,6 @@
                                                 <li class="list-group-item border-0 p-0 text-sm">
                                                     <b class="text-capitalize">city on:</b>
                                                     {{ $document->city }}
-                                                </li>
-                                            </ul>
-                                        </td>
-                                        <td>
-                                            <ul class="list-group ms-3">
-                                                <li class="list-group-item border-0  p-0 text-sm">
-                                                    <b class="text-capitalize">first name:</b>
-                                                    {{ $document->firstName }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">second name:</b>
-                                                    {{ $document->lastName }}
                                                 </li>
                                                 <li class="list-group-item border-0 p-0 text-sm">
                                                     <b class="text-capitalize">email address:</b>
@@ -170,6 +161,7 @@
                                                 </li>
                                             </ul>
                                         </td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>

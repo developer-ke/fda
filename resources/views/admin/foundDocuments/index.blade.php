@@ -18,9 +18,9 @@
                             <thead class="text-capitalize text-sm">
                                 <th>callapse</th>
                                 <th>no</th>
-                                <th>document details</th>
-                                <th>owner's details</th>
-                                <th>reporter's details</th>
+                                <th>document type</th>
+                                <th>owner's name</th>
+                                <th>reporter's info</th>
                                 <th>date</th>
                                 <th>actions</th>
                             </thead>
@@ -32,7 +32,7 @@
                                     @php
                                         $counter += 1;
                                     @endphp
-                                    <tr>
+                                    <tr class="border-none">
                                         <td>
                                             <div class="dropdown mx-auto">
                                                 <button class="btn  dropdown-toggle btn-xlg" type="button"
@@ -48,14 +48,11 @@
                                             @endphp
                                         </td>
                                         <td>
-                                            <b class="text-capitalize">type of document:</b>
                                             {{ $document->typOfDocument }}
                                         </td>
                                         <td>
-                                            <ul class="list-group ms-3">
 
-                                                {{ $document->owner_fname }} {{ $document->owner_lname }}
-                                            </ul>
+                                            {{ $document->owner_fname }} {{ $document->owner_lname }}
                                         </td>
                                         <td>
                                             {{ $document->reporter_fname }} {{ $document->reporter_lname }}
@@ -120,7 +117,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="collapse" id="collapseRow{{ $counter }}">
+                                    <tr class="collapse border-0" id="collapseRow{{ $counter }}">
                                         <td></td>
                                         <td></td>
                                         <td>
@@ -144,27 +141,9 @@
                                             </ul>
                                         </td>
                                         <td>
-                                            <ul class="list-group ms-3">
-                                                <li class="list-group-item border-0  p-0 text-sm">
-                                                    <b class="text-capitalize">first name:</b>
-                                                    {{ $document->owner_fname }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">second name:</b>
-                                                    {{ $document->owner_lname }}
-                                                </li>
-                                            </ul>
                                         </td>
                                         <td>
                                             <ul class="list-group ms-3">
-                                                <li class="list-group-item border-0  p-0 text-sm">
-                                                    <b class="text-capitalize">first name:</b>
-                                                    {{ $document->reporter_fname }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">second name:</b>
-                                                    {{ $document->reporter_lname }}
-                                                </li>
                                                 <li class="list-group-item border-0 p-0 text-sm">
                                                     <b class="text-capitalize">email:</b>
                                                     {{ $document->reprter_email }}
@@ -177,7 +156,6 @@
                                         </td>
                                         <td></td>
                                         <td></td>
-
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -321,7 +321,7 @@
                         <div class="col-12 text-center">
                             <h4 class="text-sm text-secondary">
                                 copyright &copy;@php echo date('Y'); @endphp. All rights reserved.
-                                <a href="{{ env('APP_URL') }}" class="fda-color">FoundDocument Agency</a>
+                                <a href="{{ env('APP_URL') }}" class="fda-color">{{ env('APP_NAME') }}</a>
                             </h4>
                         </div>
                     </div>
@@ -339,7 +339,7 @@
         <div class="card shadow-lg">
             <div class="card-header pb-0 pt-3">
                 <div class="float-start">
-                    <h5 class="mt-3 mb-0">FoundDocument Agency</h5>
+                    <h5 class="mt-3 mb-0">{{ env('APP_NAME') }}</h5>
                     <p>You loose it, we find it.</p>
                 </div>
                 <div class="float-end mt-4">

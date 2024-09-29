@@ -35,6 +35,9 @@
                 </div>
                 <!-- /.contact form -->
                 <div class="col-sm-4 contact-right" id="contact-form-con">
+                    <h2>
+                        Contact <span class="highlight">Us</span>
+                    </h2>
                     <form action="{{ route('contact-us') }}" class="form-horizontal" id="contact-form" method="post"
                         accept-charset="utf-8">
                         @csrf

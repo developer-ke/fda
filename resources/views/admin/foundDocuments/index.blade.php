@@ -18,11 +18,13 @@
                             <thead class="text-capitalize text-sm">
                                 <th>callapse</th>
                                 <th>no</th>
-                                <th>document type</th>
                                 <th>owner's name</th>
-                                <th>reporter's info</th>
-                                <th>date</th>
-                                <th>actions</th>
+                                <th>document type</th>
+                                <th>serial number</th>
+                                <th>found location</th>
+                                <th>reported by</th>
+                                <th>date and time reported</th>
+                                <th>action</th>
                             </thead>
                             <tbody>
                                 @php
@@ -48,17 +50,22 @@
                                             @endphp
                                         </td>
                                         <td>
+                                            {{ $document->owner_fname }} {{ $document->owner_lname }}
+                                        </td>
+                                        <td>
                                             {{ $document->typOfDocument }}
                                         </td>
                                         <td>
-
-                                            {{ $document->owner_fname }} {{ $document->owner_lname }}
+                                            {{ $document->serialNumber }}
+                                        </td>
+                                        <td>
+                                            {{ $document->institution_on_document }}
                                         </td>
                                         <td>
                                             {{ $document->reporter_fname }} {{ $document->reporter_lname }}
                                         </td>
                                         <td>
-                                            {{ $document->created_at->format('D, d M, Y') }}
+                                            {{ $document->created_at->format('D, d M, Y H:i:s') }}
                                         </td>
                                         <td>
                                             <div class="dropdown open">
@@ -121,16 +128,11 @@
                                         style="border-top: 0ch;">
                                         <td></td>
                                         <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td>
                                             <ul class="list-group ms-3 h-100">
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">serial number:</b>
-                                                    {{ $document->serialNumber }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">institution on document:</b>
-                                                    {{ $document->institution_on_document }}
-                                                </li>
                                                 <li class="list-group-item border-0 p-0 text-sm">
                                                     <b class="text-capitalize">country on:</b>
                                                     {{ $document->countryName }}
@@ -140,8 +142,6 @@
                                                     {{ $document->city }}
                                                 </li>
                                             </ul>
-                                        </td>
-                                        <td>
                                         </td>
                                         <td>
                                             <ul class="list-group ms-3">

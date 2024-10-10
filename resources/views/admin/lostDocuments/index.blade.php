@@ -18,13 +18,13 @@
                             <thead class="text-capitalize text-sm">
                                 <th>no</th>
                                 <th>collapse</th>
-                                <th>Name</th>
-                                <th>document type</th>
+                                <th>Owners name</th>
+                                <th>type of document</th>
                                 <th>serial number</th>
                                 <th>lost location</th>
                                 <th>police reference</th>
                                 <th>reported by</th>
-                                <th>time stamp</th>
+                                <th>date and time lost</th>
                                 <th>action</th>
                             </thead>
                             <tbody>
@@ -32,10 +32,13 @@
                                     $counter = 0;
                                 @endphp
                                 @foreach ($documents->where('status', 0) as $document)
+                                    @php
+                                        $counter += 1;
+                                    @endphp
                                     <tr>
                                         <td>
                                             @php
-                                                echo $counter += 1;
+                                                echo $counter;
                                             @endphp
                                         </td>
                                         <td>
@@ -62,9 +65,9 @@
                                         <td>
                                             {{ $document->police_ref_number }}
                                         </td>
-                                        <td></td>
+                                        <td>reporter's name</td>
                                         <td>
-                                            {{ $document->created_at->format('D, d M, Y') }}
+                                            {{ $document->created_at->format('D, d M, Y H:i:s') }}
                                         </td>
                                         <td>
                                             <div class="dropdown open">
@@ -123,12 +126,23 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="collapse" id="collapseRow{{ $counter }}" style="border-top: 0px;">
+                                    <tr class="collapse" id="collapseRow{{ $counter }}">
                                         <td></td>
                                         <td></td>
+                                        <td>
+                                            <ul class="list-group ms-3 h-100">
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">email address:</b>
+                                                    {{ $document->email }}
+                                                </li>
+                                                <li class="list-group-item border-0 p-0 text-sm">
+                                                    <b class="text-capitalize">phone number:</b>
+                                                    {{ $document->code . $document->phoneNumber }}
+                                                </li>
+                                            </ul>
+                                        </td>
                                         <td></td>
                                         <td></td>
-
                                         <td>
                                             <ul class="list-group ms-3 h-100">
                                                 <li class="list-group-item border-0 p-0 text-sm">
@@ -142,18 +156,6 @@
                                                 <li class="list-group-item border-0 p-0 text-sm">
                                                     <b class="text-capitalize">city on:</b>
                                                     {{ $document->city }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">email address:</b>
-                                                    {{ $document->email }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">phone number:</b>
-                                                    {{ $document->code . $document->phoneNumber }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize"> physical address:</b>
-                                                    {{ $document->location }}
                                                 </li>
                                             </ul>
                                         </td>

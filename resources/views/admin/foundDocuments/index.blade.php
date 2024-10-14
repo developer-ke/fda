@@ -31,6 +31,9 @@
                                     $counter = 0;
                                 @endphp
                                 @foreach ($documents->where('status', 0) as $document)
+                                    @php
+                                        $counter += 1;
+                                    @endphp
                                     <tr class="border-none">
                                         <td>
                                             <div class="dropdown mx-auto">
@@ -43,7 +46,7 @@
                                         </td>
                                         <td>
                                             @php
-                                                echo $counter + 1;
+                                                echo $counter;
                                             @endphp
                                         </td>
                                         <td>

@@ -36,39 +36,23 @@
                                         $counter += 1;
                                     @endphp
                                     <tr>
-                                        <td>
-                                            @php
-                                                echo $counter;
-                                            @endphp
-                                        </td>
+                                        <td>{{ $counter }}</td>
                                         <td>
                                             <div class="dropdown mx-auto">
-                                                <button class="btn  dropdown-toggle btn-xlg" type="button"
+                                                <button class="btn dropdown-toggle btn-xlg" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapseRow{{ $counter }}" aria-expanded="false"
                                                     aria-controls="collapseRow{{ $counter }}">
                                                 </button>
                                             </div>
                                         </td>
-                                        <td>
-                                            {{ $document->firstName }} {{ $document->lastName }}
-                                        </td>
-                                        <td>
-                                            {{ $document->documentType }}
-                                        </td>
-                                        <td>
-                                            {{ $document->serialNumber }}
-                                        </td>
-                                        <td>
-                                            {{ $document->location }}
-                                        </td>
-                                        <td>
-                                            {{ $document->police_ref_number }}
-                                        </td>
+                                        <td>{{ $document->firstName }} {{ $document->lastName }}</td>
+                                        <td>{{ $document->documentType }}</td>
+                                        <td>{{ $document->serialNumber }}</td>
+                                        <td>{{ $document->location }}</td>
+                                        <td>{{ $document->police_ref_number }}</td>
                                         <td>reporter's name</td>
-                                        <td>
-                                            {{ $document->created_at->format('D, d M, Y H:i:s') }}
-                                        </td>
+                                        <td>{{ $document->created_at->format('D, d M, Y H:i:s') }}</td>
                                         <td>
                                             <div class="dropdown open">
                                                 <button class="btn" type="button" id="triggerId"
@@ -79,13 +63,11 @@
                                                     aria-labelledby="triggerId">
                                                     <a class="dropdown-item"
                                                         href="{{ route('admin.lostDocuments.edit', ['document_id' => $document->id]) }}">
-                                                        <i class="bi bi-pencil-square"></i>
-                                                        edit
+                                                        <i class="bi bi-pencil-square"></i> edit
                                                     </a>
                                                     <a class="dropdown-item"
                                                         href="{{ route('admin.lostDocuments.view', ['document_id' => $document->id]) }}">
-                                                        <i class="bi bi-eye"></i>
-                                                        view
+                                                        <i class="bi bi-eye"></i> view
                                                     </a>
                                                     <form
                                                         action="{{ route('admin.lostDocuments.match', ['document_id' => $document->id]) }}"
@@ -95,8 +77,7 @@
                                                         <button type="submit"
                                                             class="dropdown-item text-capitalize @if ($document->status === 1) d-none @endif"
                                                             onclick="return confirm('Are you sure you want to  mark this document as claimed?')">
-                                                            <span class="bi bi-check2"></span>
-                                                            mark as matched
+                                                            <span class="bi bi-check2"></span> mark as matched
                                                         </button>
                                                     </form>
                                                     <form
@@ -105,10 +86,9 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <button type="submit"
-                                                            class="dropdown-item text-capitalize  @if ($document->status === 2) d-none @endif"
-                                                            onclick="return confirm('Are you sure you want to  mark this document as matched?')">
-                                                            <span class="bi bi-check2-circle"></span>
-                                                            mark as claimed
+                                                            class="dropdown-item text-capitalize @if ($document->status === 2) d-none @endif"
+                                                            onclick="return confirm('Are you sure you want to mark this document as matched?')">
+                                                            <span class="bi bi-check2-circle"></span> mark as claimed
                                                         </button>
                                                     </form>
                                                     <form
@@ -118,50 +98,42 @@
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item text-capitalize"
                                                             onclick="return confirm('Are you sure you want to delete this document?')">
-                                                            <span class="bi bi-trash"></span>
-                                                            delete
+                                                            <span class="bi bi-trash"></span> delete
                                                         </button>
                                                     </form>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="collapse" id="collapseRow{{ $counter }}">
+                                    <tr class="collapse border-0" id="collapseRow{{ $counter }}">
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <ul class="list-group ms-3 h-100">
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">email address:</b>
-                                                    {{ $document->email }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">phone number:</b>
-                                                    {{ $document->code . $document->phoneNumber }}
-                                                </li>
-                                            </ul>
+                                            Owner's email address
+                                            <br>
+                                            <b>{{ $document->email }}</b>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            Owner's phone number
+                                            <br>
+                                            <b>{{ $document->code . $document->phoneNumber }}</b>
+                                        </td>
+                                        <td>
+                                            Institution on document
+                                            <br>
+                                            <b>{{ $document->institution_on_document }}</b>
+                                        </td>
                                         <td></td>
                                         <td>
-                                            <ul class="list-group ms-3 h-100">
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">institution on document:</b>
-                                                    {{ $document->institution_on_document }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">country on:</b>
-                                                    {{ $document->countryName }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">city on:</b>
-                                                    {{ $document->city }}
-                                                </li>
-                                            </ul>
+                                            City:
+                                            <br>
+                                            <b>{{ $document->city }}</b>
                                         </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                            Country:
+                                            <br>
+                                            <b>{{ $document->countryName }}</b>
+                                        </td>
                                         <td></td>
                                         <td></td>
                                     </tr>

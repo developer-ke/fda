@@ -31,9 +31,6 @@
                                     $counter = 0;
                                 @endphp
                                 @foreach ($documents->where('status', 0) as $document)
-                                    @php
-                                        $counter += 1;
-                                    @endphp
                                     <tr class="border-none">
                                         <td>
                                             <div class="dropdown mx-auto">
@@ -46,7 +43,7 @@
                                         </td>
                                         <td>
                                             @php
-                                                echo $counter;
+                                                echo $counter + 1;
                                             @endphp
                                         </td>
                                         <td>
@@ -128,32 +125,30 @@
                                         style="border-top: 0ch;">
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
                                         <td>
-                                            <ul class="list-group ms-3 h-100">
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">country on:</b>
-                                                    {{ $document->countryName }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">city on:</b>
-                                                    {{ $document->city }}
-                                                </li>
-                                            </ul>
+                                            country on
+                                            <br>
+                                            <b>{{ $document->countryName }}</b>
                                         </td>
                                         <td>
-                                            <ul class="list-group ms-3">
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">email:</b>
-                                                    {{ $document->reprter_email }}
-                                                </li>
-                                                <li class="list-group-item border-0 p-0 text-sm">
-                                                    <b class="text-capitalize">Phone number:</b>
-                                                    {{ $document->reporter_code . $document->reporter_phoneNumber }}
-                                                </li>
-                                            </ul>
+                                            city on
+                                            <br>
+                                            <b>{{ $document->city }}</b>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Reporter's Phone number
+                                            <br>
+                                            <b>
+                                                {{ $document->reporter_code . $document->reporter_phoneNumber }}
+                                            </b>
+                                        </td>
+                                        <td>
+                                            Reporter's email
+                                            <br>
+                                            <b>
+                                                {{ $document->reprter_email }}
+                                            </b>
                                         </td>
                                         <td></td>
                                         <td></td>

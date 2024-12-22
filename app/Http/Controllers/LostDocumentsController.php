@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ApollosSmsService;
 use App\Http\Requests\StorelostDocumentsRequest;
 use App\Http\Requests\UpdatelostDocumentsRequest;
 use App\Models\countries;
@@ -18,6 +19,12 @@ use Illuminate\Support\Facades\Mail;
 
 class LostDocumentsController extends Controller
 {
+    protected $smsService;
+
+    public function __construct(ApollosSmsService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -160,6 +167,19 @@ class LostDocumentsController extends Controller
                     $email = $document->email;
                     if ($fname == $request->fname && $lname == $request->lname || $lname == $request->lname && $fname == $request->fname) {
                         if (Mail::to($email)->send(new foundNotification($request->all()))) {
+
+                            // send the sms at the same time
+                            $messages = [
+                                [
+                                    'message' => 'The document that was reported as lost has been found. Please visit ' . env('APP_URL') . ' and get in touch.',
+                                    'phoneNumber' => $request->lcountrycode . $request->lphone_number,
+                                ]
+                            ];
+
+                            // send an SMS
+                            $response = $this->smsService->sendSms($messages);
+
+                            Log::info($response);
                             $document->update(['status' => 2]);
                             $status = 2;
                         }

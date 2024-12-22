@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PartnersController;
+use App\Http\Controllers\SmsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -312,3 +313,6 @@ Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->g
         Route::delete('/found/{document_id}/document/claim', [FoundDocumentsController::class, 'destroy'])->name('subscriber.foundDocuments.destroy');
     });
 });
+
+// apollo sms api route
+Route::post('/send-sms', [SmsController::class, 'sendSms']);

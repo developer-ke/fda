@@ -316,3 +316,5 @@ Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->g
 
 // apollo sms api route
 Route::post('/send-sms', [SmsController::class, 'sendSms']);
+
+// hello world

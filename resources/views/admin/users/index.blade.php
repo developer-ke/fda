@@ -313,7 +313,7 @@
                         if (response.ok) {
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                text: "User has been deleted.",
                                 icon: "success"
                             });
                             // Optionally, refresh the user list or remove the user from the DOM

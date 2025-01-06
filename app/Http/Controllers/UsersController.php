@@ -173,32 +173,41 @@ class UsersController extends Controller
     {
         try {
             DB::beginTransaction();
-            if ($user = User::find($id)) {
-                if (Auth::user()->role === 1) {
-                    if ($user->image != 'default.webp') {
-                        $image = public_path('uploads/profiles/' . $user->image);
-                        if (File::exists($image)) {
-                            File::delete($image);
-                        }
-                    }
 
-                    if ($user->delete()) {
-                        DB::commit();
-                        return back()->with('success', 'Account deleted successfully');
-                    }
-                }
-                $delete = $user->update(['status' => 2]);
-                if ($delete) {
-                    DB::commit();
-                    return back()->with('success', 'Account deleted successfully');
+            $user = User::find($id);
+
+            if (!$user) {
+                return response()->json(['message' => 'User not found'], 404);
+            }
+
+            if (Auth::user()->role !== 1 && $user->status !== 2) {
+                return response()->json(['message' => 'Unauthorized action'], 403);
+            }
+
+            // Delete user's profile image if it's not the default
+            if ($user->image !== 'default.webp') {
+                $image = public_path('uploads/profiles/' . $user->image);
+                if (File::exists($image)) {
+                    File::delete($image);
                 }
             }
+
+            // Perform delete or soft delete based on role
+            if (Auth::user()->role === 1) {
+                $user->delete();
+                DB::commit();
+                return response()->json(['message' => 'User deleted successfully'], 200);
+            } else {
+                $user->update(['status' => 2]);
+                DB::commit();
+                return response()->json(['message' => 'Account deactivated successfully'], 200);
+            }
         } catch (\Throwable $th) {
-            //throw $th;
             DB::rollBack();
-            return back()->with('error', 'An error occured');
+            return response()->json(['message' => 'An error occurred', 'error' => $th->getMessage()], 500);
         }
     }
+
 
     public function denyAccess(string $id)
     {

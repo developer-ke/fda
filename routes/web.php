@@ -96,7 +96,7 @@ Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->g
         Route::get('/users', [UsersController::class, 'index'])->name('admin.users');
         Route::get('/users/create', [UsersController::class, 'create'])->name('admin.users.create');
         Route::post('/users/store', [UsersController::class, 'store'])->name('admin.users.store');
-        Route::put('/users/{user_id}/delete', [UsersController::class, 'destroy'])->name('admin.users.destroy');
+        Route::delete('/users/{user_id}/delete', [UsersController::class, 'destroy'])->name('admin.users.destroy');
         Route::put('/users/{user_id}/denyAccess', [UsersController::class, 'denyAccess'])->name('admin.users.denyAccess');
         Route::put('/users/{user_id}/grantAccess', [UsersController::class, 'grantAccess'])->name('admin.users.grantAccess');
         Route::get('/users/{user_id}/profile', [UsersController::class, 'profile'])->name('admin.users.profile');

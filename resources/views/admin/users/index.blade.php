@@ -80,6 +80,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
             $('#usersTable').DataTable({
                 processing: true,
                 serverSide: true,
@@ -274,16 +275,59 @@
                                deny access
                            </button>
                        </form>
-                       <form action="/admin/users/${user.id}/delete" method="post">
-                           @csrf
-                           @method('PUT')
-                           <button class="dropdown-item ${user.status === 2 || user.id === {{ Auth::user()->id }} ? 'd-none':''}" type="submit" onclick="return confirm('Are you sure you want to delete this account?')">
-                               <i class="bi bi-trash-fill"></i>
-                               delete
-                           </button>
-                       </form>
+                      <button 
+                          class="dropdown-item ${user.status === 2 || user.id === {{ Auth::user()->id }} ? 'd-none' : ''}" 
+                          onclick="deleteUser(${user.id})">
+                          <i class="bi bi-trash-fill"></i>
+                          delete
+                      </button>
                    </div>
                </div>`;
+        }
+
+
+        // delete user
+        const deleteUser = (userId) => {
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const response = await fetch(`/admin/users/${userId}/delete`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json',
+                            },
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                            // Optionally, refresh the user list or remove the user from the DOM
+                            $('#usersTable').DataTable().ajax.reload(null,
+                                false); // `false` prevents full reload
+                        }
+                    } catch (error) {
+                        console.error('Error deleting user:', error);
+                        alert('An error occurred. Please try again.');
+                    }
+
+                }
+            });
+
         }
     </script>
 @endpush

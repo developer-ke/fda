@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Mail\foundNotification;
 use Illuminate\Support\Facades\Mail;
+use Biscolab\ReCaptcha\Facades\ReCaptcha;
 
 class LostDocumentsController extends Controller
 {
@@ -156,7 +157,14 @@ class LostDocumentsController extends Controller
      */
     public function store(StorelostDocumentsRequest $request)
     {
+
         if ($request->validated()) {
+
+            $recaptcha = ReCaptcha::validate($request->input('g-recaptcha-response'));
+
+            if (!$recaptcha) {
+                return back()->withErrors(['captcha' => 'Captcha verification failed. Please try again.']);
+            }
             try {
                 DB::beginTransaction();
                 $status = 2;

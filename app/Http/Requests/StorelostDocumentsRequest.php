@@ -34,6 +34,7 @@ class StorelostDocumentsRequest extends FormRequest
             "lcountrycode" => 'required',
             "lphone_number" => 'required',
             "return_address" => 'required',
+            'g-recaptcha-response' => 'required',
         ];
     }
 }

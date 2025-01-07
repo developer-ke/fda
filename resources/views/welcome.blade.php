@@ -200,7 +200,8 @@
                                         <option value="" selected="selected" disabled>Select document Type
                                         </option>
                                         @foreach ($types as $document_type)
-                                            <option value="{{ $document_type->id }}">
+                                            <option value="{{ $document_type->id }}"
+                                                {{ old('document_type_id') == $document_type->id ? 'selected' : '' }}>
                                                 {{ $document_type->name }}</option>
                                         @endforeach
                                     </select>
@@ -217,7 +218,9 @@
                                         <option value="" selected="selected" disabled>Country on document
                                         </option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}
+                                            <option value="{{ $country->id }}"
+                                                {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                                                {{ $country->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -266,10 +269,10 @@
 
                                 <div class="form-group form-inline">
                                     <input class="form-control " name="ffirst_name" id="freportername"
-                                        type="text" placeholder="First name" value="{{ old('first_name') }}"
+                                        type="text" placeholder="First name" value="{{ old('ffirst_name') }}"
                                         required>
                                     <input class="form-control " name="flast_name" id="freporterlastname"
-                                        type="text" placeholder="Last name" value="{{ old('last_name') }}"
+                                        type="text" placeholder="Last name" value="{{ old('flast_name') }}"
                                         required>
                                 </div>
                                 <br>
@@ -282,8 +285,15 @@
                                         </p>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group  mb-4">
+                                    <div class="col-md-12">
+                                        {!! htmlFormSnippet() !!}
+                                    </div>
+                                    @error('g-recaptcha-response')
+                                        <span>{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group mt-5">
                                     <button id='fsubmit' type="submit" class="btn btn-primary"
                                         disabled>Submit</button>
                                 </div>
@@ -304,7 +314,8 @@
                                         <option value="" selected="selected" disabled>Select document Type
                                         </option>
                                         @foreach ($types as $document_type)
-                                            <option value="{{ $document_type->id }}">
+                                            <option value="{{ $document_type->id }}"
+                                                {{ old('document_type_id') == $document_type->id ? 'selected' : '' }}>
                                                 {{ $document_type->name }}</option>
                                         @endforeach
                                     </select>
@@ -322,7 +333,9 @@
                                         <option value="" selected="selected" disabled>Country on Document
                                         </option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}
+                                            <option value="{{ $country->id }}"
+                                                {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                                                {{ $country->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -330,16 +343,17 @@
                                 </div>
                                 <div class="form-group form-inline">
                                     <input class="form-control " name="locationLost" id="llocation" type="text"
-                                        placeholder="Location you Lost it" value="" required>
+                                        placeholder="Location you Lost it" value="{{ old('locationLost') }}"
+                                        required>
                                     <input class="form-control " name="police_refNo" id="policeRef" type="text"
-                                        placeholder="Police report ref no." value="">
+                                        placeholder="Police report ref no." value="{{ old('police_refNo') }}">
                                     <!-- <button type="button" class="btn-info form-control"> Get Coordinates </button> -->
                                 </div>
                                 <div class="form-group form-inline">
                                     <input class="form-control " name="fname" id="lownerfirstname" type="text"
-                                        placeholder="Your first name" value="" required>
+                                        placeholder="Your first name" value="{{ old('fname') }}" required>
                                     <input class="form-control " name="lname" id="lownerlastname" type="text"
-                                        placeholder="Your last name" value="" required>
+                                        placeholder="Your last name" value="{{ old('lname') }}" required>
                                 </div>
 
 
@@ -364,8 +378,8 @@
 
                                 <div class="form-group">
                                     <input class="form-control " name="return_address" id="ReturnAddress"
-                                        type="text" placeholder="Post and physical address" value=""
-                                        required>
+                                        type="text" placeholder="Post and physical address"
+                                        value="{{ old('return_address') }}" required>
                                 </div>
 
                                 <div class="form-group"> </div>
@@ -377,6 +391,15 @@
                                             agree to <a href="">Terms & Policies.</a>
                                         </p>
                                     </div>
+                                </div>
+
+                                <div class="form-group  mb-4">
+                                    <div class="col-md-12">
+                                        {!! htmlFormSnippet() !!}
+                                    </div>
+                                    @error('g-recaptcha-response')
+                                        <span>{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" id="lbtn" class="btn btn-primary"
@@ -636,6 +659,7 @@
     <script src="{{ asset('bstp/assets/js/owl.carousel.min.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <script>
         new WOW().init();

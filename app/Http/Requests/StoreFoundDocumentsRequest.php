@@ -36,6 +36,8 @@ class StoreFoundDocumentsRequest extends FormRequest
             "phone_number" => 'required',
             "ffirst_name" => 'required|string',
             "flast_name" => 'required|string',
+            'g-recaptcha-response' => 'required',
+
         ];
     }
 }

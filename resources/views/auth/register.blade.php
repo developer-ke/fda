@@ -63,7 +63,15 @@
                                             placeholder="same pasword here...">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 d-flex justify-content-center">
+                                    {!! htmlFormSnippet() !!}
+                                </div>
+                                @error('g-recaptcha-response')
+                                    <span class="text-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                                <div class="col-12 mt-2">
                                     <button type="submit" class="btn w-100 fda-bg mt-2 text-white">
                                         {{ __('Register') }}
                                     </button>

@@ -53,7 +53,16 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 d-flex justify-content-left mt-2">
+                                    {!! htmlFormSnippet() !!}
+                                    <br>
+                                </div>
+                                @error('g-recaptcha-response')
+                                    <span class="text-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                                <div class="col-12 mt-2">
                                     <button type="submit" class="btn text-white w-100 mt-3 fda-bg">
                                         {{ __('Login') }}
                                         <i class="material-icons opacity-10">login</i>

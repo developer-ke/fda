@@ -29,6 +29,7 @@ class StoreDrawersRequest extends FormRequest
             "expiryDate" => 'nullable|date|after:date',
             "documentType" => 'required|integer',
             "institution" => 'required|integer',
+            "g-recaptcha-response" => 'required'
         ];
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Biscolab\ReCaptcha\Facades\ReCaptcha;
 
 class InstitutionController extends Controller
 {
@@ -72,6 +73,11 @@ class InstitutionController extends Controller
     public function store(StoreinstitutionRequest $request)
     {
         if ($request->validated()) {
+            $recaptcha = ReCaptcha::validate($request->input('g-recaptcha-response'));
+
+            if (!$recaptcha) {
+                return back()->withErrors(['captcha' => 'Captcha verification failed. Please try again.']);
+            }
             $image = $request->file('image');
             $newImageName = Str::random(20) . time() . '.' . $image->extension();
             $image->move(public_path('assets/uploads/institutions'), $newImageName);

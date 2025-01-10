@@ -132,6 +132,15 @@
                             placeholder="Post and physical address" value="{{ $user->physicalAddress }}" required>
                     </div>
                 </div>
+                <div class="col-12 ">
+                    {!! htmlFormSnippet() !!}
+                    <br>
+                    @error('g-recaptcha-response')
+                        <span class="text-danger" role="alert">
+                            {{ $message }}
+                        </span>
+                    @enderror
+                </div>
                 <div class="form-group mt-4">
                     <button type="submit" id="lbtn" class="btn fda-bg w-100 text-white">Submit</button>
                 </div>

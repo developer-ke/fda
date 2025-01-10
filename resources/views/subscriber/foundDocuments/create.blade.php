@@ -177,6 +177,15 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="col-12 ">
+                        {!! htmlFormSnippet() !!}
+                        <br>
+                        @error('g-recaptcha-response')
+                            <span class="text-danger" role="alert">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
                     <input class="form-control flocation" name="coordinates" id="flocation" type="text"
                         placeholder="Click the button on the right to fill here" required
                         value="{{ old('lost_or_found_from') ?? 'hello world' }}" hidden>

@@ -33,6 +33,7 @@ class StoreinstitutionRequest extends FormRequest
             'latitude' => 'required|numeric|unique:institutions,latitude',
             'longitude' => 'required|numeric|unique:institutions,longitude',
             'image' => 'required|image|unique:institutions,logo|mimes:png,jpg,webp,jpeg|max:2048',
+            "g-recaptcha-response" => 'required'
         ];
     }
 }

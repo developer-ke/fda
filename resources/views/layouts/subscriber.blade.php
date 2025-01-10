@@ -419,6 +419,7 @@
     {{-- <script src="{{ asset('assets/js/plugins/dataTables.min.js') }}"></script> --}}
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.jqueryui.min.js"></script>
+    <script script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {

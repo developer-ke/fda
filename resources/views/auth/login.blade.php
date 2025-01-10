@@ -53,7 +53,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-12 d-flex justify-content-left mt-2">
+                                <div class="col-12 d-flex justify-content-center mt-2">
                                     {!! htmlFormSnippet() !!}
                                     <br>
                                 </div>

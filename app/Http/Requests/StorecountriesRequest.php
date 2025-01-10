@@ -27,6 +27,7 @@ class StorecountriesRequest extends FormRequest
             'countryName' => 'required|string|min:3|unique:countries,name',
             'nationality' => 'required|string|min:3|unique:countries,nationality',
             'city' => 'required|string|min:2|unique:countries,city',
+            "g-recaptcha-response" => 'required'
         ];
     }
 }

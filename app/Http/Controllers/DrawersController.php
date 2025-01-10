@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
+use Biscolab\ReCaptcha\Facades\ReCaptcha;
 
 class DrawersController extends Controller
 {
@@ -92,6 +93,11 @@ class DrawersController extends Controller
     public function store(StoreDrawersRequest $request)
     {
         try {
+            $recaptcha = ReCaptcha::validate($request->input('g-recaptcha-response'));
+
+            if (!$recaptcha) {
+                return back()->withErrors(['captcha' => 'Captcha verification failed. Please try again.']);
+            }
             DB::beginTransaction();
             if ($request->validated()) {
                 $drawer = Drawers::create([

@@ -6,6 +6,7 @@ use App\Http\Requests\StorecountriesRequest;
 use App\Http\Requests\UpdatecountriesRequest;
 use App\Models\countries;
 use Illuminate\Support\Facades\Auth;
+use Biscolab\ReCaptcha\Facades\ReCaptcha;
 
 class CountriesController extends Controller
 {
@@ -46,6 +47,11 @@ class CountriesController extends Controller
     public function store(StorecountriesRequest $request)
     {
         if ($request->validated()) {
+            $recaptcha = ReCaptcha::validate($request->input('g-recaptcha-response'));
+
+            if (!$recaptcha) {
+                return back()->withErrors(['captcha' => 'Captcha verification failed. Please try again.']);
+            }
             $countries = new countries([
                 'code' => $request->code,
                 'abbreviation' => strtolower($request->abbreviation),

@@ -78,6 +78,15 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-12 mt-2">
+                                {!! htmlFormSnippet() !!}
+                                <br>
+                            </div>
+                            @error('g-recaptcha-response')
+                                <span class="text-danger" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
                             <div class="col-12 col-md-6 col-lg-4 mt-2">
                                 <button class="btn fda-bg text-white w-100 mt-4 mb-0">submit</button>
                             </div>

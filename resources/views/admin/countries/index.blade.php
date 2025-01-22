@@ -81,17 +81,6 @@
                                                     <i class="fa fa-eye text-secondary"></i>
 
                                                 </a>
-
-                                                <form
-                                                    action="{{ route('admin.countries.destroy', ['countryId' => $country->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn text-danger d-none" type="submit"
-                                                        onclick="return confirm('Are you sure, you want the delete this country')">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
                                                 <button class="btn text-danger" type="submit"
                                                     onclick="deleteCountry({{ $country->id }})">
                                                     <i class="fa fa-trash"></i>

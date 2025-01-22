@@ -108,9 +108,9 @@ class CountriesController extends Controller
     {
         if ($country = countries::find($countryId)) {
             if ($country->delete()) {
-                return back()->with('success', 'country deleted successfully');
+                return response()->json(['message', 'user deleted successfully']);
             }
         }
-        return back()->with('error', 'error occured');
+        return response()->json(['error', 'error occured']);
     }
 }

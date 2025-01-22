@@ -81,16 +81,21 @@
                                                     <i class="fa fa-eye text-secondary"></i>
 
                                                 </a>
+
                                                 <form
                                                     action="{{ route('admin.countries.destroy', ['countryId' => $country->id]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn text-danger" type="submit"
+                                                    <button class="btn text-danger d-none" type="submit"
                                                         onclick="return confirm('Are you sure, you want the delete this country')">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
+                                                <button class="btn text-danger" type="submit"
+                                                    onclick="deleteCountry({{ $country->id }})">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -117,6 +122,34 @@
                     .getFullYear();
                 $('#viewCountryModal').modal('show');
             }
+
+            // delete function
+            const deleteFunction = async (url) => {
+                try {
+                    const response = await fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        alertSuccess('Success', data.message);
+                        window.location.reload();
+                    } else {
+                        alertError('Error', data.message || 'An error occurred while deleting the country.');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alertError('Error', 'An unexpected error occurred.');
+                }
+            };
+
+            const deleteCountry = (id) => {
+                alertDelete(() => deleteFunction(`/admin/countries/${id}/delete`));
+            };
         </script>
     @endpush
 @endsection

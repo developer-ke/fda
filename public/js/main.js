@@ -77,3 +77,37 @@ $(document).ready(function () {
         Drawers();
     }
 })
+
+
+const alertError = () => {
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+    });
+}
+
+const alertDelete = (deleteFunction) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // call a function
+            deleteFunction();
+        }
+    });
+}
+
+const alertSuccess = (title, text) => {
+    Swal.fire({
+        title,
+        text,
+        icon: "success"
+    });
+}

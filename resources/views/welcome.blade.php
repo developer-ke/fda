@@ -285,7 +285,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="form-group  mb-4">
+                                <div class="form-group">
                                     <div class="col-md-12">
                                         {!! htmlFormSnippet() !!}
                                     </div>

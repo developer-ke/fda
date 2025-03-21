@@ -33,6 +33,7 @@
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.jqueryui.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> --}}
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css">
     <style>
         * {
             font-family: new roman --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -259,7 +260,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-2 top-1 px-0 mx-2 border-radius-xl z-index-sticky blur shadow-blur left-auto bg-gradient-danger"
             id="navbarBlur" data-scroll="true">
-            <div class="container-fluid rounde-3 py-1">
+            <div class="container-fluid rounded-3 py-1">
                 <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none me-2 ">
                     <a href="javascript:;" class="nav-link p-0 text-body">
                         <div class="sidenav-toggler-inner">
@@ -652,7 +653,7 @@
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11?"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
     {{-- <script src="{{ asset('assets/js/plugins/dataTables.min.js') }}"></script> --}}
     <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -677,6 +678,13 @@
     <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.1.0') }}"></script>
     <script src="{{ asset('js/dataTable.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/common.js') }}"></script>
+    <script>
+        // profile source
+        const profile_source = '{{ asset('uploads/profiles') }}'
+        const authUser = '{{ Auth::user() }}';
+    </script>
+    <script src="{{ asset('js/admin.js') }}"></script>
     @stack('scripts')
 </body>
 

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -81,20 +82,37 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|min:5',
+            'email' => 'required|email|unique:users,email',
         ]);
-        $password = bcrypt('12345678');
-        $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $password,
-        ]);
-        if ($user->save()) {
-            return back()->with('success', 'New user registered successfully with the default password of 12345678');
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
-        return back()->with('error', 'an error has occured');
+        DB::beginTransaction();
+        try {
+            $password = bcrypt('12345678');
+            $user = new User([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $password,
+            ]);
+            if ($user->save()) {
+                DB::commit();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'New user had been addedd successfully with the default password of 12345678'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'error' => $th->getMessage(),
+                'messager' => 'error occured while saving'
+            ]);
+        }
     }
 
     /**
@@ -118,17 +136,20 @@ class UsersController extends Controller
      */
     public function updateUserProfile(Request $request, string $id)
     {
-        $request->validate([
-            'name' => 'required|string',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:6',
             'email' => 'required|email|unique:users,email,' . $id,
-            'phoneNumber' => 'required|numeric|unique:profiles,user_id,' . $id,
-            'altPhoneNumber' => 'nullable|numeric|unique:profiles,user_id,' . $id,
+            'phoneNumber' => 'required|numeric|unique:profiles,phoneNumber,' . $id . ',user_id',
+            'altPhoneNumber' => 'nullable|numeric|unique:profiles,altPhoneNumber,' . $id . ',user_id',
             'country' => 'required',
             'gender' => 'required|string|min:4',
             'dob' => 'required|date',
             'organization' => 'required|string',
-            'address' => 'required|string|min:6',
+            'address' => 'required|string|min:3',
         ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         $user = User::find($id);
         if ($user) {
@@ -137,7 +158,6 @@ class UsersController extends Controller
                 $user->name = $request->name;
                 $user->email = $request->email;
                 $user->save();
-
                 $profile->country_id = $request->country;
                 $profile->phoneNumber = $request->phoneNumber;
                 $profile->altPhoneNumber = $request->altPhoneNumber;
@@ -159,10 +179,15 @@ class UsersController extends Controller
                 ]);
             }
 
-            return back()->with('success', 'Profile updated successfully');
+            return response()->json([
+                'success' => true,
+                'message' => 'User profile has been updated successfully',
+            ]);
         }
 
-        return back()->with('error', 'An error occurred');
+        return response()->json([
+            'error' => true
+        ]);
     }
 
 
@@ -241,10 +266,15 @@ class UsersController extends Controller
     public function EditUserProfile(string $id)
     {
         $adminController = new adminController();
-        return view('admin.users.edit')->with([
-            'user' => $adminController->showProfile($id),
-            'countries' => countries::orderBy('name', 'ASC')->get(),
-        ]);
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'user' => $adminController->showProfile($id),
+                'countries' => countries::orderBy('name', 'ASC')->get()
+            ],
+            // 'user' => $adminController->showProfile($id),
+            // 'countries' => countries::orderBy('name', 'ASC')->get()
+        ], 200);
     }
 
     public function permissionMatrix()

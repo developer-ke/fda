@@ -8,9 +8,10 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        <a href="{{ route('admin.users.create') }}" class="btn fda-bg text-white">
+                        <a href="javascript:;" class="btn fda-bg text-white" data-bs-toggle="modal"
+                            data-bs-target="#modalAddUSer">
                             <i class="fa fa-plus-circle"></i>
-                            add
+                            new user
                         </a>
                     </div>
                     <div class="col-6 text-center">
@@ -79,8 +80,7 @@
 @endsection
 @push('scripts')
     <script>
-        $(document).ready(function() {
-
+        const users = () => {
             $('#usersTable').DataTable({
                 processing: true,
                 serverSide: true,
@@ -146,6 +146,9 @@
                     }
                 ]
             });
+        }
+        $(document).ready(function() {
+            users();
         });
 
         const getRoleText = (role) => {
@@ -251,7 +254,7 @@
                        <span class="fa fa-ellipsis-v"></span>
                    </a>
                    <div class="dropdown-menu dropdown-menu-end me-n4 text-capitalize" aria-labelledby="users_dropdown">
-                       <a class="dropdown-item" href="/admin/users/${user.id}/edit/profile">
+                       <a class="dropdown-item" href="javascript:;" onclick="editUser(${user.id})">
                            <i class="fa fa-edit"></i>
                            edit
                        </a>

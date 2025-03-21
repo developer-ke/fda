@@ -1,4 +1,4 @@
-name: Deploy found document agency  app on push (CI/CD)
+name: Deploy Found Document Agency App on Push (CI/CD)
 
 on:
   push:
@@ -31,10 +31,15 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
-      - name: 📂 Sync files
+      - name: Clear Remote Cache (Optional)
+        run: echo "Clearing cache..." && php artisan cache:clear && php artisan config:clear
+
+      - name: 📂 Sync files (Force update of changed files)
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /fda/
+          force: true  # Ensures all modified files get updated
+          sync-strategy: hash  # Compares file hashes to detect changes

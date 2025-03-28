@@ -50,7 +50,6 @@ Route::post('/report/found/document', [FoundDocumentsController::class, 'store']
 // contact us routes
 Route::post('/contact-us', [ContactUSController::class, 'store'])->name('contact-us');
 
-
 Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->group(function () {
 
     // root route
@@ -60,7 +59,7 @@ Route::middleware(['auth', 'access', 'notifications', 'profile', 'verified'])->g
         Route::get('/complete', [ProfileController::class, 'index'])->name('profile.complete');
         Route::post('/complete/store', [ProfileController::class, 'store'])->name('profile.complete.store');
         Route::get('/change/profile/picture', [ProfileController::class, 'picture'])->name('profile.change.picture');
-        Route::put('/upload/profile/picture', [ProfileController::class, 'uploadPhoto'])->name('profile.update.picture');
+        Route::post('/profile/upload/profile/picture', [ProfileController::class, 'uploadPhoto'])->name('profile.update.picture');
         Route::post('/delete/account', [ProfileController::class, 'destroy'])->name('profile.delete');
     });
     // json data routes

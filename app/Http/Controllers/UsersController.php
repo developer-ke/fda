@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UsersController extends Controller
 {
@@ -238,29 +239,47 @@ class UsersController extends Controller
     {
         if ($user = User::find($id)) {
             if ($user->update(['status' => 0])) {
-                return back()->with('success', 'user  has been denied an access successfully');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Access Denied to the  user successfully'
+                ]);
             }
         }
-        return back()->with('error', 'An error occured');
+        return response()->json([
+            'error' => true,
+            'message' => 'An error occured'
+        ]);
     }
 
     public function grantAccess(string $id)
     {
         if ($user = User::find($id)) {
             if ($user->update(['status' => 1])) {
-                return back()->with('success', 'user  has been granted an access successfully');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Access granted to the  user successfully'
+                ]);
             }
         }
-        return back()->with('error', 'An error occured');
+        return response()->json([
+            'error' => true,
+            'message' => 'An error occured'
+        ]);
     }
 
     public function profile(string $id)
     {
         if (Profile::where('user_id', $id)->count() > 0) {
             $adminController = new adminController();
-            return view('admin.users.view')->with('user', $adminController->showProfile($id));
+            return response()->json([
+                'success' => true,
+                'user' => $adminController->showProfile($id),
+            ]);
         };
-        return back()->with('error', "users's profile is incomplete");
+        return response()->json([
+            'incomplete_profile' => true,
+            'message' => "Sorry, the user's profile is incomplete"
+        ]);
     }
 
     public function EditUserProfile(string $id)
@@ -286,49 +305,87 @@ class UsersController extends Controller
     {
         if ($user = User::find($id)) {
             if ($user->update(['role' => 1])) {
-                return back()->with('success', 'User role changed to admin successfully.');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User been promoted to admin successfully'
+                ]);
             }
         }
-        return back()->with('error', 'An error occured');
+        return response()->json([
+            'error' => true,
+            'message' => 'An error occured'
+        ]);
     }
     public function role_2(string $id)
     {
         if ($user = User::find($id)) {
             if ($user->update(['role' => 2])) {
-                return back()->with('success', 'User role changed  to correspondent successfully.');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User has been promoted or demoted to correspondent successfully.'
+                ]);
             }
         }
-        return back()->with('error', 'An error occured');
+        return response()->json([
+            'error' => true,
+            'message' => 'An error occured'
+        ]);
     }
     public function role_3(string $id)
     {
         if ($user = User::find($id)) {
             if ($user->update(['role' => 3])) {
-                return back()->with('success', 'User role changed to subscriber successfully.');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User has been demoted to subscriber successfully.'
+                ]);
             }
         }
-        return back()->with('error', 'An error occured');
+        return response()->json([
+            'error' => true,
+            'message' => 'An error occured'
+        ]);
     }
 
     public function GrantAllAccess()
     {
         //get all the users
-        $users = User::all();
-        foreach ($users as $user) {
-            $user->update(['status' => 1]);
+        try {
+            DB::beginTransaction();
+            // bulk update
+            User::query()->update(['status' => 1]);
+            // commit the changes
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'All users has been granted an access'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => true,
+                'message' => $th->getMessage(),
+            ]);
         }
-        return back()->with('success', 'All users granted an access');
     }
     public function DenyAllAccess()
     {
         //get all the users
-        $users = User::all();
-        foreach ($users as $user) {
-            if ($user->id != Auth::user()->id) {
-                $user->update(['status' => 0]);
-            }
+        try {
+            DB::beginTransaction();
+            // bulk update
+            User::where('id', '!=', Auth::id())->update(['status' => 0]);
+            // commit the changes
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'All users has been granted an access'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => true,
+                'message' => $th->getMessage(),
+            ]);
         }
-        return back()->with('success', 'All users have been denied an access');
     }
     public function DeleteAll()
     {
@@ -336,19 +393,19 @@ class UsersController extends Controller
             // Begin a transaction
             DB::beginTransaction();
             // Get all users
-            $users = User::all();
-            foreach ($users as $user) {
-                // Ensure the current authenticated user is not deleted
-                if ($user->id != Auth::user()->id) {
-                    $user->delete();
-                }
-            }
+            User::where('id', '!=', Auth::id())->update(['status' => 2]);
             DB::commit();
-            return back()->with('success', 'All users accounts have been deleted successfully');
+            return response()->json([
+                'success' => true,
+                'message' => 'All user has been deleted',
+            ]);
         } catch (\Throwable $th) {
             // Rollback the transaction in case of an error
             DB::rollBack();
-            return back()->with('error', 'An error occurred while deleting users.');
+            return response()->json([
+                'error' => true,
+                'message' => $th->getMessage()
+            ]);
         }
     }
 }

@@ -21,11 +21,11 @@
                 <div class="card-body">
                     <div class="text-center mb-3">
                         <img src="{{ asset('uploads/profiles/' . Auth::user()->image) }}" alt="your image"
-                            class="image rounded-circle w-50" id="preview">
+                            class="avatar avatar-xxl" id="preview">
                     </div>
                     <form action="{{ route('profile.update.picture') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+                        @method('POST')
                         <div class="input-group text-center">
                             @error('image')
                                 <span>

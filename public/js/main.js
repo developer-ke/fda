@@ -1,3 +1,39 @@
+let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+const alertError = () => {
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        timer: 1500,
+    });
+}
+
+const alertDelete = (deleteFunction) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // call a function
+            deleteFunction();
+        }
+    });
+}
+
+const alertSuccess = (title, text) => {
+    Swal.fire({
+        title,
+        text,
+        icon: "success",
+        timer: 1500,
+
+    });
+}
 const showImage = (input) => {
     const preview = document.getElementById("preview");
     if (input.files && input.files[0]) {
@@ -9,6 +45,51 @@ const showImage = (input) => {
         reader.readAsDataURL(input.files[0]);
     }
 };
+
+if (document.getElementById('modalChangeImage')) {
+    const form = document.getElementById('formChangeImage')
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('btnChangeImage');
+        var alertErrors = document.getElementById('showImageErrors');
+
+        alertErrors.hidden = true;
+        btn.disabled = true;
+        try {
+            const formdata = new FormData(form)
+            console.log(form);
+            const res = await fetch('/profile/upload/profile/picture', {
+                method: 'POST',
+                body: formdata,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                }
+            });
+            const result = await res.json();
+            if (result.success) {
+                console.log(result.message);
+                alertSuccess('Profile Uploaded', result.message);
+            } else if (result.invalid) {
+                alertErrors.hidden = false;
+                const listErrors = document.getElementById('listImageErrors');
+                let errors = '';
+                for (let key in result.errors) {
+                    errors += `<li class='text-white'>${result.errors[key]}</li>`;
+                }
+                listErrors.innerHTML = errors;
+            } else if (result.error) {
+                alertError();
+                console.log(result.errorMessage);
+            }
+        } catch (error) {
+            alertError('error occured');
+            console.log(error);
+        } finally {
+            btn.disabled = false;
+        }
+    })
+}
 const Drawers = async () => {
     try {
         const res = await fetch("/json/data", {
@@ -79,35 +160,4 @@ $(document).ready(function () {
 })
 
 
-const alertError = () => {
-    Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-    });
-}
 
-const alertDelete = (deleteFunction) => {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // call a function
-            deleteFunction();
-        }
-    });
-}
-
-const alertSuccess = (title, text) => {
-    Swal.fire({
-        title,
-        text,
-        icon: "success"
-    });
-}

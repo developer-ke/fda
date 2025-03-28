@@ -29,8 +29,7 @@ if ($('#modalAddUSer')) {
             } else if (output.success) {
                 formNewUser.reset();
                 // refresh the users table
-                $('#usersTable').DataTable().ajax.reload(null,
-                    false);
+                reloadUsersTable();
                 successDialog(output.message);
             } else {
                 errorDialog(output.message);
@@ -44,6 +43,10 @@ if ($('#modalAddUSer')) {
         btn.innerText = 'save';
         btn.disabled = false;
     }
+}
+const reloadUsersTable = () => {
+    $('#usersTable').DataTable().ajax.reload(null,
+        false);
 }
 
 // edit the user
@@ -87,6 +90,8 @@ const editUser = async id => {
 
 }
 
+
+// toggle modal edit user
 if (document.getElementById('modalEditUSer')) {
     let subBtn = document.getElementById('btnUpdateUser');
     let formUpdateUser = document.getElementById('formEditUser');
@@ -123,8 +128,7 @@ if (document.getElementById('modalEditUSer')) {
                 formUpdateUser.reset();
                 $('#modalEditUSer').modal('hide');
                 // reload the table
-                $('#usersTable').DataTable().ajax.reload(null,
-                    false);
+                reloadUsersTable();
                 successDialog(output.message);
             } else {
                 errorDialog();
@@ -138,4 +142,117 @@ if (document.getElementById('modalEditUSer')) {
         subBtn.innerText = 'update';
         subBtn.disabled = false;
     }
+}
+
+// grant acces to all users
+if (document.getElementById('formGrantAccessAll')) {
+    var formGrantAccessAll = document.getElementById('formGrantAccessAll');
+    formGrantAccessAll.addEventListener('submit', async e => {
+        e.preventDefault();
+        confirmDialog('You want to grant access to all users?', 'Yes, Grant Access', '/admin/users/all/grant/access', reloadUsersTable, 'PUT');
+    })
+
+}
+
+
+// Deny acces to all users
+if (document.getElementById('formDenyAccess')) {
+    var formGrantAccessAll = document.getElementById('formDenyAccess');
+    formGrantAccessAll.addEventListener('submit', async e => {
+        e.preventDefault();
+        confirmDialog('You want deny access to all users?', 'Yes, Deny Access', '/admin/users/all/deny/access', reloadUsersTable, 'PUT');
+    })
+
+}
+
+// Delete all users
+if (document.getElementById('deleteAllUsers')) {
+    var formGrantAccessAll = document.getElementById('deleteAllUsers');
+    formGrantAccessAll.addEventListener('submit', async e => {
+        e.preventDefault();
+        confirmDialog('You want to delete all users?', 'Yes, Delete', '/admin/users/delete/all', reloadUsersTable, 'DELETE');
+    })
+
+}
+
+//get user profile
+const showProfile = async id => {
+    try {
+        const route = `/admin/users/${id}/profile`;
+        const res = await fetch(route, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf,
+            }
+        });
+        const output = await res.json();
+        if (output.incomplete_profile) {
+            errorDialog(output.message);
+        } else if (output.success) {
+            // create the user object
+            const user = output.user;
+            console.log(user);
+            var role = '';
+            switch (user.role) {
+                case 1:
+                    role = 'Admin'
+                    break;
+                case 2:
+                    role = 'Correspondent';
+                    break;
+                default:
+                    role = 'Subscriber';
+                    break;
+            }
+
+            var status = '';
+            switch (user.status) {
+                case 1:
+                    status = '<b class="badge rounded-pill bg-success">Active</b>';
+                    break;
+                case 2:
+                    status = '<b class="badge rounded-pill bg-danger">Deleted</b>';
+                    break
+                default:
+                    status = '<b class="badge rounded-pill bg-warning">Inactive</b>';
+                    break;
+            }
+
+            const options = {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            };
+            document.getElementById('profilePicture').src = profile_source + "/" + user.image;
+            document.getElementById('profileName').innerText = user.name;
+            document.getElementById('profileEmail').innerText = user.email;
+            document.getElementById('profileNames').innerText = user.name;
+            document.getElementById('profileGender').innerText = user.gender;
+            document.getElementById('profileDOB').innerText = user.dateOfBirth;
+            document.getElementById('profileCountry').innerText = user.countryName;
+            document.getElementById('profileNationality').innerText = user.nationality;
+            document.getElementById('profileCity').innerText = user.city;
+            document.getElementById('profileEmails').innerText = user.email;
+            document.getElementById('profilePhoneNumber').innerText = user.code + user.phoneNumber;
+            document.getElementById('profileAltPhoneNumber').innerText = user.code + user.altPhoneNumber;
+            document.getElementById('profileAddress').innerText = user.physicalAddress;
+            document.getElementById('profileOrganization').innerText = user.organization;
+            document.getElementById('profileRole').innerText = role;
+            document.getElementById('profileStatus').innerHTML = status;
+            document.getElementById('profileDate').innerText = new Date(user.created_at).toLocaleDateString('en-US', options);
+            document.getElementById('profileEmailVerifiedAt').innerText = new Date(user.email_verified_at).toLocaleDateString('en-US', options);
+            $('#modalUserProfile').modal('show');
+
+        } else {
+            errorDialog('error occured');
+            console.log(output.error);
+        }
+
+    } catch (error) {
+        errorDialog('error occured');
+        console.log(error);
+    }
+
 }

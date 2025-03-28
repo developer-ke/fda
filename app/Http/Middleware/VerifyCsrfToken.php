@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        '/send-sms'
+        '/send-sms',
+        '/profile/upload/profile/picture'
     ];
 }

@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -79,9 +81,13 @@ class ProfileController extends Controller
     public function uploadPhoto(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:png,jpg,webp,jpeg|max:2048',
-        ]);
+            'image' => 'required|image|mimes:png,jpg,webp,jpeg',
 
+        ]);
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => $request->all()
+        // ]);
         $user = User::where('id', Auth::user()->id)->firstOrFail();
 
         $image = $request->file('image');
@@ -102,15 +108,14 @@ class ProfileController extends Controller
 
             // Update the user's image path in the database
             if ($user->update(['image' => $newFileName])) {
-
                 DB::commit();
+                return redirect()->route('home')->with('success', 'Profile picture updated successfully');
             };
-            return redirect()->route('home');
         } catch (\Exception $e) {
+            Log::error('error occured due to' . $e->getMessage());
             DB::rollBack();
-
             // Optionally, log the error or handle it as needed
-            return back()->withErrors('Failed to upload the image.');
+            return back()->with('errors', 'Error occured, please try again');
         }
     }
     /**

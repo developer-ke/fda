@@ -40,8 +40,8 @@
 
 
 {{-- view country modal --}}
-<div id="viewCountryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
-    aria-hidden="true">
+<div id="viewCountryModal" data-bs-backdrop='static' class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -85,7 +85,7 @@
 </div>
 
 {{-- modal add new user --}}
-<div id="modalAddUSer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modalAddUSer" data-bs-backdrop='static' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -132,7 +132,8 @@
 
 
 {{-- modal edit profile --}}
-<div id="modalEditUSer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modalEditUSer" data-bs-backdrop='static' class="modal fade" tabindex="-1" role="dialog"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -237,6 +238,133 @@
                         id="btnUpdateUser">update</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+{{-- modal user profile --}}
+<div id="modalUserProfile" data-bs-backdrop='static' class="modal fade" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex">
+                    <div class="me-2">
+                        <img alt="" class="avatar rounded-3 avatar-md" id="profilePicture">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <h6 class="text-sm mb-0" id="profileName">
+                        </h6>
+                        <p id="profileEmail"></p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                    aria-label="Close">&times;</button>
+                <br>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12  mb-3">
+                        <div class="card shadow-none">
+                            <div class="card-body">
+                                <h6 class="text-sm text-capitalize ms-3  fda-color">
+                                    Biometric info
+                                </h6>
+                                <ul class="list-group text-sm">
+                                    <li class="list-group-item border-0 mb-0 pb-0">
+                                        <b class="text-capitalize me-1">name:</b>
+                                        <span id="profileNames"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">gender:</b>
+                                        <span id="profileGender"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">date of birth:</b>
+                                        <span id="profileDOB"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">country:</b>
+                                        <span id="profileCountry"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">nationality:</b>
+                                        <span id="profileNationality"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">city:</b>
+                                        <span id="profileCity"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12  mb-3">
+                        <div class="card shadow-none">
+                            <div class="card-body">
+                                <h6 class="text-sm text-capitalize ms-3  fda-color">
+                                    contact info
+                                </h6>
+                                <ul class="list-group text-sm">
+                                    <li class="list-group-item border-0 mb-0 pb-0">
+                                        <b class="text-capitalize me-1">email:</b>
+                                        <span id="profileEmails"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">phone 1:</b>
+                                        <span id="profilePhoneNumber"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">phone 2:</b>
+                                        <span id="profileAltPhoneNumber"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">Address:</b>
+                                        <span id="profileAddress"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 mb-0 pb-0">
+                                        <b class="text-capitalize me-1">organization:</b>
+                                        <span id="profileOrganization"></span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12  mb-3">
+                        <div class="card shadow-none">
+                            <div class="card-body">
+                                <h6 class="text-sm text-capitalize ms-3 fda-color">
+                                    Account info
+                                </h6>
+                                <ul class="list-group text-sm">
+                                    <li class="list-group-item border-0 mb-0 pb-0">
+                                        <b class="text-capitalize me-1">role:</b>
+                                        <span id="profileRole"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 mb-0 pb-0">
+                                        <b class="text-capitalize me-1">status:</b>
+                                        <span id="profileStatus"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">registered on:</b>
+                                        <span id="profileDate"></span>
+                                    </li>
+                                    <li class="list-group-item border-0 text-capitalize mt-0 pb-0">
+                                        <b class="text-capitalize me-1">email verified on:</b>
+                                        <span id="profileEmailVerifiedAt"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

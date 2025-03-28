@@ -678,12 +678,13 @@
     <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.1.0') }}"></script>
     <script src="{{ asset('js/dataTable.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('js/common.js') }}"></script>
     <script>
         // profile source
-        const profile_source = '{{ asset('uploads/profiles') }}'
+        const profile_source = "{{ asset('uploads/profiles/') }}"
         const authUser = '{{ Auth::user() }}';
     </script>
+    <script src="{{ asset('js/common.js') }}"></script>
+
     <script src="{{ asset('js/admin.js') }}"></script>
     @stack('scripts')
 </body>

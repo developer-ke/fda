@@ -21,33 +21,24 @@
                                 more
                             </button>
                             <div class="dropdown-menu dropdown-menu-start px-2 py-3 me-sm-n4" aria-labelledby="triggerId">
-                                <form action="{{ route('admin.users.grantAllAccess') }}" method="post">
+                                <form method="post" id="formGrantAccessAll">
                                     @csrf
-                                    @method('PUT')
-                                    <button
-                                        onclick="return confirm('Are you sure you want to grant an access to all users?')"
-                                        class="dropdown-item text-capitalize" type="submit"
+                                    <button class="dropdown-item text-capitalize" type="submit"
                                         @if ($users->count() === $users->where('status', 1)->count()) hidden @endif>
                                         <i class="fa fa-check-circle"></i>
                                         Grant access to all users
                                     </button>
                                 </form>
-                                <form action="{{ route('admin.users.denyAllAccess') }}" method="post">
+                                <form method="post" id="formDenyAccess">
                                     @csrf
-                                    @method('PUT')
-                                    <button
-                                        onclick="return confirm('Are you sure you want to deny an access to all users?')"
-                                        class="dropdown-item text-capitalize" type="submit"
+                                    <button class="dropdown-item text-capitalize" type="submit"
                                         @if ($users->count() - 1 === $users->where('status', 0)->count()) hidden @endif>
                                         <i class="bi bi-x-circle"></i>
                                         Deny access to all users</button>
                                 </form>
-                                <form action="{{ route('admin.users.delete.all') }}" method="post">
+                                <form method="post" id="deleteAllUsers">
                                     @csrf
-                                    @method('DELETE')
-                                    <button
-                                        onclick="return confirm('Are you sure you want to delete all the users accounts?')"
-                                        class="dropdown-item text-capitalize" type="submit"
+                                    <button class="dropdown-item text-capitalize" type="submit"
                                         @if ($users->count() - 1 === $users->where('status', 2)->count()) hidden @endif>
                                         <i class="fa fa-trash"></i>
                                         delete all users
@@ -189,7 +180,11 @@
                    </div>
                </div>`;
         }
-        const confirmDialog = (title, text, icon, confirmButtonText, formId) => {
+        const getUsers = () => {
+            $('#usersTable').DataTable().ajax.reload(null,
+                false);
+        }
+        const confirmRoleChange = (route, title, text, icon, confirmButtonText, formId, callback) => {
             Swal.fire({
                 title,
                 text,
@@ -198,47 +193,59 @@
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText
-            }).then((result) => {
+            }).then(async (result) => {
                 if (result.isConfirmed) {
-                    document.querySelector('#' + formId).submit();
+                    const res = await fetch(route, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrf
+                        }
+                    })
+                    const output = await res.json();
+                    if (output.success) {
+                        successDialog(output.message);
+                        callback();
+                    } else if (output.error) {
+                        console.log(output.message)
+                        errorDialog('An error occured');
+                    }
                 }
             });
         }
-        const changeRole = (title, text, btnText, id, user) => {
-            console.log(user);
-            confirmDialog(title, text, 'warning', btnText, id);
+        const changeRole = (url, title, text, btnText, formId) => {
+            confirmRoleChange(url, title, text, 'warning', btnText, formId, getUsers);
         }
         const getRoleActions = (user) => {
             return `
-                 <div class='container'>
+            <div class='container'>
                 <div class='row mx-auto'>
                     <div class='col-auto'>
-                        <form action="/admin/users/${user.id}/role/1" method="post" id='toAdminForm_${user.id}'>
+                        <form id='toAdminForm_${user.id}'>
                             @csrf
-                            @method('PUT')
                             <div class='form-check'>
-                              <input class='form-check-input' type='radio' value='${user.id}' name='role' ${user.role === 1 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}  onclick="changeRole('Promotion','Are you sure, you will not  revert this ?','Yes, promote','toAdminForm_${user.id}')">
+                              <input class='form-check-input' type='radio' value='${user.id}' name='role' ${user.role === 1 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}  onclick="changeRole('/admin/users/${user.id}/role/1','Promotion','Are you sure, you want to promote?','Yes, Promote','toAdminForm_${user.id}')">
                               <label class='form-check-label'>Admin</label>
                            </div>
                         </form>
                     </div>
                      <div class='col-auto'>
-                        <form action="/admin/users/${user.id}/role/2" method="post" id='toCorrespondentForm_${user.id}'>
+                        <form action="" method="post" id='toCorrespondentForm_${user.id}'>
                             @csrf
                             @method('PUT')
                            <div class='form-check'>
-                              <input class='form-check-input' type='radio' name='role' value='${user.id}' ${user.role === 2 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}   onclick="changeRole('Promotion/demotion','Are you sure, you will not  revert this ?','Yes','toCorrespondentForm_${user.id}')">
+                              <input class='form-check-input' type='radio' name='role' value='${user.id}' ${user.role === 2 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}   onclick="changeRole('/admin/users/${user.id}/role/2','Promotion/demotion','Are you sure, You want to promote or demote this user to correspondent?','Yes, promote/demote','toCorrespondentForm_${user.id}')">
                               <label class='form-check-label'>Correspondent</label>
                            </div>
                         </form>
                         
                     </div>
                      <div class='col-auto'>
-                        <form action="/admin/users/${user.id}/role/3" method="post" id='toSubscriberForm_${user.id}'>
+                        <form action="" method="post" id='toSubscriberForm_${user.id}'>
                             @csrf
                             @method('PUT')
                            <div class='form-check'>
-                              <input class='form-check-input' type='radio' name='role' value='${user.id}' ${user.role === 3 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}  onclick="changeRole('Demotion','Are you sure, you will not revert this ?','Yes, demote','toSubscriberForm_${user.id}')">
+                              <input class='form-check-input' type='radio' name='role' value='${user.id}' ${user.role === 3 ? 'checked disabled':''}  ${user.id === {{ Auth::user()->id }} ? 'disabled' : ''}  onclick="changeRole('/admin/users/${user.id}/role/3','Demotion','Are you sure, You want to demote this user?','Yes, Demote','toSubscriberForm_${user.id}')">
                               <label class='form-check-label'>Subscriber</label>
                            </div>
                         </form>
@@ -258,26 +265,18 @@
                            <i class="fa fa-edit"></i>
                            edit
                        </a>
-                       <a class="dropdown-item" href="/admin/users/${user.id}/profile">
+                       <a class="dropdown-item" href='javascript:;' onclick="showProfile(${user.id})">
                            <i class="fa fa-user-circle"></i>
                            profile
                        </a>
-                       <form action="/admin/users/${user.id}/grantAccess" method="post">
-                           @csrf
-                           @method('PUT')
-                           <button class="dropdown-item ${user.status === 1 ? 'd-none':''}" type="submit" onclick="return confirm('Are you sure you want to grant access to this user?')">
-                               <i class="fa fa-check-circle"></i>
-                               grant access
-                           </button>
-                       </form>
-                       <form action="/admin/users/${user.id}/denyAccess" method="post">
-                           @csrf
-                           @method('PUT')
-                           <button class="dropdown-item ${user.status === 1 || user.id === {{ Auth::user()->id }} ? 'd-none':''}" type="submit" onclick="return confirm('Are you sure you want to deny access?')">
-                               <i class="bi bi-x-circle-fill"></i>
-                               deny access
-                           </button>
-                       </form>
+                       <button class="dropdown-item ${user.status === 1 ? 'd-none':''}" type="submit" onclick="grantAccess(${user.id})">
+                           <i class="fa fa-check-circle"></i>
+                           grant access
+                       </button>
+                       <button class="dropdown-item ${user.status === 0 || user.id === {{ Auth::user()->id }} ? 'd-none':''}" type="submit" onclick="denyAccess(${user.id})">
+                           <i class="bi bi-x-circle-fill"></i>
+                           deny access
+                       </button>
                       <button 
                           class="dropdown-item ${user.status === 2 || user.id === {{ Auth::user()->id }} ? 'd-none' : ''}" 
                           onclick="deleteUser(${user.id})">
@@ -288,7 +287,15 @@
                </div>`;
         }
 
+        const grantAccess = userID => {
+            const route = `/admin/users/${userID}/grantAccess`;
+            confirmDialog('You want to grant an access to this user?', 'Yes, Grant', route, getUsers, "PUT");
+        }
 
+        const denyAccess = userID => {
+            const route = `/admin/users/${userID}/denyAccess`;
+            confirmDialog('You want to deny an access to this user?', 'Yes, Deny', route, getUsers, "PUT");
+        }
         // delete user
         const deleteUser = (userId) => {
             Swal.fire({
